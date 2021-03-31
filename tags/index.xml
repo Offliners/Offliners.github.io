@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/tags/</link>
+    <description>Recent content in Tags on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Apr 2021 01:31:05 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMake</title>
+      <link>https://Offliners.github.io/tags/cmake/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/cmake/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenCV</title>
+      <link>https://Offliners.github.io/tags/opencv/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2</title>
+      <link>https://Offliners.github.io/tags/orbslam2/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/orbslam2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Visual Studio 2015</title>
+      <link>https://Offliners.github.io/tags/visual-studio-2015/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/visual-studio-2015/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graduate-School</title>
+      <link>https://Offliners.github.io/tags/graduate-school/</link>
+      <pubDate>Tue, 30 Mar 2021 22:23:42 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/graduate-school/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Anaconda-virtual-environment</title>
+      <link>https://Offliners.github.io/tags/anaconda-virtual-environment/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/anaconda-virtual-environment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CUDA</title>
+      <link>https://Offliners.github.io/tags/cuda/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cuDNN</title>
+      <link>https://Offliners.github.io/tags/cudnn/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/cudnn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://Offliners.github.io/tags/python/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tensorflow-gpu</title>
+      <link>https://Offliners.github.io/tags/tensorflow-gpu/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/tensorflow-gpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://Offliners.github.io/tags/hugo/</link>
+      <pubDate>Tue, 30 Mar 2021 21:19:31 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://Offliners.github.io/tags/web/</link>
+      <pubDate>Tue, 30 Mar 2021 21:19:31 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

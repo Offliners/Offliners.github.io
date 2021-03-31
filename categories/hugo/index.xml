@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/categories/hugo/</link>
+    <description>Recent content in hugo on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 30 Mar 2021 21:19:31 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Hugo 在 Github Pages 建立靜態網站</title>
+      <link>https://Offliners.github.io/post/hugo-first/</link>
+      <pubDate>Tue, 30 Mar 2021 21:19:31 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/hugo-first/</guid>
+      <description>Hugo 簡介 Hugo 是使用Go語言編寫的靜態網頁生成器，基於Go語言開發，沒有像HTML5錯綜複雜的依賴關係。除此之外，還擁有活躍的社群提供多樣主題與完善的功能給使用者，支援多種類的前端語言，整體架構也靈活易懂，最大優點是編譯速度極快，建立網站時間平均不到1秒種，使用者修改時能即時預覽。
+Hugo 安裝  MacOS &amp;amp; Linux  MacOS使用者可使用Homebrew安裝
+brew install hugo  Window  Window使用者須視使用者環境下載適用的版本 https://github.com/gohugoio/hugo/releases 或者透過chocolatey安裝
+choco install hugo -confirm 安裝好後再去設定環境變數，例如: C:\hugo，記得將hugo.exe放進此路徑資料夾中
+Hugo 指令測試 安裝好後透過CMD輸入hugo version可查看版本
+hugo v0.81.0-59D15C97 linux/amd64 BuildDate=2021-02-19T17:07:12Z VendorInfo=gohugoio 建立 Project 透過CMD輸入
+hugo new site mysite 則會在此路徑下建立mysite的資料夾，mysite可換任意名稱 資料夾結構如下:
+mysite/ │ ├── archetypes/ │ │ │ └─ default.md # 預設 markdown ├── content/ # 頁面、文章（markdown） ├── data/ # 資料庫 ├── layouts/ # 自定義的樣板 ├── static/ # 靜態資源 ├── themes/ # 網站的主題 └── config.</description>
+    </item>
+    
+  </channel>
+</rss>

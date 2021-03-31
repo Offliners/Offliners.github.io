@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tensorflow-gpu on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/tags/tensorflow-gpu/</link>
+    <description>Recent content in tensorflow-gpu on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 30 Mar 2021 22:19:35 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/tensorflow-gpu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anaconda Virtual Environment Use tensorflow-gpu</title>
+      <link>https://Offliners.github.io/post/anaconda-virtualenv-use-tensorflow-gpu/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/anaconda-virtualenv-use-tensorflow-gpu/</guid>
+      <description>測試環境 作業系統 : Window 10 64bit
+顯卡 : NVIDIA Geforce GTX 1050
+事前準備 1. 確認電腦是否有NVIDIA顯卡 可以從裝置管理員中顯示卡看電腦是否有NVIDIA顯卡
+2. 查詢此顯卡的計算能力 可從此網址查詢到 : https://developer.nvidia.com/cuda-gpus
+建議顯卡計算能力(Compute Capability) 大於3.5以上，使用tensorflow-gpu才會有明顯的成效
+安裝步驟 1. 安裝Anaconda 到Anaconda官方網站下載 : https://www.anaconda.com/products/individual
+安裝一直next過去就好
+2. 打開Anaconda Prompt 3. 建立虛擬環境 在命令列輸入conda create -n test_env pip python=3.6，test_env是環境名稱，可以自己取，然後Python的版本是3.6
+這裡輸入y
+4. 進入虛擬環境 建立完成後，輸入activate test_env進入虛擬環境
+當前方出現自己的環境名稱表示進入成功
+5. 安裝tensorflow-gpu 輸入pip install tensorflow-gpu==1.13.1，安裝版本為1.13.1的tensorflow-gpu
+6. 安裝 CUDA 10.0 進入此網站 : https://developer.nvidia.com/cuda-toolkit-archive
+尋找CUDA 10.0並安裝
+一直按下一步就安裝完成
+確認是否有加入環境變數，在Window搜尋環境變數
+CUDA安裝軟體基本上會自動填入路徑
+安裝cuDNN 7.6.5 進入此網站 : https://developer.nvidia.com/rdp/cudnn-archive</description>
+    </item>
+    
+  </channel>
+</rss>

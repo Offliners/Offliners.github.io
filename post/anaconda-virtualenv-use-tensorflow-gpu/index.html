@@ -1,0 +1,476 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog - Anaconda Virtual Environment Use tensorflow-gpu </title>
+    
+    
+    <meta content="tensorflow-gpu, Anaconda-virtual-environment, CUDA, cuDNN, python, Anaconda" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - 測試環境 作業系統 : Window 10 64bit
+顯卡 : NVIDIA Geforce GTX 1050
+事前準備 1. 確認電腦是否有NVIDIA顯卡 可以從裝置管理員中顯示卡看電腦是否有NVIDIA顯卡
+2. 查詢此顯卡的計算能力 可從此網址查詢到 : https://developer.nvidia.com/cuda-gpus
+建議顯卡計算能力(Compute Capability) 大於3.5以上，使用tensorflow-gpu才會有明顯的成效
+安裝步驟 1. 安裝Anaconda 到Anaconda官方網站下載 : https://www.anaconda.com/products/individual
+安裝一直next過去就好
+2. 打開Anaconda Prompt 3. 建立虛擬環境 在命令列輸入conda create -n test_env pip python=3.6，test_env是環境名稱，可以自己取，然後Python的版本是3.6
+這裡輸入y
+4. 進入虛擬環境 建立完成後，輸入activate test_env進入虛擬環境
+當前方出現自己的環境名稱表示進入成功
+5. 安裝tensorflow-gpu 輸入pip install tensorflow-gpu==1.13.1，安裝版本為1.13.1的tensorflow-gpu
+6. 安裝 CUDA 10.0 進入此網站 : https://developer.nvidia.com/cuda-toolkit-archive
+尋找CUDA 10.0並安裝
+一直按下一步就安裝完成
+確認是否有加入環境變數，在Window搜尋環境變數
+CUDA安裝軟體基本上會自動填入路徑
+安裝cuDNN 7.6.5 進入此網站 : https://developer.nvidia.com/rdp/cudnn-archive" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+
+    
+
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/gallery/">Gallery</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">Offliner</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/gallery/">Gallery</a></dd>
+                    
+                        <dd><a href="/about/">Offliner</a></dd>
+                    
+                        <dd><a href="/">home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>Anaconda Virtual Environment Use tensorflow-gpu</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/anaconda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
+        </a>
+    
+        <a href="/categories/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/tensorflow-gpu/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
+        </a>
+    
+        <a href="/tags/anaconda-virtual-environment/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
+        </a>
+    
+        <a href="/tags/cuda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
+        </a>
+    
+        <a href="/tags/cudnn/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
+        </a>
+    
+        <a href="/tags/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+    
+</h3>
+
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <h2 id="測試環境">測試環境</h2>
+<p>作業系統 : <code>Window 10 64bit</code></p>
+<p>顯卡 : <code>NVIDIA Geforce GTX 1050</code></p>
+<h2 id="事前準備">事前準備</h2>
+<h4 id="1-確認電腦是否有nvidia顯卡">1. 確認電腦是否有NVIDIA顯卡</h4>
+<p>可以從裝置管理員中顯示卡看電腦是否有NVIDIA顯卡</p>
+<p><img src="/anaconda-image/image1.PNG" alt="image1"></p>
+<h4 id="2-查詢此顯卡的計算能力">2. 查詢此顯卡的計算能力</h4>
+<p>可從此網址查詢到 : <a href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a></p>
+<p>建議顯卡計算能力(Compute Capability) 大於3.5以上，使用tensorflow-gpu才會有明顯的成效</p>
+<p><img src="/anaconda-image/image2.PNG" alt="image2"></p>
+<h2 id="安裝步驟">安裝步驟</h2>
+<h4 id="1-安裝anaconda">1. 安裝Anaconda</h4>
+<p>到Anaconda官方網站下載 : <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
+<p>安裝一直<code>next</code>過去就好</p>
+<p><img src="/anaconda-image/image3.PNG" alt="image3"></p>
+<h4 id="2-打開anaconda-prompt">2. 打開Anaconda Prompt</h4>
+<p><img src="/anaconda-image/image4.PNG" alt="image4"></p>
+<h4 id="3-建立虛擬環境">3. 建立虛擬環境</h4>
+<p>在命令列輸入<code>conda create -n test_env pip python=3.6</code>，test_env是環境名稱，可以自己取，然後Python的版本是3.6</p>
+<p><img src="/anaconda-image/image5.PNG" alt="image5"></p>
+<p>這裡輸入<code>y</code></p>
+<p><img src="/anaconda-image/image6.PNG" alt="image6"></p>
+<h4 id="4-進入虛擬環境">4. 進入虛擬環境</h4>
+<p>建立完成後，輸入<code>activate test_env</code>進入虛擬環境</p>
+<p><img src="/anaconda-image/image7.PNG" alt="image7"></p>
+<p>當前方出現自己的環境名稱表示進入成功</p>
+<p><img src="/anaconda-image/image8.PNG" alt="image8"></p>
+<h4 id="5-安裝tensorflow-gpu">5. 安裝tensorflow-gpu</h4>
+<p>輸入<code>pip install tensorflow-gpu==1.13.1</code>，安裝版本為1.13.1的tensorflow-gpu</p>
+<p><img src="/anaconda-image/image9.PNG" alt="image9"></p>
+<h4 id="6-安裝-cuda-100">6. 安裝 CUDA 10.0</h4>
+<p>進入此網站 : <a href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p><img src="/anaconda-image/image10.PNG" alt="image10"></p>
+<p>尋找<code>CUDA 10.0</code>並安裝</p>
+<p><img src="/anaconda-image/image11.PNG" alt="image11"></p>
+<p>一直按<code>下一步</code>就安裝完成</p>
+<p><img src="/anaconda-image/image12.PNG" alt="image12"></p>
+<p>確認是否有加入環境變數，在Window搜尋<code>環境變數</code></p>
+<p><img src="/anaconda-image/image13.PNG" alt="image13"></p>
+<p>CUDA安裝軟體基本上會自動填入路徑</p>
+<p><img src="/anaconda-image/image14.PNG" alt="image14"></p>
+<h4 id="安裝cudnn-765">安裝cuDNN 7.6.5</h4>
+<p>進入此網站 : <a href="https://developer.nvidia.com/rdp/cudnn-archive">https://developer.nvidia.com/rdp/cudnn-archive</a></p>
+<p>找到cuDNN 7.6.5 for CUDA 10.0</p>
+<p><img src="/anaconda-image/image15.PNG" alt="image15"></p>
+<p>安裝<code>Window 10</code>版的</p>
+<p><img src="/anaconda-image/image16.PNG" alt="image16"></p>
+<p>下載完檔案後解壓縮會出現3的資料夾與1個文字檔</p>
+<p><img src="/anaconda-image/image17.PNG" alt="image17"></p>
+<p>將整個複製到<code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0</code>中</p>
+<p><img src="/anaconda-image/image18.PNG" alt="image18"></p>
+<p>再進入環境變數看系統變數中的Path中，雙擊兩下可看到系統路徑</p>
+<p><img src="/anaconda-image/image19.PNG" alt="image19"></p>
+<p>是否有剛剛複製cuDNN的<code>bin</code>與<code>libnvvp</code>路徑，基本上系統會自動添加，若沒有需要手動加入</p>
+<p><img src="/anaconda-image/image20.PNG" alt="image20"></p>
+<h4 id="確認是否安裝成功">確認是否安裝成功</h4>
+<p>回到<code>Anaconda Prompt</code>，進入已創建的虛擬環境，輸入<code>nvcc -V</code></p>
+<p>若有跑出此畫面表示<code>CUDA 10.0</code>安裝成功</p>
+<p><img src="/anaconda-image/image21.PNG" alt="image21"></p>
+<p>接著輸入<code>python</code></p>
+<p><img src="/anaconda-image/image22.PNG" alt="image22"></p>
+<p>輸入以下指令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> tensorflow.python.client <span style="color:#f92672">import</span> device_lib
+<span style="color:#66d9ef">print</span>(device_lib<span style="color:#f92672">.</span>list_local_devices())
+</code></pre></div><p><img src="/anaconda-image/image23.PNG" alt="image23"></p>
+<p>若有讀取到NVIDIA顯卡表示<code>tensorflow-gpu</code>安裝成功，在此虛擬環境中的tensorflow都會使用GPU來計算</p>
+</div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+
+            <div class="layui-card single-card">
+                <h2 class="single-title">Recent Posts</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-build/">
+                        <h3 class="">ORBSLAM2 Build</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/categories/c&#43;&#43;/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">C&#43;&#43;</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/cmake/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CMake</span>
+        </a>
+    
+        <a href="/tags/visual-studio-2015/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Visual Studio 2015</span>
+        </a>
+    
+        <a href="/tags/opencv/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">OpenCV</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/110%E5%AD%B8%E5%B9%B4%E5%BA%A6-%E5%8F%B0%E6%B8%85%E4%BA%A4%E6%8E%A8%E7%94%84%E5%BF%83%E5%BE%97/">
+                        <h3 class="">[110學年度] 台清交推甄心得</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+    
+
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/graduate-school/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Graduate-School</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/anaconda-virtualenv-use-tensorflow-gpu/">
+                        <h3 class="">Anaconda Virtual Environment Use tensorflow-gpu</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/anaconda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
+        </a>
+    
+        <a href="/categories/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/tensorflow-gpu/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
+        </a>
+    
+        <a href="/tags/anaconda-virtual-environment/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
+        </a>
+    
+        <a href="/tags/cuda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
+        </a>
+    
+        <a href="/tags/cudnn/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
+        </a>
+    
+        <a href="/tags/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/hugo-first/">
+                        <h3 class="">使用 Hugo 在 Github Pages 建立靜態網站</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/categories/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/tags/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+                <h3> Related Sites </h3>
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>

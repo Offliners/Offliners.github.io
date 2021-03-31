@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/categories/</link>
+    <description>Recent content in Categories on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Apr 2021 01:31:05 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://Offliners.github.io/categories/c&#43;&#43;/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2</title>
+      <link>https://Offliners.github.io/categories/orbslam2/</link>
+      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/orbslam2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Anaconda</title>
+      <link>https://Offliners.github.io/categories/anaconda/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/anaconda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://Offliners.github.io/categories/python/</link>
+      <pubDate>Tue, 30 Mar 2021 22:19:35 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://Offliners.github.io/categories/hugo/</link>
+      <pubDate>Tue, 30 Mar 2021 21:19:31 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://Offliners.github.io/categories/web/</link>
+      <pubDate>Tue, 30 Mar 2021 21:19:31 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/web/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

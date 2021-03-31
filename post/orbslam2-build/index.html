@@ -1,0 +1,470 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog - ORBSLAM2 Build </title>
+    
+    
+    <meta content="ORBSLAM2, CMake, Visual Studio 2015, OpenCV, C&#43;&#43;" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - 測試環境    Name Version     Windows 10 x64   OpenCV 3.4.1   Visual Studio 2015   CMake 3.20     OpenCV : Install Link Visual Studio 2015 : Install Link CMake : Install Link  記得將YOUR_OWN_PATH\opencv\build\x64\vc14\bin與YOUR_OWN_PATH\opencv\build新增至環境變數中，資料夾路徑視OpenCV的安裝目錄而定
+安裝 ORBSLAM2 for Windows 下載 ORBSLAM2 Download : Link
+安裝DBoW2 使用Cmake-gui將Source code路徑選.\orbslam-windows\Thirdparty\DBoW2，而binaries選擇.\orbslam-windows\Thirdparty\DBoW2\build，若沒有build資料夾程式可以自動建立
+接著按Configure選擇Visual Studio 14 2015，平台選擇x64或是你的作業系統而定
+按下finish開始編譯，Configuring done後選擇Generate，等Generating done後按Open Project開啟VS
+進入Visual Studio 2015後，先將Mode選擇Release，接著對DBoW2按右鍵選擇Properties，將Target Extension的.dll改成.lib，還有Configuration Type改成Static library(." name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+
+    
+
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/gallery/">Gallery</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">Offliner</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/gallery/">Gallery</a></dd>
+                    
+                        <dd><a href="/about/">Offliner</a></dd>
+                    
+                        <dd><a href="/">home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>ORBSLAM2 Build</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/categories/c&#43;&#43;/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">C&#43;&#43;</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/cmake/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CMake</span>
+        </a>
+    
+        <a href="/tags/visual-studio-2015/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Visual Studio 2015</span>
+        </a>
+    
+        <a href="/tags/opencv/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">OpenCV</span>
+        </a>
+    
+    
+</h3>
+
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <h2 id="測試環境">測試環境</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 10</td>
+<td><code>x64</code></td>
+</tr>
+<tr>
+<td>OpenCV</td>
+<td><code>3.4.1</code></td>
+</tr>
+<tr>
+<td>Visual Studio</td>
+<td><code>2015</code></td>
+</tr>
+<tr>
+<td>CMake</td>
+<td><code>3.20</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>OpenCV : <a href="https://opencv.org/releases/">Install Link</a></li>
+<li>Visual Studio 2015 : <a href="https://my.visualstudio.com/Downloads?q=visual%20studio%202015&amp;wt.mc_id=o~msft~vscom~older-downloads">Install Link</a></li>
+<li>CMake : <a href="https://cmake.org/download/">Install Link</a></li>
+</ul>
+<p>記得將<code>YOUR_OWN_PATH\opencv\build\x64\vc14\bin</code>與<code>YOUR_OWN_PATH\opencv\build</code>新增至環境變數中，資料夾路徑視OpenCV的安裝目錄而定</p>
+<h2 id="安裝-orbslam2-for-windows">安裝 ORBSLAM2 for Windows</h2>
+<h4 id="下載-orbslam2">下載 ORBSLAM2</h4>
+<p>Download : <a href="https://github.com/Phylliida/orbslam-windows">Link</a></p>
+<h4 id="安裝dbow2">安裝DBoW2</h4>
+<p>使用<code>Cmake-gui</code>將Source code路徑選<code>.\orbslam-windows\Thirdparty\DBoW2</code>，而binaries選擇<code>.\orbslam-windows\Thirdparty\DBoW2\build</code>，若沒有<code>build</code>資料夾程式可以自動建立</p>
+<p><img src="/ORBSALM2-img/DBoW2-cmake-1.JPG" alt="DBoW2-cmake"></p>
+<p>接著按<code>Configure</code>選擇<code>Visual Studio 14 2015</code>，平台選擇<code>x64</code>或是你的作業系統而定</p>
+<p><img src="/ORBSALM2-img/DBoW2-cmake-config.JPG" alt="DBoW2-cmake-config"></p>
+<p>按下<code>finish</code>開始編譯，Configuring done後選擇<code>Generate</code>，等Generating done後按<code>Open Project</code>開啟VS</p>
+<p>進入Visual Studio 2015後，先將Mode選擇<code>Release</code>，接著對DBoW2按右鍵選擇Properties，將<code>Target Extension</code>的<code>.dll</code>改成<code>.lib</code>，還有<code>Configuration Type</code>改成<code>Static library(.lib)</code></p>
+<p><img src="/ORBSALM2-img/DBoW2-Properties-1.JPG" alt="DBoW2-Properties-1"></p>
+<p>接著，到C/C++的Code Generation將<code>Runtime Library</code>改成<code>Multi-threaded(/MT)</code></p>
+<p><img src="/ORBSALM2-img/DBoW2-Properties-2.JPG" alt="DBoW2-Properties-2"></p>
+<p>都選擇好後，對<code>ALL_BUILD</code>點右鍵選擇<code>Build</code>，建置成功後如下圖</p>
+<p><img src="/ORBSALM2-img/DBoW2-build.JPG" alt="DBoW2-build"></p>
+<h2 id="安裝g2o">安裝g2o</h2>
+<p>與DBoW2相同，使用<code>Cmake-gui</code>道g2o中編譯，開啟專案後將g2o專案屬性改成<code>.lib</code>以及<code>Multi-threaded(/MT)</code>，不同的是要到C/C++的<code>Preprocessor</code>中在<code>Preprocessor Definitions</code>編輯，在最下面輸入<code>WINDOWS</code></p>
+<p><img src="/ORBSALM2-img/g2o-preprocessor.JPG" alt="g2o-preprocessor"></p>
+<p>選擇好後，建置<code>ALL_BUILD</code>，建置成功後如下圖</p>
+<p><img src="/ORBSALM2-img/g2o-build.JPG" alt="g2o-build"></p>
+<h2 id="安裝pangolin">安裝Pangolin</h2>
+<p>依樣使用<code>Cmake-gui</code>到Pangolin中進行編譯，進入後只需將Pangolin專案的C/C++的Code Generation將<code>Runtime Library</code>改成<code>Multi-threaded(/MT)</code></p>
+<p>改完後即可建置<code>ALL_BUILD</code>，建置成功後如下圖</p>
+<p><img src="/ORBSALM2-img/Pangolin-build.JPG" alt="Pangolin-build"></p>
+<p>會有一個fail，會顯示&quot;cannot open input file &lsquo;pthread.lib&rsquo;&quot;，忽略即可</p>
+<h2 id="建置orbslam2">建置ORBSLAM2</h2>
+<p>使用<code>Cmake-gui</code>將Source code選擇<code>/orbslam-windows</code>，且binaries選擇<code>/orbslam-windows/build</code>進行編譯</p>
+<p>編譯成功後開起專案，對<code>ORB_SLAM2</code>專案按右鍵，將屬性改成<code>.lib</code>以及<code>/MT</code>，改好後建置<code>ORB_SLAM2</code>，不是<code>ALL_BUILD</code>，建置成功如下</p>
+<p><img src="/ORBSALM2-img/ORB_SLAM2_build.JPG" alt="ORB_SLAM2_build"></p>
+<h2 id="使用orbslam2範例程式">使用ORBSLAM2範例程式</h2>
+<p>首先將<code>orbslam-windows\Vocabulary</code>中的<code>ORBvoc.txt.tar.gz</code>解壓縮得到<code>ORBvoc.txt</code></p>
+<p>再來到 <a href="https://vision.in.tum.de/data/datasets">https://vision.in.tum.de/data/datasets</a> 下載黃色標記的資料集</p>
+<p><img src="/ORBSALM2-img/rgbd_dataset_freiburg2_desk.JPG" alt="rgbd_dataset_freiburg2_desk"></p>
+<p>將其解壓縮後將整個資料夾放到<code>orbslam-windows\</code>下</p>
+<p>接著，打開<code>orbslam-windows\build</code>的<code>ORB_SLAM2.sln</code>，對<code>mono_tum</code>專案點右鍵進行建置，建置成功後可以在<code>orbslam-windows\Examples\Monocular\Release</code>找到<code>mono_tum.exe</code>，可透過CMD去執行此程式，記得輸入3個參數</p>
+<ul>
+<li>path_to_vocabulary &mdash; <code>YOUR_OWN_PATH\Vocabulary\ORBvoc.txt</code></li>
+<li>path_to_settings &mdash; <code>YOUR_OWN_PATH\Examples\Monocular\TUM2.yaml</code></li>
+<li>path_to_sequence &mdash; <code>YOUR_OWN_PATH\rgbd_dataset_freiburg2_desk</code></li>
+</ul>
+<p>CMD輸入方式如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mono_tum path_to_vocabulary path_to_settings path_to_sequence
+</code></pre></div><p>執行結果</p>
+<p><img src="/ORBSALM2-img/mono_tum.gif" alt="mono_tum"></p>
+</div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+
+            <div class="layui-card single-card">
+                <h2 class="single-title">Recent Posts</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-build/">
+                        <h3 class="">ORBSLAM2 Build</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/categories/c&#43;&#43;/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">C&#43;&#43;</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/cmake/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CMake</span>
+        </a>
+    
+        <a href="/tags/visual-studio-2015/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Visual Studio 2015</span>
+        </a>
+    
+        <a href="/tags/opencv/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">OpenCV</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/110%E5%AD%B8%E5%B9%B4%E5%BA%A6-%E5%8F%B0%E6%B8%85%E4%BA%A4%E6%8E%A8%E7%94%84%E5%BF%83%E5%BE%97/">
+                        <h3 class="">[110學年度] 台清交推甄心得</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+    
+
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/graduate-school/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Graduate-School</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/anaconda-virtualenv-use-tensorflow-gpu/">
+                        <h3 class="">Anaconda Virtual Environment Use tensorflow-gpu</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/anaconda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
+        </a>
+    
+        <a href="/categories/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/tensorflow-gpu/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
+        </a>
+    
+        <a href="/tags/anaconda-virtual-environment/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
+        </a>
+    
+        <a href="/tags/cuda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
+        </a>
+    
+        <a href="/tags/cudnn/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
+        </a>
+    
+        <a href="/tags/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/hugo-first/">
+                        <h3 class="">使用 Hugo 在 Github Pages 建立靜態網站</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/categories/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/tags/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+                <h3> Related Sites </h3>
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>
