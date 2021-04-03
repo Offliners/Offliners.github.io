@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 1 - Introduction of ML/DL </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Guideline of ML: overfit </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
@@ -11,10 +11,19 @@
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
 Youtube Video Link (English): Video 1 Video 2
-What is Machine Learing? Q : 什麼是機器學習?
-A : 機器學習簡單來說就是讓機器學會找一個函式的能力 舉例來說:
- 語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容 影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容 Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置  Different types of Functions  Regression : 函是輸出為純量 舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度 Classification : 給定選項，函示輸出為機器從這些選項中的選擇 舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件  Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置
-Q : 機器學習只有這兩個任務嗎?" name="description">
+Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
+有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
+解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
+但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
+這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
+當training data的loss不夠低時，是哪個問題呢?
+可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
+因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
+如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
+那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
+舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
+一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -129,7 +138,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 1 - Introduction of ML/DL</h1>
+                    <h1>NTU - 機器學習 Week 2 - Guideline of ML: overfit</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-03</span>
@@ -175,119 +184,126 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week1/cover.JPG" alt="cover"></p>
+                    <p><img src="/2021NTUML/Week2/cover1.JPG" alt="cover1"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://youtu.be/Ye018rCVvOo">Video 1</a> <a href="https://youtu.be/bHcJCp2Fyxs">Video 2</a></p>
-<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=Y87Ct23H3Kw">Video 1</a> <a href="hhttps://www.youtube.com/watch?v=O69EqgzUl9U">Video 2</a></p>
-<h2 id="what-is-machine-learing">What is Machine Learing?</h2>
-<p>Q : 什麼是機器學習?</p>
-<p>A : 機器學習簡單來說就是<code>讓機器學會找一個函式的能力</code>
-<img src="/2021NTUML/Week1/ML.JPG" alt="ML">
-舉例來說:</p>
-<ol>
-<li>語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容</li>
-<li>影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容</li>
-<li>Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置</li>
-</ol>
-<h2 id="different-types-of-functions">Different types of Functions</h2>
-<p><img src="/2021NTUML/Week1/MLtype.JPG" alt="MLtype"></p>
-<ol>
-<li>Regression : 函是輸出為純量
-舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度</li>
-<li>Classification : 給定選項，函示輸出為機器從這些選項中的選擇
-舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件</li>
-</ol>
-<p><img src="/2021NTUML/Week1/AlphaGO.JPG" alt="alphaGO">
-Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置</p>
-<p>Q : 機器學習只有這兩個任務嗎?</p>
-<p>A : 還有<code>Structured Learning</code>，要機器產生有結構的物件</p>
-<h2 id="how-to-find-a-function">How to find a function?</h2>
-<h3 id="case-study--youtube-viewer-prediction">Case study : Youtube Viewer Prediction</h3>
-<p><img src="/2021NTUML/Week1/yt.JPG" alt="Youtube Viewer">
-透過輸入Youtube後台數據(2017~2020觀看流量)，預測隔天觀看數</p>
-<h3 id="1-function-with-unknown-parameter">1. Function with Unknown Parameter</h3>
-<p><img src="/2021NTUML/Week1/MLStep1.JPG" alt="ML step1">
-透過線性模型$$y = b + wx_1$$將輸入乘上weight(w)加上bias(b)，w和b皆為不知道的參數</p>
-<h3 id="2-define-loss-from-training-data">2. Define Loss from Training Data</h3>
-<p><img src="/2021NTUML/Week1/MLStep2.JPG" alt="ML step2">
-透過輸入資料到線性模型來輸出預測值，並將預測值與label相減取絕對值來計算誤差，label為正確數值</p>
-<p><img src="/2021NTUML/Week1/MLStep2-1.JPG" alt="ML step2-1">
-剛剛例子使用MAE，要選擇使用MAE或MSE看任務的需求以及對任務的理解。如果輸出與預測都是機率的話，會選擇Cross-entropy</p>
-<p><img src="/2021NTUML/Week1/MLStep2-2.JPG" alt="ML step2-2">
-上圖如果越偏紅色系表示誤差越大，藍色系誤差越小。這樣的等高線圖為<code>Error Surface</code></p>
-<h3 id="3-optimization">3. Optimization</h3>
-<p><img src="/2021NTUML/Week1/MLStep3.JPG" alt="ML step3">
-使用梯度下降法(Gradient Descent)，首先隨機選擇一個初始值，接著對loss function對w取微分並帶入初始值，如果是負值則增加w，反之正值則減少w，一直更新參數w。除了w之外還有η(learning rate)，需自行設定，屬於機器學習中超參數的部分。</p>
-<p>使用梯度下降法，容易產生區域最小值(Local minima)的問題，但實際使用這方法，最大的難題不是這個，之後會再提。</p>
-<p><img src="/2021NTUML/Week1/MLStep3-1.JPG" alt="ML step3-1">
-之前是對單一參數w做梯度下降法，接著是對兩參數w與b</p>
-<p><img src="/2021NTUML/Week1/MLStep3-2.JPG" alt="ML step3-2">
-再來對線性模型使用梯度下降法算w與b，Error Surface呈現如上</p>
-<h3 id="performance">Performance</h3>
-<p><img src="/2021NTUML/Week1/performance.JPG" alt="Performance">
-結果分析:
-紅色現為真實觀看數，藍色線為機器預測，藍色線幾乎為紅色線往右平移一天，因為輸入資料是前一天的觀看人次，因此機器幾乎是拿前一天觀看人次做預測</p>
-<h2 id="how-to-improve-performance">How to Improve Performance?</h2>
-<h3 id="1-more-feature">1. More Feature</h3>
-<p><img src="/2021NTUML/Week1/improve1.JPG" alt="Improve 1">
-輸入前7天的資料，loss從0.48k降到0.38k</p>
-<p>輸入前28天的資料，loss從0.48k降到0.33k</p>
-<p>輸入前56天的資料，loss從0.48k降到0.32k</p>
-<p>看來考慮更多天沒辦法再更進步了。</p>
-<h3 id="2-flexible-model">2. Flexible Model</h3>
-<p><img src="/2021NTUML/Week1/improve2-1.JPG" alt="Improve 2-1">
-由於Linear model過於簡單，被Model bias所限制過，因此需要一個更複雜更有彈性的模型</p>
-<p><img src="/2021NTUML/Week1/improve2-2.JPG" alt="Improve 2-2">
-透過<code>acitvation function</code>來使模型更有彈性，上圖使用<code>sigmoid</code>來減少model bias</p>
-<p><img src="/2021NTUML/Week1/improve2-3.JPG" alt="Improve 2-3">
-可以透過足夠多個acitvation function，可以變成任何扭曲的曲線</p>
-<p><img src="/2021NTUML/Week1/improve2-4.JPG" alt="Improve 2-4">
-再結合第一點，輸入更多feature</p>
-<h2 id="redefine-model-training">Redefine Model Training</h2>
-<h3 id="1-new-function-with-unknown-parameter">1. New Function with Unknown Parameter</h3>
-<p><img src="/2021NTUML/Week1/new-model1.JPG" alt="new-model1">
-將複雜的運算簡單化</p>
-<p><img src="/2021NTUML/Week1/new-model2.JPG" alt="new-model2">
-使用矩陣的方式來表達數學式</p>
-<p><img src="/2021NTUML/Week1/new-model3.JPG" alt="new-model3">
-σ表示acitvation function，這裡的acitvation function是使用sigmoid function，所以以上是將輸入x經過w縮放和b的位移，再通過acitvation function，通過後再經過c縮放和b的位移。兩個b不相同，一個是向量，另一個是純量。</p>
-<h3 id="2-redefine-loss-from-training-data">2. Redefine Loss from Training Data</h3>
-<p><img src="/2021NTUML/Week1/new-model4.JPG" alt="new-model4">
-與前面相同，只是function不同而已</p>
-<h3 id="3-optimization-of-new-model">3. Optimization of New Model</h3>
-<p><img src="/2021NTUML/Week1/new-model5.JPG" alt="new-model5">
-也與前面相同，使用梯度下降法，首先隨機選取初始值，接著把L對每個未知參數取微分，所得值及合成一個向量，這個向量就是Gradient。</p>
-<p><img src="/2021NTUML/Week1/new-model6.JPG" alt="new-model6">
-再來就是透過learning rate來做參數更新</p>
-<p><img src="/2021NTUML/Week1/new-model7.JPG" alt="new-model7">
-實際上，會將一大筆資料分成數個Batch，每個Batch都更新好參數後就是一個epoch。Update是更新參數，epoch是更新好每個Batch的參數。Batch size也是模型的超參數。</p>
-<h3 id="why-sigmoid">Why Sigmoid?</h3>
-<p><img src="/2021NTUML/Week1/why1.JPG" alt="why1">
-為何使用sigmoid?也可以使用ReLU，使用兩個ReLU可以組合成一個Hard Sigmoid。</p>
-<p><img src="/2021NTUML/Week1/why2.JPG" alt="why2">
-至於哪個比較好，之後會說。</p>
-<h3 id="experimental-results">Experimental Results</h3>
-<p><img src="/2021NTUML/Week1/exp1.JPG" alt="exp1">
-100個ReLU有顯著差別，訓練Loss從0.32k降到0.28k</p>
-<p>1000個ReLU雖然訓練loss有降低，但沒看過的測試資料就沒有差別</p>
-<h2 id="what-else-can-we-do">What else can we do?</h2>
-<p><img src="/2021NTUML/Week1/layer.JPG" alt="layer">
-可以透過增加層數，先前是經過一次運算，而現在是將一次計算結果再經過多次計算。層數也是模型超參數之一</p>
-<h3 id="experimental-results-1">Experimental Results</h3>
-<p><img src="/2021NTUML/Week1/exp2.JPG" alt="exp2">
-實驗結果顯示3層可以將訓練loss降到0.14k，沒看過的測試資料可以降到0.38k</p>
-<p><img src="/2021NTUML/Week1/exp3.JPG" alt="exp3">
-可以發現機器預測更接近實際值，至於問號的地方是機器高估，由於那天過年，機器不知道新年，所以預測較差</p>
-<h2 id="deep-learning">Deep Learning</h2>
-<p><img src="/2021NTUML/Week1/DL.JPG" alt="DL">
-為何不排一排多個activation function使模型變肥，而是加深模型，日後再說</p>
-<h2 id="why-dont-we-go-deeper">Why don&rsquo;t we go deeper?</h2>
-<p><img src="/2021NTUML/Week1/exp4.JPG" alt="exp4">
-加深到第四層時，訓練資料有變好，但沒看過的測試資料反而變差了，這就是overfitting</p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=WeHM2xpYQpw">Video 1</a> <a href="https://www.youtube.com/watch?v=QW6uINn7uGk">Video 2</a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/3qgKpBptyFY">Video 1</a> <a href="https://youtu.be/yz7QS1I6omw">Video 2</a></p>
+<h2 id="framework-of-ml">Framework of ML</h2>
+<p><img src="/2021NTUML/Week2/framework.JPG" alt="framework"></p>
+<h2 id="general-guide">General Guide</h2>
+<p><img src="/2021NTUML/Week2/general-guide-1.JPG" alt="General Guide 1">
+如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data</p>
+<p><img src="/2021NTUML/Week2/model-bias.JPG" alt="Model Bias">
+有可是<code>model bias</code>使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。</p>
+<p>解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式</p>
+<p><img src="/2021NTUML/Week2/general-guide-2.JPG" alt="General Guide 2">
+但不代表training時loss大就一定是model bias，有可能是optimization做不夠好</p>
+<p><img src="/2021NTUML/Week2/optimization-issue.JPG" alt="Optimization Issue">
+這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。</p>
+<p><img src="/2021NTUML/Week2/which.JPG" alt="Which one">
+當training data的loss不夠低時，是哪個問題呢?</p>
+<p><img src="/2021NTUML/Week2/compare.JPG" alt="Compare">
+可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。</p>
+<p><img src="/2021NTUML/Week2/method-1.JPG" alt="Method1">
+因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解</p>
+<p><img src="/2021NTUML/Week2/general-guide-3.JPG" alt="General Guide 3">
+如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。</p>
+<p><img src="/2021NTUML/Week2/general-guide-4.JPG" alt="General Guide 4">
+那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。</p>
+<p><img src="/2021NTUML/Week2/overfitting-1.JPG" alt="Overfitting-1">
+舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大</p>
+<p><img src="/2021NTUML/Week2/overfitting-2.JPG" alt="Overfitting-2">
+一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大</p>
+<p><img src="/2021NTUML/Week2/method-2.JPG" alt="Method2">
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式</p>
+<p><img src="/2021NTUML/Week2/method-3.JPG" alt="Method3">
+剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同</p>
+<p><img src="/2021NTUML/Week2/method-4.JPG" alt="Method4">
+如何限制模型呢?</p>
+<ul>
+<li>漸少參數、神經元，或者共用參數(CNN)</li>
+<li>用比較少的feature</li>
+<li>Early stopping</li>
+<li>Regularization</li>
+<li>Dropout</li>
+</ul>
+<p><img src="/2021NTUML/Week2/method-5.JPG" alt="Method5">
+但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?不是，這是model bias</p>
+<p><img src="/2021NTUML/Week2/trade-off.JPG" alt="Trade off">
+以上會產生矛盾狀況，當model越複雜，但太複雜時teting的loss會暴增。所以期望能選到中庸的模型</p>
+<p><img src="/2021NTUML/Week2/kaggle.JPG" alt="Kaggle">
+在kaggle上，如果是選擇在public data中loss最低的模型的話，往往在private data中表現會差很多</p>
+<p><img src="/2021NTUML/Week2/cross-validation.JPG" alt="Cross Validation">
+可以將training data拆成Training set與Validation set，透過衡量Validation set的結果，比較不會發生public分數很好，但private分數很差的情況</p>
+<p><img src="/2021NTUML/Week2/n-cross-validation.JPG" alt="N-fold Cross Validation">
+但如果training data分的不好，有分到結果差的資料。因此可以透過N-fold Cross Validation，將資料切成3等分，如上圖例子切成3等分，首先前兩份用來訓練，會後一份用來驗證，接著換順序，總共重複3次。接著假設有3個模型，將這三個模型在3種情況下跑出結果，再將結果取平均，假設model 1結果最好，那就將training data全丟給model 1訓練，最後再將testing data給訓練好的model 1</p>
+<p><img src="/2021NTUML/Week2/general-guide-5.JPG" alt="General Guide 5">
+除了overfitting，還會有一種錯誤形式是mismatch，有些人會說mismatch是一種overfitting，但這是名詞定義問題。一般的overfitting可以透過蒐集更多的資料來克服，但mismatch是指說訓練資料與測試資料分布不同</p>
+<p><img src="/2021NTUML/Week2/mismatch.JPG" alt="Mismatch">
+如在Homework 11，訓練資料與測試資料完全不同，因此增加訓練資料沒有用。因此要解決這種問題，等待homework 11再講。要判斷是否發生Mismatch，要看對資料本身的理解，要對訓練資料與測試資料有些理解才能判斷</p>
 </div>
             </div>
         </div>
         <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">Relevant Topics</h2>
+                
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week1/">
+                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                
+                <br />
+            </div>
             
 
             <div class="layui-card single-card">
@@ -296,14 +312,8 @@ Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出�
                     <div>
                         <h2 class="single-title">- Table of Contents -</h2>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week1/#what-is-machine-learing">What is Machine Learing?</a></li>
-            <li><a href="/post/ntuml-week1/#different-types-of-functions">Different types of Functions</a></li>
-            <li><a href="/post/ntuml-week1/#how-to-find-a-function">How to find a function?</a></li>
-            <li><a href="/post/ntuml-week1/#how-to-improve-performance">How to Improve Performance?</a></li>
-            <li><a href="/post/ntuml-week1/#redefine-model-training">Redefine Model Training</a></li>
-            <li><a href="/post/ntuml-week1/#what-else-can-we-do">What else can we do?</a></li>
-            <li><a href="/post/ntuml-week1/#deep-learning">Deep Learning</a></li>
-            <li><a href="/post/ntuml-week1/#why-dont-we-go-deeper">Why don’t we go deeper?</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week2-1/#framework-of-ml">Framework of ML</a></li>
+            <li><a href="/post/ntuml-week2-1/#general-guide">General Guide</a></li>
             </div>
                   
                 </div>

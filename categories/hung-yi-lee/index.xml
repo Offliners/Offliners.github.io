@@ -6,9 +6,33 @@
     <description>Recent content in Hung Yi - Lee on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 03 Apr 2021 17:05:34 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Apr 2021 23:32:44 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Machine / Deep Learning (NTU-ML 2021 Spring) Week 1</title>
+      <title>NTU - 機器學習 Week 2 - Guideline of ML: overfit</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-1/</link>
+      <pubDate>Sat, 03 Apr 2021 23:32:44 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
+有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
+解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
+但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
+這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
+當training data的loss不夠低時，是哪個問題呢?
+可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
+因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
+如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
+那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
+舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
+一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 1 - Introduction of ML/DL</title>
       <link>https://Offliners.github.io/post/ntuml-week1/</link>
       <pubDate>Sat, 03 Apr 2021 17:05:34 +0800</pubDate>
       
