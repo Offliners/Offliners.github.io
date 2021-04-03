@@ -1,0 +1,599 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog - Machine / Deep Learning (NTU-ML 2021 Spring) Week 1 </title>
+    
+    
+    <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+What is Machine Learing? Q : 什麼是機器學習?
+A : 機器學習簡單來說就是讓機器學會找一個函式的能力 舉例來說:
+ 語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容 影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容 Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置  Different types of Functions  Regression : 函是輸出為純量 舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度 Classification : 給定選項，函示輸出為機器從這些選項中的選擇 舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件  Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置
+Q : 機器學習只有這兩個任務嗎?" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+          gtag('config', 'G-WFQ2VM3C00');
+        </script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/gallery/">Gallery</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">Offliner</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/gallery/">Gallery</a></dd>
+                    
+                        <dd><a href="/about/">Offliner</a></dd>
+                    
+                        <dd><a href="/">home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>Machine / Deep Learning (NTU-ML 2021 Spring) Week 1</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <p><img src="/2021NTUML/Week1/cover.JPG" alt="cover"></p>
+<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/Ye018rCVvOo">Video 1</a> <a href="https://youtu.be/bHcJCp2Fyxs">Video 2</a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=Y87Ct23H3Kw">Video 1</a> <a href="hhttps://www.youtube.com/watch?v=O69EqgzUl9U">Video 2</a></p>
+<h2 id="what-is-machine-learing">What is Machine Learing?</h2>
+<p>Q : 什麼是機器學習?</p>
+<p>A : 機器學習簡單來說就是<code>讓機器學會找一個函式的能力</code>
+<img src="/2021NTUML/Week1/ML.JPG" alt="ML">
+舉例來說:</p>
+<ol>
+<li>語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容</li>
+<li>影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容</li>
+<li>Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置</li>
+</ol>
+<h2 id="different-types-of-functions">Different types of Functions</h2>
+<p><img src="/2021NTUML/Week1/MLtype.JPG" alt="MLtype"></p>
+<ol>
+<li>Regression : 函是輸出為純量
+舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度</li>
+<li>Classification : 給定選項，函示輸出為機器從這些選項中的選擇
+舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件</li>
+</ol>
+<p><img src="/2021NTUML/Week1/AlphaGO.JPG" alt="alphaGO">
+Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置</p>
+<p>Q : 機器學習只有這兩個任務嗎?</p>
+<p>A : 還有<code>Structured Learning</code>，要機器產生有結構的物件</p>
+<h2 id="how-to-find-a-function">How to find a function?</h2>
+<h3 id="case-study--youtube-viewer-prediction">Case study : Youtube Viewer Prediction</h3>
+<p><img src="/2021NTUML/Week1/yt.JPG" alt="Youtube Viewer">
+透過輸入Youtube後台數據(2017~2020觀看流量)，預測隔天觀看數</p>
+<h3 id="1-function-with-unknown-parameter">1. Function with Unknown Parameter</h3>
+<p><img src="/2021NTUML/Week1/MLStep1.JPG" alt="ML step1">
+透過線性模型$$y = b + wx_1$$將輸入乘上weight(w)加上bias(b)，w和b皆為不知道的參數</p>
+<h3 id="2-define-loss-from-training-data">2. Define Loss from Training Data</h3>
+<p><img src="/2021NTUML/Week1/MLStep2.JPG" alt="ML step2">
+透過輸入資料到線性模型來輸出預測值，並將預測值與label相減取絕對值來計算誤差，label為正確數值</p>
+<p><img src="/2021NTUML/Week1/MLStep2-1.JPG" alt="ML step2-1">
+剛剛例子使用MAE，要選擇使用MAE或MSE看任務的需求以及對任務的理解。如果輸出與預測都是機率的話，會選擇Cross-entropy</p>
+<p><img src="/2021NTUML/Week1/MLStep2-2.JPG" alt="ML step2-2">
+上圖如果越偏紅色系表示誤差越大，藍色系誤差越小。這樣的等高線圖為<code>Error Surface</code></p>
+<h3 id="3-optimization">3. Optimization</h3>
+<p><img src="/2021NTUML/Week1/MLStep3.JPG" alt="ML step3">
+使用梯度下降法(Gradient Descent)，首先隨機選擇一個初始值，接著對loss function對w取微分並帶入初始值，如果是負值則增加w，反之正值則減少w，一直更新參數w。除了w之外還有η(learning rate)，需自行設定，屬於機器學習中超參數的部分。</p>
+<p>使用梯度下降法，容易產生區域最小值(Local minima)的問題，但實際使用這方法，最大的難題不是這個，之後會再提。</p>
+<p><img src="/2021NTUML/Week1/MLStep3-1.JPG" alt="ML step3-1">
+之前是對單一參數w做梯度下降法，接著是對兩參數w與b</p>
+<p><img src="/2021NTUML/Week1/MLStep3-2.JPG" alt="ML step3-2">
+再來對線性模型使用梯度下降法算w與b，Error Surface呈現如上</p>
+<h3 id="performance">Performance</h3>
+<p><img src="/2021NTUML/Week1/performance.JPG" alt="Performance">
+結果分析:
+紅色現為真實觀看數，藍色線為機器預測，藍色線幾乎為紅色線往右平移一天，因為輸入資料是前一天的觀看人次，因此機器幾乎是拿前一天觀看人次做預測</p>
+<h2 id="how-to-improve-performance">How to Improve Performance?</h2>
+<h3 id="1-more-feature">1. More Feature</h3>
+<p><img src="/2021NTUML/Week1/improve1.JPG" alt="Improve 1">
+輸入前7天的資料，loss從0.48k降到0.38k</p>
+<p>輸入前28天的資料，loss從0.48k降到0.33k</p>
+<p>輸入前56天的資料，loss從0.48k降到0.32k</p>
+<p>看來考慮更多天沒辦法再更進步了。</p>
+<h3 id="2-flexible-model">2. Flexible Model</h3>
+<p><img src="/2021NTUML/Week1/improve2-1.JPG" alt="Improve 2-1">
+由於Linear model過於簡單，被Model bias所限制過，因此需要一個更複雜更有彈性的模型</p>
+<p><img src="/2021NTUML/Week1/improve2-2.JPG" alt="Improve 2-2">
+透過<code>acitvation function</code>來使模型更有彈性，上圖使用<code>sigmoid</code>來減少model bias</p>
+<p><img src="/2021NTUML/Week1/improve2-3.JPG" alt="Improve 2-3">
+可以透過足夠多個acitvation function，可以變成任何扭曲的曲線</p>
+<p><img src="/2021NTUML/Week1/improve2-4.JPG" alt="Improve 2-4">
+再結合第一點，輸入更多feature</p>
+<h2 id="redefine-model-training">Redefine Model Training</h2>
+<h3 id="1-new-function-with-unknown-parameter">1. New Function with Unknown Parameter</h3>
+<p><img src="/2021NTUML/Week1/new-model1.JPG" alt="new-model1">
+將複雜的運算簡單化</p>
+<p><img src="/2021NTUML/Week1/new-model2.JPG" alt="new-model2">
+使用矩陣的方式來表達數學式</p>
+<p><img src="/2021NTUML/Week1/new-model3.JPG" alt="new-model3">
+σ表示acitvation function，這裡的acitvation function是使用sigmoid function，所以以上是將輸入x經過w縮放和b的位移，再通過acitvation function，通過後再經過c縮放和b的位移。兩個b不相同，一個是向量，另一個是純量。</p>
+<h3 id="2-redefine-loss-from-training-data">2. Redefine Loss from Training Data</h3>
+<p><img src="/2021NTUML/Week1/new-model4.JPG" alt="new-model4">
+與前面相同，只是function不同而已</p>
+<h3 id="3-optimization-of-new-model">3. Optimization of New Model</h3>
+<p><img src="/2021NTUML/Week1/new-model5.JPG" alt="new-model5">
+也與前面相同，使用梯度下降法，首先隨機選取初始值，接著把L對每個未知參數取微分，所得值及合成一個向量，這個向量就是Gradient。</p>
+<p><img src="/2021NTUML/Week1/new-model6.JPG" alt="new-model6">
+再來就是透過learning rate來做參數更新</p>
+<p><img src="/2021NTUML/Week1/new-model7.JPG" alt="new-model7">
+實際上，會將一大筆資料分成數個Batch，每個Batch都更新好參數後就是一個epoch。Update是更新參數，epoch是更新好每個Batch的參數。Batch size也是模型的超參數。</p>
+<h3 id="why-sigmoid">Why Sigmoid?</h3>
+<p><img src="/2021NTUML/Week1/why1.JPG" alt="why1">
+為何使用sigmoid?也可以使用ReLU，使用兩個ReLU可以組合成一個Hard Sigmoid。</p>
+<p><img src="/2021NTUML/Week1/why2.JPG" alt="why2">
+至於哪個比較好，之後會說。</p>
+<h3 id="experimental-results">Experimental Results</h3>
+<p><img src="/2021NTUML/Week1/exp1.JPG" alt="exp1">
+100個ReLU有顯著差別，訓練Loss從0.32k降到0.28k</p>
+<p>1000個ReLU雖然訓練loss有降低，但沒看過的測試資料就沒有差別</p>
+<h2 id="what-else-can-we-do">What else can we do?</h2>
+<p><img src="/2021NTUML/Week1/layer.JPG" alt="layer">
+可以透過增加層數，先前是經過一次運算，而現在是將一次計算結果再經過多次計算。層數也是模型超參數之一</p>
+<h3 id="experimental-results-1">Experimental Results</h3>
+<p><img src="/2021NTUML/Week1/exp2.JPG" alt="exp2">
+實驗結果顯示3層可以將訓練loss降到0.14k，沒看過的測試資料可以降到0.38k</p>
+<p><img src="/2021NTUML/Week1/exp3.JPG" alt="exp3">
+可以發現機器預測更接近實際值，至於問號的地方是機器高估，由於那天過年，機器不知道新年，所以預測較差</p>
+<h2 id="deep-learning">Deep Learning</h2>
+<p><img src="/2021NTUML/Week1/DL.JPG" alt="DL">
+為何不排一排多個activation function使模型變肥，而是加深模型，日後再說</p>
+<h2 id="why-dont-we-go-deeper">Why don&rsquo;t we go deeper?</h2>
+<p><img src="/2021NTUML/Week1/exp4.JPG" alt="exp4">
+加深到第四層時，訓練資料有變好，但沒看過的測試資料反而變差了，這就是overfitting</p>
+</div>
+            </div>
+        </div>
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+
+            <div class="layui-card single-card">
+                <div style="margin-left: 10px;">
+                    
+                    <div>
+                        <h2 class="single-title">- Table of Contents -</h2>
+
+<ul class="toc-h2"><li><a href="/post/ntuml-week1/#what-is-machine-learing">What is Machine Learing?</a></li>
+            <li><a href="/post/ntuml-week1/#different-types-of-functions">Different types of Functions</a></li>
+            <li><a href="/post/ntuml-week1/#how-to-find-a-function">How to find a function?</a></li>
+            <li><a href="/post/ntuml-week1/#how-to-improve-performance">How to Improve Performance?</a></li>
+            <li><a href="/post/ntuml-week1/#redefine-model-training">Redefine Model Training</a></li>
+            <li><a href="/post/ntuml-week1/#what-else-can-we-do">What else can we do?</a></li>
+            <li><a href="/post/ntuml-week1/#deep-learning">Deep Learning</a></li>
+            <li><a href="/post/ntuml-week1/#why-dont-we-go-deeper">Why don’t we go deeper?</a></li>
+            </div>
+                  
+                </div>
+                <h2 class="single-title">- Recent Posts -</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week1/">
+                        <h3 class="">Machine / Deep Learning (NTU-ML 2021 Spring) Week 1</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-build/">
+                        <h3 class="">ORBSLAM2 Build on Windows 10</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/categories/c&#43;&#43;/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">C&#43;&#43;</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/cmake/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CMake</span>
+        </a>
+    
+        <a href="/tags/visual-studio-2015/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Visual Studio 2015</span>
+        </a>
+    
+        <a href="/tags/opencv/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">OpenCV</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/110%E5%AD%B8%E5%B9%B4%E5%BA%A6-%E5%8F%B0%E6%B8%85%E4%BA%A4%E6%8E%A8%E7%94%84%E5%BF%83%E5%BE%97/">
+                        <h3 class="">[110學年度] 台清交推甄心得</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+    
+
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/graduate-school/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Graduate-School</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/anaconda-virtualenv-use-tensorflow-gpu/">
+                        <h3 class="">Anaconda Virtual Environment Use tensorflow-gpu</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/anaconda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
+        </a>
+    
+        <a href="/categories/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/tensorflow-gpu/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
+        </a>
+    
+        <a href="/tags/anaconda-virtual-environment/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
+        </a>
+    
+        <a href="/tags/cuda/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
+        </a>
+    
+        <a href="/tags/cudnn/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
+        </a>
+    
+        <a href="/tags/python/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/hugo-first/">
+                        <h3 class="">使用 Hugo 在 Github Pages 建立靜態網站</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-03-30</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/categories/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/hugo/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">hugo</span>
+        </a>
+    
+        <a href="/tags/web/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Web</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
+        <div id="disqus_thread"></div>
+<script>
+    
+
+    
+
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://offliners.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WFQ2VM3C00');
+</script>
+    
+</div>
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+                <h3> Related Sites </h3>
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>

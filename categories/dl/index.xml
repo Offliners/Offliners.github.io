@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DL on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/categories/dl/</link>
+    <description>Recent content in DL on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 03 Apr 2021 17:05:34 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/dl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Machine / Deep Learning (NTU-ML 2021 Spring) Week 1</title>
+      <link>https://Offliners.github.io/post/ntuml-week1/</link>
+      <pubDate>Sat, 03 Apr 2021 17:05:34 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+What is Machine Learing? Q : 什麼是機器學習?
+A : 機器學習簡單來說就是讓機器學會找一個函式的能力 舉例來說:
+ 語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容 影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容 Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置  Different types of Functions  Regression : 函是輸出為純量 舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度 Classification : 給定選項，函示輸出為機器從這些選項中的選擇 舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件  Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置
+Q : 機器學習只有這兩個任務嗎?</description>
+    </item>
+    
+  </channel>
+</rss>
