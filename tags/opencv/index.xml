@@ -5,7 +5,7 @@
     <link>https://Offliners.github.io/tags/opencv/</link>
     <description>Recent content in OpenCV on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh</language>
     <lastBuildDate>Thu, 01 Apr 2021 01:31:05 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ORBSLAM2 Build on Windows 10</title>
@@ -14,7 +14,7 @@
       
       <guid>https://Offliners.github.io/post/orbslam2-build/</guid>
       <description>測試環境    Name Version     Windows 10 x64   OpenCV 3.4.1   Visual Studio 2015   CMake 3.20     OpenCV : Install Link Visual Studio 2015 : Install Link CMake : Install Link  記得將YOUR_OWN_PATH\opencv\build\x64\vc14\bin與YOUR_OWN_PATH\opencv\build新增至環境變數中，資料夾路徑視OpenCV的安裝目錄而定
-安裝 ORBSLAM2 for Windows 下載 ORBSLAM2 Download : Link
+安裝ORBSLAM2 for Windows 下載 ORBSLAM2 Download : Link
 安裝DBoW2 使用Cmake-gui將Source code路徑選.\orbslam-windows\Thirdparty\DBoW2，而binaries選擇.\orbslam-windows\Thirdparty\DBoW2\build，若沒有build資料夾程式可以自動建立
 接著按Configure選擇Visual Studio 14 2015，平台選擇x64或是你的作業系統而定
 按下finish開始編譯，Configuring done後選擇Generate，等Generating done後按Open Project開啟VS

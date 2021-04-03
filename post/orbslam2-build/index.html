@@ -9,7 +9,7 @@
     <meta content="ORBSLAM2, CMake, Visual Studio 2015, OpenCV, C&#43;&#43;" name="keywords">
     
     <meta content="Offliner&#39;s Blog - 測試環境    Name Version     Windows 10 x64   OpenCV 3.4.1   Visual Studio 2015   CMake 3.20     OpenCV : Install Link Visual Studio 2015 : Install Link CMake : Install Link  記得將YOUR_OWN_PATH\opencv\build\x64\vc14\bin與YOUR_OWN_PATH\opencv\build新增至環境變數中，資料夾路徑視OpenCV的安裝目錄而定
-安裝 ORBSLAM2 for Windows 下載 ORBSLAM2 Download : Link
+安裝ORBSLAM2 for Windows 下載 ORBSLAM2 Download : Link
 安裝DBoW2 使用Cmake-gui將Source code路徑選.\orbslam-windows\Thirdparty\DBoW2，而binaries選擇.\orbslam-windows\Thirdparty\DBoW2\build，若沒有build資料夾程式可以自動建立
 接著按Configure選擇Visual Studio 14 2015，平台選擇x64或是你的作業系統而定
 按下finish開始編譯，Configuring done後選擇Generate，等Generating done後按Open Project開啟VS
@@ -123,7 +123,6 @@ layui.use('element', function(){
         <div id="content" style="min-height:80%">
 <div class="layui-container" style="margin-bottom: 10px">
     
-
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
             <div class="layui-card single-card">
@@ -208,7 +207,7 @@ layui.use('element', function(){
 <li>CMake : <a href="https://cmake.org/download/">Install Link</a></li>
 </ul>
 <p>記得將<code>YOUR_OWN_PATH\opencv\build\x64\vc14\bin</code>與<code>YOUR_OWN_PATH\opencv\build</code>新增至環境變數中，資料夾路徑視OpenCV的安裝目錄而定</p>
-<h2 id="安裝-orbslam2-for-windows">安裝 ORBSLAM2 for Windows</h2>
+<h2 id="安裝orbslam2-for-windows">安裝ORBSLAM2 for Windows</h2>
 <h4 id="下載-orbslam2">下載 ORBSLAM2</h4>
 <p>Download : <a href="https://github.com/Phylliida/orbslam-windows">Link</a></p>
 <h4 id="安裝dbow2">安裝DBoW2</h4>
@@ -255,12 +254,25 @@ layui.use('element', function(){
 </div>
             </div>
         </div>
-
         <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
             
 
             <div class="layui-card single-card">
-                <h2 class="single-title">Recent Posts</h2>
+                <div style="margin-left: 10px;">
+                    
+                    <div>
+                        <h2 class="single-title">- Table of Contents -</h2>
+
+<ul class="toc-h2"><li><a href="/post/orbslam2-build/#%e6%b8%ac%e8%a9%a6%e7%92%b0%e5%a2%83">測試環境</a></li>
+            <li><a href="/post/orbslam2-build/#%e5%ae%89%e8%a3%9dorbslam2-for-windows">安裝ORBSLAM2 for Windows</a></li>
+            <li><a href="/post/orbslam2-build/#%e5%ae%89%e8%a3%9dg2o">安裝g2o</a></li>
+            <li><a href="/post/orbslam2-build/#%e5%ae%89%e8%a3%9dpangolin">安裝Pangolin</a></li>
+            <li><a href="/post/orbslam2-build/#%e5%bb%ba%e7%bd%aeorbslam2">建置ORBSLAM2</a></li>
+            <li><a href="/post/orbslam2-build/#%e4%bd%bf%e7%94%a8orbslam2%e7%af%84%e4%be%8b%e7%a8%8b%e5%bc%8f">使用ORBSLAM2範例程式</a></li>
+            </div>
+                  
+                </div>
+                <h2 class="single-title">- Recent Posts -</h2>
             
                 
                 <div style="margin-left: 10px;">
@@ -443,9 +455,7 @@ layui.use('element', function(){
                 
             
             <br />
-            
             </div>
-            
         </div>
         <div id="disqus_thread"></div>
 <script>
