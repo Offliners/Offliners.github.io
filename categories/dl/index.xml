@@ -6,7 +6,29 @@
     <description>Recent content in DL on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 03 Apr 2021 23:32:44 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/dl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Apr 2021 00:38:19 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/dl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 2 - Critical Point: small gradient</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-2/</link>
+      <pubDate>Mon, 05 Apr 2021 00:38:19 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
+過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
+說到Gradient為0，有兩種常見的可能:
+ Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
+那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
+Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
+Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
+如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
+為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
+  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
+  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 2 - Guideline of ML: overfit</title>
       <link>https://Offliners.github.io/post/ntuml-week2-1/</link>
@@ -14,8 +36,8 @@
       
       <guid>https://Offliners.github.io/post/ntuml-week2-1/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 Video 2
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
 Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
 有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
 解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
@@ -28,7 +50,10 @@ Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查train
 那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
 舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
 一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式</description>
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
+剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
+如何限制模型呢?
+ 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?</description>
     </item>
     
     <item>

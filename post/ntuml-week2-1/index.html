@@ -9,8 +9,8 @@
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
     
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 Video 2
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
 Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
 有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
 解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
@@ -23,7 +23,10 @@ Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查train
 那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
 舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
 一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式" name="description">
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
+剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
+如何限制模型呢?
+ 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -186,8 +189,8 @@ layui.use('element', function(){
                 <div class="layui-card-body markdown-body single-content">
                     <p><img src="/2021NTUML/Week2/cover1.JPG" alt="cover1"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=WeHM2xpYQpw">Video 1</a> <a href="https://www.youtube.com/watch?v=QW6uINn7uGk">Video 2</a></p>
-<p>Youtube Video Link (English): <a href="https://youtu.be/3qgKpBptyFY">Video 1</a> <a href="https://youtu.be/yz7QS1I6omw">Video 2</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=WeHM2xpYQpw">Video</a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/3qgKpBptyFY">Video</a></p>
 <h2 id="framework-of-ml">Framework of ML</h2>
 <p><img src="/2021NTUML/Week2/framework.JPG" alt="framework"></p>
 <h2 id="general-guide">General Guide</h2>
@@ -240,7 +243,7 @@ layui.use('element', function(){
 <p><img src="/2021NTUML/Week2/general-guide-5.JPG" alt="General Guide 5">
 除了overfitting，還會有一種錯誤形式是mismatch，有些人會說mismatch是一種overfitting，但這是名詞定義問題。一般的overfitting可以透過蒐集更多的資料來克服，但mismatch是指說訓練資料與測試資料分布不同</p>
 <p><img src="/2021NTUML/Week2/mismatch.JPG" alt="Mismatch">
-如在Homework 11，訓練資料與測試資料完全不同，因此增加訓練資料沒有用。因此要解決這種問題，等待homework 11再講。要判斷是否發生Mismatch，要看對資料本身的理解，要對訓練資料與測試資料有些理解才能判斷</p>
+如在Homework 11，訓練資料與測試資料完全不同，因此增加訓練資料沒有用。所以要解決這種問題，等待homework 11再講。要判斷是否發生Mismatch，要看對資料本身的理解，對訓練資料與測試資料有些理解才能判斷</p>
 </div>
             </div>
         </div>
@@ -324,6 +327,57 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <h2 class="single-title">- Recent Posts -</h2>
             
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week2-2/">
+                        <h3 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
                 
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
@@ -499,61 +553,6 @@ layui.use('element', function(){
     
         <a href="/tags/graduate-school/">
             <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Graduate-School</span>
-        </a>
-    
-    
-</h3>
-
-                    </blockquote>
-                </div>
-                
-                <div style="margin-left: 10px;">
-                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                    <a href="/post/anaconda-virtualenv-use-tensorflow-gpu/">
-                        <h3 class="">Anaconda Virtual Environment Use tensorflow-gpu</h3>
-                    </a>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-03-30</span>
-
-    
-     
-    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
-    
-
-    
-        <a href="/categories/anaconda/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
-        </a>
-    
-        <a href="/categories/python/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
-        </a>
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/tensorflow-gpu/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
-        </a>
-    
-        <a href="/tags/anaconda-virtual-environment/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
-        </a>
-    
-        <a href="/tags/cuda/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
-        </a>
-    
-        <a href="/tags/cudnn/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
-        </a>
-    
-        <a href="/tags/python/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
         </a>
     
     

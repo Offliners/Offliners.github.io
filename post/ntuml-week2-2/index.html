@@ -3,29 +3,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - Anaconda Virtual Environment Use tensorflow-gpu </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Critical Point: small gradient </title>
     
     
-    <meta content="tensorflow-gpu, Anaconda-virtual-environment, CUDA, cuDNN, python, Anaconda" name="keywords">
+    <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - 測試環境 作業系統 : Window 10 64bit
-顯卡 : NVIDIA Geforce GTX 1050
-事前準備 1. 確認電腦是否有NVIDIA顯卡 可以從裝置管理員中顯示卡看電腦是否有NVIDIA顯卡
-2. 查詢此顯卡的計算能力 可從此網址查詢到 : https://developer.nvidia.com/cuda-gpus
-建議顯卡計算能力(Compute Capability) 大於3.5以上，使用tensorflow-gpu才會有明顯的成效
-安裝步驟 1. 安裝Anaconda 到Anaconda官方網站下載 : https://www.anaconda.com/products/individual
-安裝一直next過去就好
-2. 打開Anaconda Prompt 3. 建立虛擬環境 在命令列輸入conda create -n test_env pip python=3.6，test_env是環境名稱，可以自己取，然後Python的版本是3.6
-這裡輸入y
-4. 進入虛擬環境 建立完成後，輸入activate test_env進入虛擬環境
-當前方出現自己的環境名稱表示進入成功
-5. 安裝tensorflow-gpu 輸入pip install tensorflow-gpu==1.13.1，安裝版本為1.13.1的tensorflow-gpu
-6. 安裝 CUDA 10.0 進入此網站 : https://developer.nvidia.com/cuda-toolkit-archive
-尋找CUDA 10.0並安裝
-一直按下一步就安裝完成
-確認是否有加入環境變數，在Window搜尋環境變數
-CUDA安裝軟體基本上會自動填入路徑
-安裝cuDNN 7.6.5 進入此網站 : https://developer.nvidia.com/rdp/cudnn-archive" name="description">
+    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
+過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
+說到Gradient為0，有兩種常見的可能:
+ Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
+那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
+Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
+Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
+如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
+為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
+  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
+  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -140,10 +136,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>Anaconda Virtual Environment Use tensorflow-gpu</h1>
+                    <h1>NTU - 機器學習 Week 2 - Critical Point: small gradient</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-03-30</span>
+    <span>2021-04-05</span>
 
     
      
@@ -151,12 +147,16 @@ layui.use('element', function(){
     
 
     
-        <a href="/categories/anaconda/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda</span>
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
         </a>
     
-        <a href="/categories/python/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
         </a>
     
 
@@ -165,24 +165,16 @@ layui.use('element', function(){
     
 
     
-        <a href="/tags/tensorflow-gpu/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">tensorflow-gpu</span>
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
         </a>
     
-        <a href="/tags/anaconda-virtual-environment/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Anaconda-virtual-environment</span>
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
         </a>
     
-        <a href="/tags/cuda/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CUDA</span>
-        </a>
-    
-        <a href="/tags/cudnn/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">cuDNN</span>
-        </a>
-    
-        <a href="/tags/python/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">python</span>
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
         </a>
     
     
@@ -190,73 +182,59 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <h2 id="測試環境">測試環境</h2>
-<p>作業系統 : <code>Window 10 64bit</code></p>
-<p>顯卡 : <code>NVIDIA Geforce GTX 1050</code></p>
-<h2 id="事前準備">事前準備</h2>
-<h4 id="1-確認電腦是否有nvidia顯卡">1. 確認電腦是否有NVIDIA顯卡</h4>
-<p>可以從裝置管理員中顯示卡看電腦是否有NVIDIA顯卡</p>
-<p><img src="/anaconda-image/image1.PNG" alt="image1"></p>
-<h4 id="2-查詢此顯卡的計算能力">2. 查詢此顯卡的計算能力</h4>
-<p>可從此網址查詢到 : <a href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a></p>
-<p>建議顯卡計算能力(Compute Capability) 大於3.5以上，使用tensorflow-gpu才會有明顯的成效</p>
-<p><img src="/anaconda-image/image2.PNG" alt="image2"></p>
-<h2 id="安裝步驟">安裝步驟</h2>
-<h4 id="1-安裝anaconda">1. 安裝Anaconda</h4>
-<p>到Anaconda官方網站下載 : <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
-<p>安裝一直<code>next</code>過去就好</p>
-<p><img src="/anaconda-image/image3.PNG" alt="image3"></p>
-<h4 id="2-打開anaconda-prompt">2. 打開Anaconda Prompt</h4>
-<p><img src="/anaconda-image/image4.PNG" alt="image4"></p>
-<h4 id="3-建立虛擬環境">3. 建立虛擬環境</h4>
-<p>在命令列輸入<code>conda create -n test_env pip python=3.6</code>，test_env是環境名稱，可以自己取，然後Python的版本是3.6</p>
-<p><img src="/anaconda-image/image5.PNG" alt="image5"></p>
-<p>這裡輸入<code>y</code></p>
-<p><img src="/anaconda-image/image6.PNG" alt="image6"></p>
-<h4 id="4-進入虛擬環境">4. 進入虛擬環境</h4>
-<p>建立完成後，輸入<code>activate test_env</code>進入虛擬環境</p>
-<p><img src="/anaconda-image/image7.PNG" alt="image7"></p>
-<p>當前方出現自己的環境名稱表示進入成功</p>
-<p><img src="/anaconda-image/image8.PNG" alt="image8"></p>
-<h4 id="5-安裝tensorflow-gpu">5. 安裝tensorflow-gpu</h4>
-<p>輸入<code>pip install tensorflow-gpu==1.13.1</code>，安裝版本為1.13.1的tensorflow-gpu</p>
-<p><img src="/anaconda-image/image9.PNG" alt="image9"></p>
-<h4 id="6-安裝-cuda-100">6. 安裝 CUDA 10.0</h4>
-<p>進入此網站 : <a href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
-<p><img src="/anaconda-image/image10.PNG" alt="image10"></p>
-<p>尋找<code>CUDA 10.0</code>並安裝</p>
-<p><img src="/anaconda-image/image11.PNG" alt="image11"></p>
-<p>一直按<code>下一步</code>就安裝完成</p>
-<p><img src="/anaconda-image/image12.PNG" alt="image12"></p>
-<p>確認是否有加入環境變數，在Window搜尋<code>環境變數</code></p>
-<p><img src="/anaconda-image/image13.PNG" alt="image13"></p>
-<p>CUDA安裝軟體基本上會自動填入路徑</p>
-<p><img src="/anaconda-image/image14.PNG" alt="image14"></p>
-<h4 id="安裝cudnn-765">安裝cuDNN 7.6.5</h4>
-<p>進入此網站 : <a href="https://developer.nvidia.com/rdp/cudnn-archive">https://developer.nvidia.com/rdp/cudnn-archive</a></p>
-<p>找到cuDNN 7.6.5 for CUDA 10.0</p>
-<p><img src="/anaconda-image/image15.PNG" alt="image15"></p>
-<p>安裝<code>Window 10</code>版的</p>
-<p><img src="/anaconda-image/image16.PNG" alt="image16"></p>
-<p>下載完檔案後解壓縮會出現3的資料夾與1個文字檔</p>
-<p><img src="/anaconda-image/image17.PNG" alt="image17"></p>
-<p>將整個複製到<code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0</code>中</p>
-<p><img src="/anaconda-image/image18.PNG" alt="image18"></p>
-<p>再進入環境變數看系統變數中的Path中，雙擊兩下可看到系統路徑</p>
-<p><img src="/anaconda-image/image19.PNG" alt="image19"></p>
-<p>是否有剛剛複製cuDNN的<code>bin</code>與<code>libnvvp</code>路徑，基本上系統會自動添加，若沒有需要手動加入</p>
-<p><img src="/anaconda-image/image20.PNG" alt="image20"></p>
-<h4 id="確認是否安裝成功">確認是否安裝成功</h4>
-<p>回到<code>Anaconda Prompt</code>，進入已創建的虛擬環境，輸入<code>nvcc -V</code></p>
-<p>若有跑出此畫面表示<code>CUDA 10.0</code>安裝成功</p>
-<p><img src="/anaconda-image/image21.PNG" alt="image21"></p>
-<p>接著輸入<code>python</code></p>
-<p><img src="/anaconda-image/image22.PNG" alt="image22"></p>
-<p>輸入以下指令</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> tensorflow.python.client <span style="color:#f92672">import</span> device_lib
-<span style="color:#66d9ef">print</span>(device_lib<span style="color:#f92672">.</span>list_local_devices())
-</code></pre></div><p><img src="/anaconda-image/image23.PNG" alt="image23"></p>
-<p>若有讀取到NVIDIA顯卡表示<code>tensorflow-gpu</code>安裝成功，在此虛擬環境中的tensorflow都會使用GPU來計算</p>
+                    <p><img src="/2021NTUML/Week2/cover2.JPG" alt="cover1"></p>
+<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=QW6uINn7uGk">Video</a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/yz7QS1I6omw">Video</a></p>
+<h2 id="why-optimization-fails">Why Optimization fails?</h2>
+<p><img src="/2021NTUML/Week2/fails.JPG" alt="Fail">
+有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?</p>
+<p>過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。</p>
+<p>說到Gradient為0，有兩種常見的可能:</p>
+<ol>
+<li>Local Minima 區域最小值</li>
+<li>Saddle Point 鞍點</li>
+<li>Local Maxima 區域最大值</li>
+</ol>
+<p>這些會使Gradient為0的點統稱<code>Critical point</code>，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷</p>
+<p>那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima</p>
+<h2 id="math-method">Math Method</h2>
+<p>要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌</p>
+<h3 id="tayler-series-approximation">Tayler Series Approximation</h3>
+<p><img src="/2021NTUML/Week2/tayler1.JPG" alt="Tayler Series Approximation 1">
+透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合</p>
+<p><img src="/2021NTUML/Week2/tayler2.JPG" alt="Tayler Series Approximation 2">
+如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point</p>
+<p><img src="/2021NTUML/Week2/hessian.JPG" alt="Hessian">
+為方便表示，將
+$$ v = (\theta - \theta^{'})$$</p>
+<ol>
+<li>
+<p>紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是<code>local minima</code></p>
+</li>
+<li>
+<p>紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是<code>local maxima</code></p>
+</li>
+<li>
+<p>紅色項帶任何值有時大於0有時小於0，表示這組參數在附近有時高有時低，因此是<code>saddle point</code></p>
+</li>
+</ol>
+<p>但不可能帶入任何v值去確認，因此透過線性代數中，判斷H是正定矩陣、負定矩陣還是都不是，透過H矩陣的特徵值即可判斷</p>
+<h3 id="example">Example</h3>
+<p><img src="/2021NTUML/Week2/example1.JPG" alt="Example 1">
+透過窮舉法，將所以loss function值求出來可以得到上圖的error surface，得知(0, 0)為saddle point</p>
+<p><img src="/2021NTUML/Week2/example2.JPG" alt="Example 2">
+透過求H的特徵值發現有正與有負，因此(0, 0)確實為saddle point</p>
+<h2 id="how-to-update-weight-at-saddle-point">How to update weight at saddle point?</h2>
+<p><img src="/2021NTUML/Week2/update1.JPG" alt="Update 1">
+因此只要沿著特徵向量的方向，就可以讓loss變得更低</p>
+<p><img src="/2021NTUML/Week2/update2.JPG" alt="Update 2">
+由上圖可知沿著(1, 1)方向可以找到比saddle point的loss更低的地方。實際上不會使用這方法來逃離saddle point，因為二次微分運算量大，更不用說求出特徵值與特徵向量</p>
+<h2 id="saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</h2>
+<p><img src="/2021NTUML/Week2/vs1.JPG" alt="Saddle Point v.s. Local Minima 1">
+用一維來看，感覺處處都是local minima，但在二維空間來看是saddle point。由於現在模型參數動輒千百萬，維度非常高，那會不會現在看到的local minima在更高維度上來看其實是saddle point，那維度越高是不是可以走的路越多?</p>
+<p><img src="/2021NTUML/Week2/vs2.JPG" alt="Saddle Point v.s. Local Minima 2">
+透過實驗也支持此假說，上圖每個藍點是模型訓練完的結果，可以發現沒有任何一個結果真的卡在local minima(minimum ratio = 1或接近1)，因此local minima沒那常見，多數是卡在saddle point</p>
 </div>
             </div>
         </div>
@@ -269,14 +247,125 @@ layui.use('element', function(){
                     
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/anaconda-virtualenv-use-tensorflow-gpu/#%e6%b8%ac%e8%a9%a6%e7%92%b0%e5%a2%83">測試環境</a></li>
-            <li><a href="/post/anaconda-virtualenv-use-tensorflow-gpu/#%e4%ba%8b%e5%89%8d%e6%ba%96%e5%82%99">事前準備</a></li>
-            <li><a href="/post/anaconda-virtualenv-use-tensorflow-gpu/#%e5%ae%89%e8%a3%9d%e6%ad%a5%e9%a9%9f">安裝步驟</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week2-2/#why-optimization-fails">Why Optimization fails?</a></li>
+            <li><a href="/post/ntuml-week2-2/#math-method">Math Method</a></li>
+            <li><a href="/post/ntuml-week2-2/#how-to-update-weight-at-saddle-point">How to update weight at saddle point?</a></li>
+            <li><a href="/post/ntuml-week2-2/#saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</a></li>
             </div>
                   
                 </div>
             </div>
 
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Relevant Topics -</h2>
+                
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-1/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Guideline of ML: overfit</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week1/">
+                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                
+                <br />
+            </div>
             
 
             <div class="layui-card single-card">
