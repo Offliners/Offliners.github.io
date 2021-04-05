@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code analysis on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/categories/code-analysis/</link>
+    <description>Recent content in code analysis on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 06 Apr 2021 00:46:46 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/code-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-analysis/</link>
+      <pubDate>Tue, 06 Apr 2021 00:46:46 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-analysis/</guid>
+      <description>ORB-SLAM: a Versatile and Accurate Monocular SLAM System (https://arxiv.org/abs/1610.06475) ORBSLAM2 code : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows code: https://github.com/phdsky/ORBSLAM24Windows  System Overview  Tracking.cc LocalMapping.cc LoopClosing.cc Viewer.cc  變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    System 輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Tracking 線程 coming soon</description>
+    </item>
+    
+  </channel>
+</rss>
