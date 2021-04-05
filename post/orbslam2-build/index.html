@@ -214,34 +214,34 @@ layui.use('element', function(){
 <p>Download : <a href="https://github.com/Phylliida/orbslam-windows">Link</a></p>
 <h4 id="安裝dbow2">安裝DBoW2</h4>
 <p>使用<code>Cmake-gui</code>將Source code路徑選<code>.\orbslam-windows\Thirdparty\DBoW2</code>，而binaries選擇<code>.\orbslam-windows\Thirdparty\DBoW2\build</code>，若沒有<code>build</code>資料夾程式可以自動建立</p>
-<p><img src="/ORBSALM2-img/DBoW2-cmake-1.JPG" alt="DBoW2-cmake"></p>
+<p><img src="/ORBSLAM2-img/DBoW2-cmake-1.JPG" alt="DBoW2-cmake"></p>
 <p>接著按<code>Configure</code>選擇<code>Visual Studio 14 2015</code>，平台選擇<code>x64</code>或是你的作業系統而定</p>
-<p><img src="/ORBSALM2-img/DBoW2-cmake-config.JPG" alt="DBoW2-cmake-config"></p>
+<p><img src="/ORBSLAM2-img/DBoW2-cmake-config.JPG" alt="DBoW2-cmake-config"></p>
 <p>按下<code>finish</code>開始編譯，Configuring done後選擇<code>Generate</code>，等Generating done後按<code>Open Project</code>開啟VS</p>
 <p>進入Visual Studio 2015後，先將Mode選擇<code>Release</code>，接著對DBoW2按右鍵選擇Properties，將<code>Target Extension</code>的<code>.dll</code>改成<code>.lib</code>，還有<code>Configuration Type</code>改成<code>Static library(.lib)</code></p>
-<p><img src="/ORBSALM2-img/DBoW2-Properties-1.JPG" alt="DBoW2-Properties-1"></p>
+<p><img src="/ORBSLAM2-img/DBoW2-Properties-1.JPG" alt="DBoW2-Properties-1"></p>
 <p>接著，到C/C++的Code Generation將<code>Runtime Library</code>改成<code>Multi-threaded(/MT)</code></p>
-<p><img src="/ORBSALM2-img/DBoW2-Properties-2.JPG" alt="DBoW2-Properties-2"></p>
+<p><img src="/ORBSLAM2-img/DBoW2-Properties-2.JPG" alt="DBoW2-Properties-2"></p>
 <p>都選擇好後，對<code>ALL_BUILD</code>點右鍵選擇<code>Build</code>，建置成功後如下圖</p>
-<p><img src="/ORBSALM2-img/DBoW2-build.JPG" alt="DBoW2-build"></p>
+<p><img src="/ORBSLAM2-img/DBoW2-build.JPG" alt="DBoW2-build"></p>
 <h2 id="安裝g2o">安裝g2o</h2>
 <p>與DBoW2相同，使用<code>Cmake-gui</code>道g2o中編譯，開啟專案後將g2o專案屬性改成<code>.lib</code>以及<code>Multi-threaded(/MT)</code>，不同的是要到C/C++的<code>Preprocessor</code>中在<code>Preprocessor Definitions</code>編輯，在最下面輸入<code>WINDOWS</code></p>
-<p><img src="/ORBSALM2-img/g2o-preprocessor.JPG" alt="g2o-preprocessor"></p>
+<p><img src="/ORBSLAM2-img/g2o-preprocessor.JPG" alt="g2o-preprocessor"></p>
 <p>選擇好後，建置<code>ALL_BUILD</code>，建置成功後如下圖</p>
-<p><img src="/ORBSALM2-img/g2o-build.JPG" alt="g2o-build"></p>
+<p><img src="/ORBSLAM2-img/g2o-build.JPG" alt="g2o-build"></p>
 <h2 id="安裝pangolin">安裝Pangolin</h2>
 <p>依樣使用<code>Cmake-gui</code>到Pangolin中進行編譯，進入後只需將Pangolin專案的C/C++的Code Generation將<code>Runtime Library</code>改成<code>Multi-threaded(/MT)</code></p>
 <p>改完後即可建置<code>ALL_BUILD</code>，建置成功後如下圖</p>
-<p><img src="/ORBSALM2-img/Pangolin-build.JPG" alt="Pangolin-build"></p>
+<p><img src="/ORBSLAM2-img/Pangolin-build.JPG" alt="Pangolin-build"></p>
 <p>會有一個fail，會顯示&quot;cannot open input file &lsquo;pthread.lib&rsquo;&quot;，忽略即可</p>
 <h2 id="建置orbslam2">建置ORBSLAM2</h2>
 <p>使用<code>Cmake-gui</code>將Source code選擇<code>/orbslam-windows</code>，且binaries選擇<code>/orbslam-windows/build</code>進行編譯</p>
 <p>編譯成功後開起專案，對<code>ORB_SLAM2</code>專案按右鍵，將屬性改成<code>.lib</code>以及<code>/MT</code>，改好後建置<code>ORB_SLAM2</code>，不是<code>ALL_BUILD</code>，建置成功如下</p>
-<p><img src="/ORBSALM2-img/ORB_SLAM2_build.JPG" alt="ORB_SLAM2_build"></p>
+<p><img src="/ORBSLAM2-img/ORB_SLAM2_build.JPG" alt="ORB_SLAM2_build"></p>
 <h2 id="使用orbslam2範例程式">使用ORBSLAM2範例程式</h2>
 <p>首先將<code>orbslam-windows\Vocabulary</code>中的<code>ORBvoc.txt.tar.gz</code>解壓縮得到<code>ORBvoc.txt</code></p>
 <p>再來到 <a href="https://vision.in.tum.de/data/datasets">https://vision.in.tum.de/data/datasets</a> 下載黃色標記的資料集</p>
-<p><img src="/ORBSALM2-img/rgbd_dataset_freiburg2_desk.JPG" alt="rgbd_dataset_freiburg2_desk"></p>
+<p><img src="/ORBSLAM2-img/rgbd_dataset_freiburg2_desk.JPG" alt="rgbd_dataset_freiburg2_desk"></p>
 <p>將其解壓縮後將整個資料夾放到<code>orbslam-windows\</code>下</p>
 <p>接著，打開<code>orbslam-windows\build</code>的<code>ORB_SLAM2.sln</code>，對<code>mono_tum</code>專案點右鍵進行建置，建置成功後可以在<code>orbslam-windows\Examples\Monocular\Release</code>找到<code>mono_tum.exe</code>，可透過CMD去執行此程式，記得輸入3個參數</p>
 <ul>
@@ -252,7 +252,7 @@ layui.use('element', function(){
 <p>CMD輸入方式如下:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mono_tum path_to_vocabulary path_to_settings path_to_sequence
 </code></pre></div><p>執行結果</p>
-<p><img src="/ORBSALM2-img/mono_tum.gif" alt="mono_tum"></p>
+<p><img src="/ORBSLAM2-img/mono_tum.gif" alt="mono_tum"></p>
 </div>
             </div>
         </div>

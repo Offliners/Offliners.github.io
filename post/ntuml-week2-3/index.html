@@ -22,7 +22,7 @@ Small Batch 每看完一筆資料就更新參數，因此更新時間短，但�
 那為何小batch size沒有Optimization Issue呢?如果使用full batch size的話，走到local minima時就會停止更新參數。但如果使用small batch size的話，可能其中一個batch卡住了，但其他batch可能沒有。因此這種noisy的update參數反而對訓練比較有幫助
 訓練上small batch size比較好，那測試呢?透過以上的實驗，將大batch和小batch訓練到差不多好，那比對測試時，發現小batch在測試集上表現比較好。大batch在訓練好，測試差，表示發生了overfitting。那為何會這樣呢?
 假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima
-那有沒有辦法僵固兩者的優點呢?以下的論文有探討
+那有沒有辦法堅固兩者的優點呢?以下的論文有探討
  Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (https://arxiv." name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -213,7 +213,7 @@ layui.use('element', function(){
 <p><img src="/2021NTUML/Week2/vs8.JPG" alt="Small Batch v.s. Large Batch 6">
 假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima</p>
 <p><img src="/2021NTUML/Week2/vs9.JPG" alt="Small Batch v.s. Large Batch 7">
-那有沒有辦法僵固兩者的優點呢?以下的論文有探討</p>
+那有沒有辦法堅固兩者的優點呢?以下的論文有探討</p>
 <ul>
 <li>Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (<a href="https://arxiv.org/abs/1904.00962">https://arxiv.org/abs/1904.00962</a>)</li>
 <li>Extremely Large Minibatch SGD: Training ResNet-50 on ImageNet in 15 Minutes (<a href="https://arxiv.org/abs/1711.04325">https://arxiv.org/abs/1711.04325</a>)</li>
