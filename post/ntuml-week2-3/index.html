@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Guideline of ML: overfit </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
@@ -11,22 +11,19 @@
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video
 Youtube Video Link (English): Video
-Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
-有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
-解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
-但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
-這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
-當training data的loss不夠低時，是哪個問題呢?
-可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
-因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
-如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
-那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
-舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
-一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
-剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
-如何限制模型呢?
- 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?" name="description">
+Optimization with Batch 每次update參數是將每個Batch出來計算loss與gradient，將每個batch計算過後是一個epoch。每個epoch都會經過shuffle，因此每個epoch中batch的資料都不一樣
+Small Batch v.s. Large Batch Large Batch 須看完每筆資料才更新參數，因此更新時間長，但每次更新很平穩
+Small Batch 每看完一筆資料就更新參數，因此更新時間短，但每次更新會顯得不穩
+但考慮平行運算的話，Large Batch時間不一定比Small Batch長
+由上圖可知batch從1~1000所花時間差不多，但GPU仍有極限，過大的batch size仍會需要花數倍的時間
+如果batch size等於1，那60000筆資料需要update參數60000次。batch size等於1000，那60000筆資料需要update參數60次。兩個每次update的時間差不多，但跑完一個epoch的差距就很大。因此考慮平行運算後，大batch size反而比較有效率
+考慮平行運算後，大batch沒有時間劣勢了，且update參數比較穩定，那大batch比較好嗎?小batch比較差?
+雖然在小batch size下update參數比較不穩，但有noisy的gradient反而能幫助訓練。比較上面兩資料集，小batch size的準確率比較高。那這是什麼問題呢?這是Optimization Issue
+那為何小batch size沒有Optimization Issue呢?如果使用full batch size的話，走到local minima時就會停止更新參數。但如果使用small batch size的話，可能其中一個batch卡住了，但其他batch可能沒有。因此這種noisy的update參數反而對訓練比較有幫助
+訓練上small batch size比較好，那測試呢?透過以上的實驗，將大batch和小batch訓練到差不多好，那比對測試時，發現小batch在測試集上表現比較好。大batch在訓練好，測試差，表示發生了overfitting。那為何會這樣呢?
+假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima
+那有沒有辦法僵固兩者的優點呢?以下的論文有探討
+ Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (https://arxiv." name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -143,10 +140,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Guideline of ML: overfit</h1>
+                    <h1>NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
+    <span>2021-04-05</span>
 
     
      
@@ -189,63 +186,61 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week2/cover1.JPG" alt="cover1"></p>
+                    <p><img src="/2021NTUML/Week2/cover3.JPG" alt="cover 3"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=WeHM2xpYQpw">Video</a></p>
-<p>Youtube Video Link (English): <a href="https://youtu.be/3qgKpBptyFY">Video</a></p>
-<h2 id="framework-of-ml">Framework of ML</h2>
-<p><img src="/2021NTUML/Week2/framework.JPG" alt="framework"></p>
-<h2 id="general-guide">General Guide</h2>
-<p><img src="/2021NTUML/Week2/general-guide-1.JPG" alt="General Guide 1">
-如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data</p>
-<p><img src="/2021NTUML/Week2/model-bias.JPG" alt="Model Bias">
-有可是<code>model bias</code>使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。</p>
-<p>解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式</p>
-<p><img src="/2021NTUML/Week2/general-guide-2.JPG" alt="General Guide 2">
-但不代表training時loss大就一定是model bias，有可能是optimization做不夠好</p>
-<p><img src="/2021NTUML/Week2/optimization-issue.JPG" alt="Optimization Issue">
-這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。</p>
-<p><img src="/2021NTUML/Week2/which.JPG" alt="Which one">
-當training data的loss不夠低時，是哪個問題呢?</p>
-<p><img src="/2021NTUML/Week2/compare.JPG" alt="Compare">
-可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。</p>
-<p><img src="/2021NTUML/Week2/method-1.JPG" alt="Method1">
-因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解</p>
-<p><img src="/2021NTUML/Week2/general-guide-3.JPG" alt="General Guide 3">
-如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。</p>
-<p><img src="/2021NTUML/Week2/general-guide-4.JPG" alt="General Guide 4">
-那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。</p>
-<p><img src="/2021NTUML/Week2/overfitting-1.JPG" alt="Overfitting-1">
-舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大</p>
-<p><img src="/2021NTUML/Week2/overfitting-2.JPG" alt="Overfitting-2">
-一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大</p>
-<p><img src="/2021NTUML/Week2/method-2.JPG" alt="Method2">
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式</p>
-<p><img src="/2021NTUML/Week2/method-3.JPG" alt="Method3">
-剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同</p>
-<p><img src="/2021NTUML/Week2/method-4.JPG" alt="Method4">
-如何限制模型呢?</p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=zzbr1h9sF54">Video</a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/MNoEQ9w-AbE">Video</a></p>
+<h2 id="optimization-with-batch">Optimization with Batch</h2>
+<p><img src="/2021NTUML/Week2/batch.JPG" alt="Batch">
+每次update參數是將每個Batch出來計算loss與gradient，將每個batch計算過後是一個epoch。每個epoch都會經過shuffle，因此每個epoch中batch的資料都不一樣</p>
+<h2 id="small-batch-vs-large-batch">Small Batch v.s. Large Batch</h2>
+<p><img src="/2021NTUML/Week2/vs3.JPG" alt="Small Batch v.s. Large Batch 1">
+<code>Large Batch</code> 須看完每筆資料才更新參數，因此更新時間長，但每次更新很平穩</p>
+<p><code>Small Batch</code> 每看完一筆資料就更新參數，因此更新時間短，但每次更新會顯得不穩</p>
+<p>但考慮平行運算的話，Large Batch時間不一定比Small Batch長</p>
+<p><img src="/2021NTUML/Week2/parallel1.JPG" alt="Parallel Computing 1">
+由上圖可知batch從1~1000所花時間差不多，但GPU仍有極限，過大的batch size仍會需要花數倍的時間</p>
+<p><img src="/2021NTUML/Week2/parallel2.JPG" alt="Parallel Computing 2">
+如果batch size等於1，那60000筆資料需要update參數60000次。batch size等於1000，那60000筆資料需要update參數60次。兩個每次update的時間差不多，但跑完一個epoch的差距就很大。因此考慮平行運算後，大batch size反而比較有效率</p>
+<p><img src="/2021NTUML/Week2/vs4.JPG" alt="Small Batch v.s. Large Batch 2">
+考慮平行運算後，大batch沒有時間劣勢了，且update參數比較穩定，那大batch比較好嗎?小batch比較差?</p>
+<p><img src="/2021NTUML/Week2/vs5.JPG" alt="Small Batch v.s. Large Batch 3">
+雖然在小batch size下update參數比較不穩，但有noisy的gradient反而能幫助訓練。比較上面兩資料集，小batch size的準確率比較高。那這是什麼問題呢?這是<code>Optimization Issue</code></p>
+<p><img src="/2021NTUML/Week2/vs6.JPG" alt="Small Batch v.s. Large Batch 4">
+那為何小batch size沒有Optimization Issue呢?如果使用full batch size的話，走到local minima時就會停止更新參數。但如果使用small batch size的話，可能其中一個batch卡住了，但其他batch可能沒有。因此這種noisy的update參數反而對訓練比較有幫助</p>
+<p><img src="/2021NTUML/Week2/vs7.JPG" alt="Small Batch v.s. Large Batch 5">
+訓練上small batch size比較好，那測試呢?透過以上的實驗，將大batch和小batch訓練到差不多好，那比對測試時，發現小batch在測試集上表現比較好。大batch在訓練好，測試差，表示發生了overfitting。那為何會這樣呢?</p>
+<p><img src="/2021NTUML/Week2/vs8.JPG" alt="Small Batch v.s. Large Batch 6">
+假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima</p>
+<p><img src="/2021NTUML/Week2/vs9.JPG" alt="Small Batch v.s. Large Batch 7">
+那有沒有辦法僵固兩者的優點呢?以下的論文有探討</p>
 <ul>
-<li>漸少參數、神經元，或者共用參數(CNN)</li>
-<li>用比較少的feature</li>
-<li>Early stopping</li>
-<li>Regularization</li>
-<li>Dropout</li>
+<li>Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (<a href="https://arxiv.org/abs/1904.00962">https://arxiv.org/abs/1904.00962</a>)</li>
+<li>Extremely Large Minibatch SGD: Training ResNet-50 on ImageNet in 15 Minutes (<a href="https://arxiv.org/abs/1711.04325">https://arxiv.org/abs/1711.04325</a>)</li>
+<li>Stochastic Weight Averaging in Parallel: Large-Batch Training That Generalizes Well (<a href="https://arxiv.org/abs/2001.02312">https://arxiv.org/abs/2001.02312</a>)</li>
+<li>Large Batch Training of Convolutional Networks
+(<a href="https://arxiv.org/abs/1708.03888">https://arxiv.org/abs/1708.03888</a>)</li>
+<li>Accurate, large minibatch sgd: Training imagenet in 1 hour
+(<a href="https://arxiv.org/abs/1706.02677">https://arxiv.org/abs/1706.02677</a>)</li>
 </ul>
-<p><img src="/2021NTUML/Week2/method-5.JPG" alt="Method5">
-但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?不是，這是model bias</p>
-<p><img src="/2021NTUML/Week2/trade-off.JPG" alt="Trade off">
-以上會產生矛盾狀況，當model越複雜，但太複雜時teting的loss會暴增。所以期望能選到中庸的模型</p>
-<p><img src="/2021NTUML/Week2/kaggle.JPG" alt="Kaggle">
-在kaggle上，如果是選擇在public data中loss最低的模型的話，往往在private data中表現會差很多</p>
-<p><img src="/2021NTUML/Week2/cross-validation.JPG" alt="Cross Validation">
-可以將training data拆成Training set與Validation set，透過衡量Validation set的結果，比較不會發生public分數很好，但private分數很差的情況</p>
-<p><img src="/2021NTUML/Week2/n-cross-validation.JPG" alt="N-fold Cross Validation">
-但如果training data分的不好，有分到結果差的資料。因此可以透過N-fold Cross Validation，將資料切成3等分，如上圖例子切成3等分，首先前兩份用來訓練，會後一份用來驗證，接著換順序，總共重複3次。接著假設有3個模型，將這三個模型在3種情況下跑出結果，再將結果取平均，假設model 1結果最好，那就將training data全丟給model 1訓練，最後再將testing data給訓練好的model 1</p>
-<p><img src="/2021NTUML/Week2/general-guide-5.JPG" alt="General Guide 5">
-除了overfitting，還會有一種錯誤形式是mismatch，有些人會說mismatch是一種overfitting，但這是名詞定義問題。一般的overfitting可以透過蒐集更多的資料來克服，但mismatch是指說訓練資料與測試資料分布不同</p>
-<p><img src="/2021NTUML/Week2/mismatch.JPG" alt="Mismatch">
-如在Homework 11，訓練資料與測試資料完全不同，因此增加訓練資料沒有用。所以要解決這種問題，等待homework 11再講。要判斷是否發生Mismatch，要看對資料本身的理解，對訓練資料與測試資料有些理解才能判斷</p>
+<h2 id="momentum">Momentum</h2>
+<p>一個可能可以對抗local minima或saddle point的技術</p>
+<p><img src="/2021NTUML/Week2/momentum.JPG" alt="Momentum">
+如果假設update參數像是把球向低處滾動，如果沒有動量的話，遇到critical point時gradient為0，那球就不再動。但如果有動量介入，球會順著慣性，有可能逃離critical point</p>
+<h3 id="vanilla-gradient-descent">Vanilla Gradient Descent</h3>
+<p><img src="/2021NTUML/Week2/gd.JPG" alt="Vanilla Gradient Descent">
+每次更新參數會加上gradient的反方向</p>
+<h3 id="gradient-descent--momentum">Gradient Descent + Momentum</h3>
+<p><img src="/2021NTUML/Week2/gdm.JPG" alt="Gradient Descent + Momentum">
+加上Momentum後，除了加上gradient的反方向，還會加上前一次更新參數的方向
+$$m^{0} = 0$$
+$$m^{1} = -{\eta}g^{0}$$
+$$m^{2} = -{\lambda}{\eta}g^{0} - {\eta}g^{1}$$
+已此類推，可以發現每次加上的momentum是過去所有gradient的總和</p>
+<p><img src="/2021NTUML/Week2/momentum1.JPG" alt="Gradient Descent + Momentum 1">
+透過上圖可以得知走到local minima時，雖然gradient為0(紅色箭頭)，但仍然有momentum可以逃離。即使到local maxima，gradient會讓球往左側走，但momentum夠大的話，就可以向右走找更低的loss</p>
+<h3 id="concluding-remarks">Concluding Remarks</h3>
+<p><img src="/2021NTUML/Week2/concluding.JPG" alt="Concluding Remarks"></p>
 </div>
             </div>
         </div>
@@ -258,8 +253,9 @@ layui.use('element', function(){
                     
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week2-1/#framework-of-ml">Framework of ML</a></li>
-            <li><a href="/post/ntuml-week2-1/#general-guide">General Guide</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week2-3/#optimization-with-batch">Optimization with Batch</a></li>
+            <li><a href="/post/ntuml-week2-3/#small-batch-vs-large-batch">Small Batch v.s. Large Batch</a></li>
+            <li><a href="/post/ntuml-week2-3/#momentum">Momentum</a></li>
             </div>
                   
                 </div>
@@ -269,6 +265,108 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <h2 class="single-title">- Relevant Topics -</h2>
                 
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-2/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-1/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Guideline of ML: overfit</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">

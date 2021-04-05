@@ -6,7 +6,31 @@
     <description>Recent content in ML on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 05 Apr 2021 00:38:19 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Apr 2021 21:55:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-3/</link>
+      <pubDate>Mon, 05 Apr 2021 21:55:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-3/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Optimization with Batch 每次update參數是將每個Batch出來計算loss與gradient，將每個batch計算過後是一個epoch。每個epoch都會經過shuffle，因此每個epoch中batch的資料都不一樣
+Small Batch v.s. Large Batch Large Batch 須看完每筆資料才更新參數，因此更新時間長，但每次更新很平穩
+Small Batch 每看完一筆資料就更新參數，因此更新時間短，但每次更新會顯得不穩
+但考慮平行運算的話，Large Batch時間不一定比Small Batch長
+由上圖可知batch從1~1000所花時間差不多，但GPU仍有極限，過大的batch size仍會需要花數倍的時間
+如果batch size等於1，那60000筆資料需要update參數60000次。batch size等於1000，那60000筆資料需要update參數60次。兩個每次update的時間差不多，但跑完一個epoch的差距就很大。因此考慮平行運算後，大batch size反而比較有效率
+考慮平行運算後，大batch沒有時間劣勢了，且update參數比較穩定，那大batch比較好嗎?小batch比較差?
+雖然在小batch size下update參數比較不穩，但有noisy的gradient反而能幫助訓練。比較上面兩資料集，小batch size的準確率比較高。那這是什麼問題呢?這是Optimization Issue
+那為何小batch size沒有Optimization Issue呢?如果使用full batch size的話，走到local minima時就會停止更新參數。但如果使用small batch size的話，可能其中一個batch卡住了，但其他batch可能沒有。因此這種noisy的update參數反而對訓練比較有幫助
+訓練上small batch size比較好，那測試呢?透過以上的實驗，將大batch和小batch訓練到差不多好，那比對測試時，發現小batch在測試集上表現比較好。大batch在訓練好，測試差，表示發生了overfitting。那為何會這樣呢?
+假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima
+那有沒有辦法僵固兩者的優點呢?以下的論文有探討
+ Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (https://arxiv.</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 2 - Critical Point: small gradient</title>
       <link>https://Offliners.github.io/post/ntuml-week2-2/</link>
