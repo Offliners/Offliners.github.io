@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
-        <link rel="icon" href="/images/Offliner.png">
+        <link rel="icon" href="/images/dino.png">
     
 
     
@@ -127,11 +127,11 @@ layui.use('element', function(){
 
 
 <div id="erblog-notice" onclick="notice_close();"
-    class="layui-container-fluid layui-bg-red">
+    class="layui-container-fluid layui-bg-green">
     <div class="layui-row self-notice">
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 self-notice-text">
             <span style="margin-left: 20px">
-                Hello! Welcome to Offliner's Blog.
+                The scariest thing when writing a program is that the program has errors but it runs successfully!
                 <i class="layui-icon layui-icon-close" style="vertical-align: -1px;margin-left: 20px"></i>   
             </span>
         </div>
@@ -180,12 +180,29 @@ function notice_close() {
 
         </div>
         <div class="layui-col-xs12 layui-col-sm8 layui-col-md8 about_right">
-            <h1>Biography</h1>
-            <h2>    <p> Hi there, l'm Offliner. </p>
-    <br />
-    <p>Try anything I want to try!</p>
-    <br />
-    <p>The scariest thing when writing a program is that the program has errors but it runs successfully!</p>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <h1></h1>
+            <script src="/core.js"></script>
+            <script>
+                function createTypeWriterText() {
+                    try {
+                        new Typewriter('.about_right h1', {
+                            strings: ["Hi there, l am Offliner","Nice to meet you","どうぞよろしくお願いします","請多多指教~"],
+                            autoStart: true,
+                            loop: true,
+                        });
+                    } catch(e) {
+                        setTimeout(createTypeWriterText, 500);
+                    }
+                }
+    
+                createTypeWriterText();
+            </script>
+            <h2>    <p></p>
+    <p></p>
     </h2>
         </div>
     </div>
