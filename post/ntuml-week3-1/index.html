@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Critical Point: small gradient </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
@@ -11,17 +11,23 @@
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video
 Youtube Video Link (English): Video
-Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
-過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
-說到Gradient為0，有兩種常見的可能:
- Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
-那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
-Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
-Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
-如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
-為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
-  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
-  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima" name="description">
+Training Stuck equals Small Gradient? 在訓練network時，通常會記錄loss，會發現loss越來越小，然後就卡住了不再下降，通常會覺得是遇到critical point，但真的是如此嗎?多數人可能不會確認說此時的gradient真的是否很小。上圖例子可以發現，loss不再下降，但gradient沒有很小。
+假設今天有個error surface，在參數b的變化非常小，參數w非常陡峭。如果learning rate設0.01時，會在山壁上震盪，無法滑進山谷。但learning rate設0.0000001時，雖然進入山谷，但仍然無法到終點，因為learning rate太小，步伐過小使參數要更新過多次也無法踏出多大的距離
+會有這樣的問題在於learning rate是固定的，因此learning rate需要為每個參數客製化
+Different parameters needs different learning rate 大原則 : 在某個方向上，gradient很小非常平坦，會希望有較大的learning rate;gradient很大非常陡峭，會希望有較小的learning rate
+為簡單起見，只用一個參數來講解。
+將原本的learning rate除以一個參數，這個參數是depend on i，為每個參數客製化，接下來看說這個參數有什麼常見的計算方式
+Adagrad 首先是，過去所有gradient的均方根
+這被使用在Adagrad的方法中
+那這會有什麼問題呢?由於每個參數會需要的learning rate可能會隨時間改變，因此會希望同參數同方向，也能有動態調整的learning rate
+RMSProp 透過alpha來調整現在與過去的gradient的重要性，這個alpha也是一個超參數要自行設定。如果alpha設接近0，表示現在的gradient比較重要。反之設接近1，表示過去的gradient比較重要
+透過此機制，可以視gradient來動態調整learning rate
+Adam 最常使用的，Adam是RMSProp結合Momentum
+Training with Adagrad 之前沒有使用Adagrad來訓練，update參數10萬次只左一小步。但有了Adagrad來訓練，update參數10萬次較到達接近終點的地方，因為在平緩的地方會自動條大learning rate。那為什麼在終點時爆炸了呢?由於Adagrad是累積過去的gradient，因此在縱軸上每次累積很小的gradient，到一定程度時爆走，但沒關係，當衝出去時到大的gradient，會使sigma變大那update參數的步伐又會變小又回到峽谷，那如何解決這問題呢?
+隨著時間的增加，距離終點也越近，讓learning rate越來越小，使參數更新能慢下來，因此能解決剛剛的狀況
+除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。
+warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(https://arxiv.org/abs/1908.03265)這篇論文
+Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -138,10 +144,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Critical Point: small gradient</h1>
+                    <h1>NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-05</span>
+    <span>2021-04-06</span>
 
     
      
@@ -184,59 +190,52 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week2/cover2.JPG" alt="cover1"></p>
+                    <p><img src="/2021NTUML/Week3/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=QW6uINn7uGk">Video</a></p>
-<p>Youtube Video Link (English): <a href="https://youtu.be/yz7QS1I6omw">Video</a></p>
-<h2 id="why-optimization-fails">Why Optimization fails?</h2>
-<p><img src="/2021NTUML/Week2/fails.JPG" alt="Fail">
-有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?</p>
-<p>過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。</p>
-<p>說到Gradient為0，有兩種常見的可能:</p>
-<ol>
-<li>Local Minima 區域最小值</li>
-<li>Saddle Point 鞍點</li>
-<li>Local Maxima 區域最大值</li>
-</ol>
-<p>這些會使Gradient為0的點統稱<code>Critical point</code>，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷</p>
-<p>那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima</p>
-<h2 id="math-method">Math Method</h2>
-<p>要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌</p>
-<h3 id="tayler-series-approximation">Tayler Series Approximation</h3>
-<p><img src="/2021NTUML/Week2/tayler1.JPG" alt="Tayler Series Approximation 1">
-透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合</p>
-<p><img src="/2021NTUML/Week2/tayler2.JPG" alt="Tayler Series Approximation 2">
-如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point</p>
-<p><img src="/2021NTUML/Week2/hessian.JPG" alt="Hessian">
-為方便表示，將
-$$ v = (\theta - \theta^{'})$$</p>
-<ol>
-<li>
-<p>紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是<code>local minima</code></p>
-</li>
-<li>
-<p>紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是<code>local maxima</code></p>
-</li>
-<li>
-<p>紅色項帶任何值有時大於0有時小於0，表示這組參數在附近有時高有時低，因此是<code>saddle point</code></p>
-</li>
-</ol>
-<p>但不可能帶入任何v值去確認，因此透過線性代數中，判斷H是正定矩陣、負定矩陣還是都不是，透過H矩陣的特徵值即可判斷</p>
-<h3 id="example">Example</h3>
-<p><img src="/2021NTUML/Week2/example1.JPG" alt="Example 1">
-透過窮舉法，將所以loss function值求出來可以得到上圖的error surface，得知(0, 0)為saddle point</p>
-<p><img src="/2021NTUML/Week2/example2.JPG" alt="Example 2">
-透過求H的特徵值發現有正與有負，因此(0, 0)確實為saddle point</p>
-<h2 id="how-to-update-weight-at-saddle-point">How to update weight at saddle point?</h2>
-<p><img src="/2021NTUML/Week2/update1.JPG" alt="Update 1">
-因此只要沿著特徵向量的方向，就可以讓loss變得更低</p>
-<p><img src="/2021NTUML/Week2/update2.JPG" alt="Update 2">
-由上圖可知沿著(1, 1)方向可以找到比saddle point的loss更低的地方。實際上不會使用這方法來逃離saddle point，因為二次微分運算量大，更不用說求出特徵值與特徵向量</p>
-<h2 id="saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</h2>
-<p><img src="/2021NTUML/Week2/vs1.JPG" alt="Saddle Point v.s. Local Minima 1">
-用一維來看，感覺處處都是local minima，但在二維空間來看是saddle point。由於現在模型參數動輒千百萬，維度非常高，那會不會現在看到的local minima在更高維度上來看其實是saddle point，那維度越高是不是可以走的路越多?</p>
-<p><img src="/2021NTUML/Week2/vs2.JPG" alt="Saddle Point v.s. Local Minima 2">
-透過實驗也支持此假說，上圖每個藍點是模型訓練完的結果，可以發現沒有任何一個結果真的卡在local minima(minimum ratio = 1或接近1)，因此local minima沒那常見，多數是卡在saddle point</p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=HYUXEeh3kwY">Video</a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=8yf-tU7zm7w">Video</a></p>
+<h2 id="training-stuck-equals-small-gradient">Training Stuck equals Small Gradient?</h2>
+<p><img src="/2021NTUML/Week3/error-surface.JPG" alt="Training Stuck equals Small Gradient?">
+在訓練network時，通常會記錄loss，會發現loss越來越小，然後就卡住了不再下降，通常會覺得是遇到critical point，但真的是如此嗎?多數人可能不會確認說此時的gradient真的是否很小。上圖例子可以發現，loss不再下降，但gradient沒有很小。</p>
+<p><img src="/2021NTUML/Week3/error-surface-1.JPG" alt="Training Stuck equals Small Gradient? -1">
+假設今天有個error surface，在參數b的變化非常小，參數w非常陡峭。如果learning rate設0.01時，會在山壁上震盪，無法滑進山谷。但learning rate設0.0000001時，雖然進入山谷，但仍然無法到終點，因為learning rate太小，步伐過小使參數要更新過多次也無法踏出多大的距離</p>
+<p>會有這樣的問題在於learning rate是固定的，因此learning rate需要為每個參數客製化</p>
+<h2 id="different-parameters-needs-different-learning-rate">Different parameters needs different learning rate</h2>
+<p><img src="/2021NTUML/Week3/lr-1.JPG" alt="learning rate">
+大原則 : 在某個方向上，gradient很小非常平坦，會希望有較大的learning rate;gradient很大非常陡峭，會希望有較小的learning rate</p>
+<p>為簡單起見，只用一個參數來講解。</p>
+<p>將原本的learning rate除以一個參數，這個參數是depend on i，為每個參數客製化，接下來看說這個參數有什麼常見的計算方式</p>
+<h3 id="adagrad">Adagrad</h3>
+<p><img src="/2021NTUML/Week3/lr-2.JPG" alt="learning rate 2">
+首先是，過去所有gradient的均方根</p>
+<p><img src="/2021NTUML/Week3/lr-3.JPG" alt="learning rate 3">
+這被使用在<code>Adagrad</code>的方法中</p>
+<p><img src="/2021NTUML/Week3/lr-4.JPG" alt="learning rate 4">
+那這會有什麼問題呢?由於每個參數會需要的learning rate可能會隨時間改變，因此會希望同參數同方向，也能有動態調整的learning rate</p>
+<h3 id="rmsprop">RMSProp</h3>
+<p><img src="/2021NTUML/Week3/lr-5.JPG" alt="learning rate 5">
+透過alpha來調整現在與過去的gradient的重要性，這個alpha也是一個超參數要自行設定。如果alpha設接近0，表示現在的gradient比較重要。反之設接近1，表示過去的gradient比較重要</p>
+<p><img src="/2021NTUML/Week3/lr-6.JPG" alt="learning rate 6">
+透過此機制，可以視gradient來動態調整learning rate</p>
+<h3 id="adam">Adam</h3>
+<p><img src="/2021NTUML/Week3/lr-7.JPG" alt="learning rate 7">
+最常使用的，Adam是RMSProp結合Momentum</p>
+<h2 id="training-with-adagrad">Training with Adagrad</h2>
+<p><img src="/2021NTUML/Week3/tr-lr.JPG" alt="Training with Adagrad">
+之前沒有使用Adagrad來訓練，update參數10萬次只左一小步。但有了Adagrad來訓練，update參數10萬次較到達接近終點的地方，因為在平緩的地方會自動條大learning rate。那為什麼在終點時爆炸了呢?由於Adagrad是累積過去的gradient，因此在縱軸上每次累積很小的gradient，到一定程度時爆走，但沒關係，當衝出去時到大的gradient，會使sigma變大那update參數的步伐又會變小又回到峽谷，那如何解決這問題呢?</p>
+<p><img src="/2021NTUML/Week3/lr-8.JPG" alt="Learning Rate Scheduling">
+隨著時間的增加，距離終點也越近，讓learning rate越來越小，使參數更新能慢下來，因此能解決剛剛的狀況</p>
+<p><img src="/2021NTUML/Week3/warm-up.JPG" alt="Learning Rate Scheduling">
+除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。</p>
+<p><img src="/2021NTUML/Week3/paper.JPG" alt="Paper">
+warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(<a href="https://arxiv.org/abs/1908.03265">https://arxiv.org/abs/1908.03265</a>)這篇論文</p>
+<h2 id="summary-of-optimization">Summary of Optimization</h2>
+<p><img src="/2021NTUML/Week3/summary.JPG" alt="Summary of Optimization">
+有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?但momentum有考慮gradient的方向，但sigma是取平方相加，因此只考慮gradient的大小。因此不會互相抵銷</p>
+<h2 id="to-learn-more">To Learn More</h2>
+<ul>
+<li>Optimization for Deep Learning(Chinese) <a href="https://youtu.be/4pUmZ8hXlHM">Video 1</a> <a href="https://youtu.be/e03YKGHXnL8">Video 2</a></li>
+</ul>
 </div>
             </div>
         </div>
@@ -249,10 +248,11 @@ $$ v = (\theta - \theta^{'})$$</p>
                     
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week2-2/#why-optimization-fails">Why Optimization fails?</a></li>
-            <li><a href="/post/ntuml-week2-2/#math-method">Math Method</a></li>
-            <li><a href="/post/ntuml-week2-2/#how-to-update-weight-at-saddle-point">How to update weight at saddle point?</a></li>
-            <li><a href="/post/ntuml-week2-2/#saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week3-1/#training-stuck-equals-small-gradient">Training Stuck equals Small Gradient?</a></li>
+            <li><a href="/post/ntuml-week3-1/#different-parameters-needs-different-learning-rate">Different parameters needs different learning rate</a></li>
+            <li><a href="/post/ntuml-week3-1/#training-with-adagrad">Training with Adagrad</a></li>
+            <li><a href="/post/ntuml-week3-1/#summary-of-optimization">Summary of Optimization</a></li>
+            <li><a href="/post/ntuml-week3-1/#to-learn-more">To Learn More</a></li>
             </div>
                   
                 </div>
@@ -262,6 +262,108 @@ $$ v = (\theta - \theta^{'})$$</p>
             <div class="layui-card single-card">
                 <h2 class="single-title">- Relevant Topics -</h2>
                 
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-3/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-2/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">

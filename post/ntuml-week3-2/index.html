@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Critical Point: small gradient </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 3 - Loss Function: Classification </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
@@ -11,17 +11,14 @@
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video
 Youtube Video Link (English): Video
-Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
-過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
-說到Gradient為0，有兩種常見的可能:
- Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
-那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
-Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
-Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
-如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
-為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
-  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
-  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima" name="description">
+Classification as Regression? 如果把Classification當成Regression來看，將每個class用編號來記錄，那意味著class 1跟class 2比較像，class 1跟class 3比較不像，因此這方法會有點瑕疵
+透過使用one hot vector，就不會有上述問題，因為把one hot vector算距離，class之間兩兩距離都是相同的。那現在目標需要三個數值，但以前regression的output都是一個數值，那要怎麼做呢?
+那只需要將原本output一個數值的方法重複三次，乘上3個不同的weight加上bias得到三個數值，得到的這個向量期望與目標向量越接近越好
+在做Classification時，往往會加上輸出向量再通過softmax得到另一個向量再去跟label做比較。簡單來說，因為label是0或1的值，因此通過softmax能將任何值移到0~1之間，方便來做跟label的比較
+Softmax 透過上次可得知，每個y值介於0~1之間，且總和為1。這裡討論三個class的情形，那如果只有兩個class呢?也可以使用softmax，但常聽到的是sigmoid，其實兩者是等價的
+Loss of Classification 以前計算預測值與實際值的距離可能常用MSE，但在分類問題更常用cross-entrory。使用pytorch時，cross-entrory與softmax是綁在一起的，使用cross-entrory時，pytorch會自動將softmax加到最後一層
+ Mathematical proof : Video  比較兩者的error surface，如果y1大y2小時loss小，y1小y2大時loss大，因此期望參數能走到右下角loss小的地方。假設一開始在左上角，由於在cross-entrory下左上角仍有斜率，因此能往右下走。但在MSE下，左上角非常平坦，gradient小，使用梯度下降法會卡住，有很大機率會訓練不起來，但使用Adam會調大learning rate，還是有機會走到右下角，只是訓練還是困難的。總結來說，改變loss function能改變訓練的難易度
+To Learn More  Classification : Video Logistic Regression : Video  " name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -138,10 +135,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Critical Point: small gradient</h1>
+                    <h1>NTU - 機器學習 Week 3 - Loss Function: Classification</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-05</span>
+    <span>2021-04-06</span>
 
     
      
@@ -184,59 +181,35 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week2/cover2.JPG" alt="cover1"></p>
+                    <p><img src="/2021NTUML/Week3/cover-1.JPG" alt="cover 1"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=QW6uINn7uGk">Video</a></p>
-<p>Youtube Video Link (English): <a href="https://youtu.be/yz7QS1I6omw">Video</a></p>
-<h2 id="why-optimization-fails">Why Optimization fails?</h2>
-<p><img src="/2021NTUML/Week2/fails.JPG" alt="Fail">
-有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?</p>
-<p>過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。</p>
-<p>說到Gradient為0，有兩種常見的可能:</p>
-<ol>
-<li>Local Minima 區域最小值</li>
-<li>Saddle Point 鞍點</li>
-<li>Local Maxima 區域最大值</li>
-</ol>
-<p>這些會使Gradient為0的點統稱<code>Critical point</code>，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷</p>
-<p>那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima</p>
-<h2 id="math-method">Math Method</h2>
-<p>要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌</p>
-<h3 id="tayler-series-approximation">Tayler Series Approximation</h3>
-<p><img src="/2021NTUML/Week2/tayler1.JPG" alt="Tayler Series Approximation 1">
-透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合</p>
-<p><img src="/2021NTUML/Week2/tayler2.JPG" alt="Tayler Series Approximation 2">
-如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point</p>
-<p><img src="/2021NTUML/Week2/hessian.JPG" alt="Hessian">
-為方便表示，將
-$$ v = (\theta - \theta^{'})$$</p>
-<ol>
-<li>
-<p>紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是<code>local minima</code></p>
-</li>
-<li>
-<p>紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是<code>local maxima</code></p>
-</li>
-<li>
-<p>紅色項帶任何值有時大於0有時小於0，表示這組參數在附近有時高有時低，因此是<code>saddle point</code></p>
-</li>
-</ol>
-<p>但不可能帶入任何v值去確認，因此透過線性代數中，判斷H是正定矩陣、負定矩陣還是都不是，透過H矩陣的特徵值即可判斷</p>
-<h3 id="example">Example</h3>
-<p><img src="/2021NTUML/Week2/example1.JPG" alt="Example 1">
-透過窮舉法，將所以loss function值求出來可以得到上圖的error surface，得知(0, 0)為saddle point</p>
-<p><img src="/2021NTUML/Week2/example2.JPG" alt="Example 2">
-透過求H的特徵值發現有正與有負，因此(0, 0)確實為saddle point</p>
-<h2 id="how-to-update-weight-at-saddle-point">How to update weight at saddle point?</h2>
-<p><img src="/2021NTUML/Week2/update1.JPG" alt="Update 1">
-因此只要沿著特徵向量的方向，就可以讓loss變得更低</p>
-<p><img src="/2021NTUML/Week2/update2.JPG" alt="Update 2">
-由上圖可知沿著(1, 1)方向可以找到比saddle point的loss更低的地方。實際上不會使用這方法來逃離saddle point，因為二次微分運算量大，更不用說求出特徵值與特徵向量</p>
-<h2 id="saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</h2>
-<p><img src="/2021NTUML/Week2/vs1.JPG" alt="Saddle Point v.s. Local Minima 1">
-用一維來看，感覺處處都是local minima，但在二維空間來看是saddle point。由於現在模型參數動輒千百萬，維度非常高，那會不會現在看到的local minima在更高維度上來看其實是saddle point，那維度越高是不是可以走的路越多?</p>
-<p><img src="/2021NTUML/Week2/vs2.JPG" alt="Saddle Point v.s. Local Minima 2">
-透過實驗也支持此假說，上圖每個藍點是模型訓練完的結果，可以發現沒有任何一個結果真的卡在local minima(minimum ratio = 1或接近1)，因此local minima沒那常見，多數是卡在saddle point</p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=O2VkP8dJ5FE">Video</a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=jqVONJ-Wn8w">Video</a></p>
+<h2 id="classification-as-regression">Classification as Regression?</h2>
+<p><img src="/2021NTUML/Week3/as.JPG" alt="Classification as Regression?">
+如果把Classification當成Regression來看，將每個class用編號來記錄，那意味著class 1跟class 2比較像，class 1跟class 3比較不像，因此這方法會有點瑕疵</p>
+<p><img src="/2021NTUML/Week3/onehot.JPG" alt="One hot vector">
+透過使用<code>one hot vector</code>，就不會有上述問題，因為把one hot vector算距離，class之間兩兩距離都是相同的。那現在目標需要三個數值，但以前regression的output都是一個數值，那要怎麼做呢?</p>
+<p><img src="/2021NTUML/Week3/output.JPG" alt="Network output">
+那只需要將原本output一個數值的方法重複三次，乘上3個不同的weight加上bias得到三個數值，得到的這個向量期望與目標向量越接近越好</p>
+<p><img src="/2021NTUML/Week3/vs.JPG" alt="VS">
+在做Classification時，往往會加上輸出向量再通過<code>softmax</code>得到另一個向量再去跟label做比較。簡單來說，因為label是0或1的值，因此通過softmax能將任何值移到0~1之間，方便來做跟label的比較</p>
+<h2 id="softmax">Softmax</h2>
+<p><img src="/2021NTUML/Week3/softmax.JPG" alt="Softmax">
+透過上次可得知，每個y值介於0~1之間，且總和為1。這裡討論三個class的情形，那如果只有兩個class呢?也可以使用softmax，但常聽到的是sigmoid，其實兩者是等價的</p>
+<h2 id="loss-of-classification">Loss of Classification</h2>
+<p><img src="/2021NTUML/Week3/loss.JPG" alt="Loss of Classification">
+以前計算預測值與實際值的距離可能常用MSE，但在分類問題更常用<code>cross-entrory</code>。使用pytorch時，cross-entrory與softmax是綁在一起的，使用cross-entrory時，pytorch會自動將softmax加到最後一層</p>
+<p><img src="/2021NTUML/Week3/loss1.JPG" alt="Loss of Classification"></p>
+<ul>
+<li>Mathematical proof : <a href="https://www.youtube.com/watch?v=fZAZUYEeIMg">Video</a></li>
+</ul>
+<p>比較兩者的error surface，如果y1大y2小時loss小，y1小y2大時loss大，因此期望參數能走到右下角loss小的地方。假設一開始在左上角，由於在cross-entrory下左上角仍有斜率，因此能往右下走。但在MSE下，左上角非常平坦，gradient小，使用梯度下降法會卡住，有很大機率會訓練不起來，但使用Adam會調大learning rate，還是有機會走到右下角，只是訓練還是困難的。總結來說，改變loss function能改變訓練的難易度</p>
+<h2 id="to-learn-more">To Learn More</h2>
+<ul>
+<li>Classification : <a href="https://youtu.be/fZAZUYEeIMg">Video</a></li>
+<li>Logistic Regression : <a href="https://youtu.be/hSXFuypLukA">Video</a></li>
+</ul>
 </div>
             </div>
         </div>
@@ -249,10 +222,10 @@ $$ v = (\theta - \theta^{'})$$</p>
                     
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week2-2/#why-optimization-fails">Why Optimization fails?</a></li>
-            <li><a href="/post/ntuml-week2-2/#math-method">Math Method</a></li>
-            <li><a href="/post/ntuml-week2-2/#how-to-update-weight-at-saddle-point">How to update weight at saddle point?</a></li>
-            <li><a href="/post/ntuml-week2-2/#saddle-point-vs-local-minima">Saddle Point v.s. Local Minima</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week3-2/#classification-as-regression">Classification as Regression?</a></li>
+            <li><a href="/post/ntuml-week3-2/#softmax">Softmax</a></li>
+            <li><a href="/post/ntuml-week3-2/#loss-of-classification">Loss of Classification</a></li>
+            <li><a href="/post/ntuml-week3-2/#to-learn-more">To Learn More</a></li>
             </div>
                   
                 </div>
@@ -262,6 +235,159 @@ $$ v = (\theta - \theta^{'})$$</p>
             <div class="layui-card single-card">
                 <h2 class="single-title">- Relevant Topics -</h2>
                 
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week3-1/">
+                                <h3 class="">NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-06</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-3/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week2-2/">
+                                <h3 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">

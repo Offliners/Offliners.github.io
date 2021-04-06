@@ -6,7 +6,54 @@
     <description>Recent content in Hung Yi - Lee on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 05 Apr 2021 21:55:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Apr 2021 15:46:03 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 3 - Loss Function: Classification</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-2/</link>
+      <pubDate>Tue, 06 Apr 2021 15:46:03 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Classification as Regression? 如果把Classification當成Regression來看，將每個class用編號來記錄，那意味著class 1跟class 2比較像，class 1跟class 3比較不像，因此這方法會有點瑕疵
+透過使用one hot vector，就不會有上述問題，因為把one hot vector算距離，class之間兩兩距離都是相同的。那現在目標需要三個數值，但以前regression的output都是一個數值，那要怎麼做呢?
+那只需要將原本output一個數值的方法重複三次，乘上3個不同的weight加上bias得到三個數值，得到的這個向量期望與目標向量越接近越好
+在做Classification時，往往會加上輸出向量再通過softmax得到另一個向量再去跟label做比較。簡單來說，因為label是0或1的值，因此通過softmax能將任何值移到0~1之間，方便來做跟label的比較
+Softmax 透過上次可得知，每個y值介於0~1之間，且總和為1。這裡討論三個class的情形，那如果只有兩個class呢?也可以使用softmax，但常聽到的是sigmoid，其實兩者是等價的
+Loss of Classification 以前計算預測值與實際值的距離可能常用MSE，但在分類問題更常用cross-entrory。使用pytorch時，cross-entrory與softmax是綁在一起的，使用cross-entrory時，pytorch會自動將softmax加到最後一層
+ Mathematical proof : Video  比較兩者的error surface，如果y1大y2小時loss小，y1小y2大時loss大，因此期望參數能走到右下角loss小的地方。假設一開始在左上角，由於在cross-entrory下左上角仍有斜率，因此能往右下走。但在MSE下，左上角非常平坦，gradient小，使用梯度下降法會卡住，有很大機率會訓練不起來，但使用Adam會調大learning rate，還是有機會走到右下角，只是訓練還是困難的。總結來說，改變loss function能改變訓練的難易度
+To Learn More  Classification : Video Logistic Regression : Video  </description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-1/</link>
+      <pubDate>Tue, 06 Apr 2021 14:24:24 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Training Stuck equals Small Gradient? 在訓練network時，通常會記錄loss，會發現loss越來越小，然後就卡住了不再下降，通常會覺得是遇到critical point，但真的是如此嗎?多數人可能不會確認說此時的gradient真的是否很小。上圖例子可以發現，loss不再下降，但gradient沒有很小。
+假設今天有個error surface，在參數b的變化非常小，參數w非常陡峭。如果learning rate設0.01時，會在山壁上震盪，無法滑進山谷。但learning rate設0.0000001時，雖然進入山谷，但仍然無法到終點，因為learning rate太小，步伐過小使參數要更新過多次也無法踏出多大的距離
+會有這樣的問題在於learning rate是固定的，因此learning rate需要為每個參數客製化
+Different parameters needs different learning rate 大原則 : 在某個方向上，gradient很小非常平坦，會希望有較大的learning rate;gradient很大非常陡峭，會希望有較小的learning rate
+為簡單起見，只用一個參數來講解。
+將原本的learning rate除以一個參數，這個參數是depend on i，為每個參數客製化，接下來看說這個參數有什麼常見的計算方式
+Adagrad 首先是，過去所有gradient的均方根
+這被使用在Adagrad的方法中
+那這會有什麼問題呢?由於每個參數會需要的learning rate可能會隨時間改變，因此會希望同參數同方向，也能有動態調整的learning rate
+RMSProp 透過alpha來調整現在與過去的gradient的重要性，這個alpha也是一個超參數要自行設定。如果alpha設接近0，表示現在的gradient比較重要。反之設接近1，表示過去的gradient比較重要
+透過此機制，可以視gradient來動態調整learning rate
+Adam 最常使用的，Adam是RMSProp結合Momentum
+Training with Adagrad 之前沒有使用Adagrad來訓練，update參數10萬次只左一小步。但有了Adagrad來訓練，update參數10萬次較到達接近終點的地方，因為在平緩的地方會自動條大learning rate。那為什麼在終點時爆炸了呢?由於Adagrad是累積過去的gradient，因此在縱軸上每次累積很小的gradient，到一定程度時爆走，但沒關係，當衝出去時到大的gradient，會使sigma變大那update參數的步伐又會變小又回到峽谷，那如何解決這問題呢?
+隨著時間的增加，距離終點也越近，讓learning rate越來越小，使參數更新能慢下來，因此能解決剛剛的狀況
+除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。
+warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(https://arxiv.org/abs/1908.03265)這篇論文
+Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</title>
       <link>https://Offliners.github.io/post/ntuml-week2-3/</link>
