@@ -13,7 +13,7 @@
       <pubDate>Tue, 06 Apr 2021 00:46:46 +0800</pubDate>
       
       <guid>https://Offliners.github.io/post/orbslam2-code-analysis/</guid>
-      <description>ORB-SLAM: a Versatile and Accurate Monocular SLAM System (https://arxiv.org/abs/1610.06475) ORBSLAM2 code : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows code: https://github.com/phdsky/ORBSLAM24Windows  System Overview  Tracking.cc LocalMapping.cc LoopClosing.cc Viewer.cc  變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    System 輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Tracking 線程 coming soon</description>
+      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 code : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows code: https://github.com/phdsky/ORBSLAM24Windows  System Overview  Tracking.cc LocalMapping.cc LoopClosing.cc Viewer.cc  變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    System 輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Tracking 線程 coming soon</description>
     </item>
     
   </channel>

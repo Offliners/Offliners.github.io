@@ -6,7 +6,32 @@
     <description>Recent content in Deep Learning on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 06 Apr 2021 15:46:03 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Apr 2021 21:12:19 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 3 - CNN</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-3/</link>
+      <pubDate>Thu, 08 Apr 2021 21:12:19 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-3/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Image Classification 通常會假設輸入圖片大小是固定的，如果圖片大小不一樣，會先Rescale。
+Neuron Version Story about Convolutional Layer 通常一張彩色圖片會是3維張量，分別為圖片的長、寬與Channel，這三個Channel為圖片的RGB。接著會把tensor給拉直，變成一維向量，那要如何拉直呢?將每個channel的數值排一排，就可以當成network的輸入，這個向量的每個數值，代表該顏色的強度。
+將這個向量輸入到fully-connected network，如果輸入有100 * 100 * 3個feature，經過第一層假設有1000個神經元，那這一層會有30000000個weight。那這麼多參數會有什麼問題?雖然參數增加可以增加模型的彈性與能力，但也增加了訓練overfit的機率。考慮到影像的自身特性，其實不需要每個feature都有一個weight。那影像有什麼特性呢?
+Observation 1 對於影像辨識而言，希望神經元內能辨識的是圖片部分的pattern。比如圖片出現鳥嘴、鳥眼與鳥腳，因此能辨識出這是隻鳥
+因此神經元不需要逐一對應到每一個特徵，神經元只需要對應到小區域的特徵群就好
+在CNN中，會定義一個區域叫Receptive field，這範圍內的特徵會被拉直輸入到一個神經元中，因此神經元只需要輸入3 * 3 * 3個特徵，相較之前的100 * 100 * 3少了許多
+那要怎麼決定Receptive field呢?這要自行決定。且Receptive field可以彼此重疊，甚至多個神經元去守備相同的Receptive field。
+那Receptive field可以有不同大小嗎? 可以
+那Receptive field可以有只考慮一個channel嗎? 可以
+那Receptive field可以用長方形嗎? 可以
+雖然Receptive field可以自行設定，那這邊要介紹經典的安排方式
+會涵蓋所有的channel，因為深度會全涵蓋，所以只需要講高和寬，這個高和寬是kernel size，通常不會太大，常見的是(3, 3)
+Receptive field會由一組多個神經元去守備，不會只有一個
+Receptive field會移動到新的Receptive field，移動的長度是stride，通常不會太大(通常設1或2)，這樣才能重疊。假設Receptive field完全沒有重疊的話，如果有個pattern出現在兩個Receptive field的重疊處時，就會沒有神經元去偵測，就會遺失這個pattern。因此會希望Receptive field高度重疊</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 3 - Loss Function: Classification</title>
       <link>https://Offliners.github.io/post/ntuml-week3-2/</link>
