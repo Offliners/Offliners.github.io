@@ -6,7 +6,26 @@
     <description>Recent content in ML on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 08 Apr 2021 21:12:19 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Apr 2021 23:06:41 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/ml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 5 - Self-Attention</title>
+      <link>https://Offliners.github.io/post/ntuml-week5-1/</link>
+      <pubDate>Sat, 10 Apr 2021 23:06:41 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week5-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Vedio 2
+Youtube Video Link (English): Video 1 Vedio 2
+Sophisticated Input 以往的輸入(預測Youtube觀看人數、影像處理等)都可以看成是一個向量，那如果輸入變成一排向量呢? 或者輸入許多大小不一的向量呢?
+那有什麼輸入是Sequence且長度會改變的呢?如文字處理，輸入是多個句子，且句子長度不同。那要怎麼把詞彙變成像量呢?最簡單的做法是one-hot encoding，假如有個很長的向量，向量長度為世界上存在詞彙的數目，當出現某個詞彙，那該詞彙所在的index就會為1。除了需要非常長的向量之外會存在一個嚴重的問題，那就是詞彙之間沒有關係，即使詞彙都是動物的種類，但彼此沒有關係，因為這種表示法沒有語意的資訊。因此有word emdeding，想得知更多可觀看以下連結的影片
+ To Learn More : Unsupervised Learning - Word Embedding Video  還有聲音訊號也可當成長度不一的向量組，可以把聲音訊號取一個範圍，將這裡面的資訊描述成向量，也就是一個Frame，將一段訊號描述成向量有多種作法。為了描述整個整個向量會移動這個範圍，再將這裡面描述成新的向量，因此就能組成向量組
+還有Graph也能看成是向量組，每個節點可以描述成向量，這些向量也能組成向量組來描述Graph
+既然Graph能描述成向量組，那分子也可以，每個分子當成一個Graph，而每種元素能用one-hot encoding來描述成向量
+What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與輸出的向量可以對應到一個Label，如果Label對應到數值，那就是Regression問題;如果對應到class，那就是Classification問題，這種形式輸入輸出的長度是相同的。有以下應用:
+ POS Tagging 詞性標註 語音處理 Social Network Porblem  那還有輸入向量組，輸出只是一個Label。有以下應用:
+ Sentiment Analysis 情緒分析 語者辨認 分子分析  最後一種可能的輸出是不知道要輸出多少Label，機器要自己決定，這種任務叫做Sequence to Sequence</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 3 - CNN</title>
       <link>https://Offliners.github.io/post/ntuml-week3-3/</link>
