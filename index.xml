@@ -6,7 +6,16 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 08 Apr 2021 21:12:19 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Apr 2021 14:55:15 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU 機器學習</title>
+      <link>https://Offliners.github.io/zone/ntuml-list/</link>
+      <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link    </description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 3 - CNN</title>
       <link>https://Offliners.github.io/post/ntuml-week3-3/</link>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zones on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/zone/</link>
+    <description>Recent content in Zones on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 10 Apr 2021 14:55:15 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/zone/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU 機器學習</title>
+      <link>https://Offliners.github.io/zone/ntuml-list/</link>
+      <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link    </description>
+    </item>
+    
+  </channel>
+</rss>
