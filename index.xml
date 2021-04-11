@@ -6,7 +6,31 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 10 Apr 2021 23:06:41 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Apr 2021 15:34:25 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 5 - Normalization</title>
+      <link>https://Offliners.github.io/post/ntuml-week5-2/</link>
+      <pubDate>Sun, 11 Apr 2021 15:34:25 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week5-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Changing Landscape 如果有個簡易的模型，x1輸入值小，因此當w1改變時，loss也會有微小的改變，但x2因為輸入大，所以對loss的改變也會很大，這使error surface變成橢圓形。因為兩參數對loss斜率差很大，導致error surface相當難訓練，因此要使用Batch Normalization來使error surface變比較好訓練
+Feature Normalization 透過這種Normalization，最後得到平均為0，且變異數是1，因此數值分布會在0左右，所以做出比較好得error surface，做梯度下降時，能收斂得快一些
+將Normalization後得數值丟入network做計算，進一步思考會發現只有W1輸入的值有Normalize，但W2沒有，那如果z得數值差異大那對W2的訓練會不會變困難?因此輸入W2的值也應該要做Normalize
+Q : 那要在activation function前做Normalize還是之後做?
+A : 實作上其實差異不大，如果activation function是使用sigmoid的話建議在之前做
+假設現在對z做Normalize
+由於z、mean與std都是向量，因此這裡的除法是對向量中的每個對應的元素計算。由於mean與std是經過z1、z2與z3計算得到的，沒做Feature Normalization時，各個是獨立計算的，z1只影響a1，但當Feature Normalization後，z1改變時，會對影響到a2與a3。因此現在的network不是分別處理，而是一次處理多個輸入。由於GPU記憶體有限，因此network不會一次考慮整個訓練資料，而是考慮一個batch，這就是Batch Normalization，但這適用於batch size較大的情況，這樣計算batch的mean與std比較能得到資料的分布
+有時Batch Normalization還加入兩個未知參數來做訓練，這兩參數需要透過模型另外再學習出來，那為何需要加入這兩未知參數呢?由於做完Batch Normalization時，平均值為0對network多了限制，因此透過這兩參數來調整
+有Batch Normalization後要怎麼測試呢?一般會想說一次測試一組batch的資料，但實際上不會等訓練出一組batch再測試，如pytorch會使用moving average來將訓練的mean與std進行處理，測試時就不用再計算batch的mean與std，而是使用moving average後的數值來測試
+上圖是Batch Normalization論文中的圖表，可以發現有做Batch Normalization的模型可以使用較短的時間達到終點
+原始Batch Normalization提出Internal Covariate Shift來解釋為何Batch Normalization能優化，簡單來說是更新參數時，更新後的參數是對更新前的參數比較好不是對更新後的，因此做Batch Normalization能先使原始參數的分布較接近更新後的，使更新參數的方向往適合更新後參數的方向走，但仍然有其他論文做實驗來解釋其他理由
+上圖所描述文章講解透過實驗與理論來證實Batch Normalization能改變error surface，使error surface變得比較不崎嶇。要改變error surface其實還有其他方法，試其他方法改變error surface後發現與Batch Normalization的表現差不多，因此感嘆說Batch Normalization是偶然發現的，但是是一種有用的方法
+To Learn More  Batch Renormalization : Link Layer Normalization : Link Instance Normalization : Link Group Normalization : Link Weight Normalization : Link Spectrum Normalization : Link  </description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 5 - Self-Attention</title>
       <link>https://Offliners.github.io/post/ntuml-week5-1/</link>
@@ -32,7 +56,7 @@ What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與�
       <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
-      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning    Self-Attention Link    </description>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning    Self-Attention Link   Normalization Link    </description>
     </item>
     
     <item>
