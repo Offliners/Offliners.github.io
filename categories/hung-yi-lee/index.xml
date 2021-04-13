@@ -6,7 +6,26 @@
     <description>Recent content in Hung Yi - Lee on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 11 Apr 2021 15:34:25 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Apr 2021 20:43:16 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 7 - Transformer</title>
+      <link>https://Offliners.github.io/post/ntuml-week7-1/</link>
+      <pubDate>Tue, 13 Apr 2021 20:43:16 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week7-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 [Video 2]
+Applications of Sequence-to-sequence (Seq2seq) 當模型輸入是sequence時，輸出可以是與輸入相同長度的sequence，也可能是未知長度的sequence，由機器去決定。輸出是未知長度sequence的例子如
+ 語音辨識 Speech Recognition 機器翻譯 Machine Translation 語音翻譯 Speech Translation  這時可能有人問為何要做語音翻譯?直接語音辨識再機器翻譯不就好了?因為世界上有眾多語言，有些語言甚至連文字都沒有，沒有文字的語言難以做語音辨識
+若想了解台語語音辨識可點以下連結: To learn more : Link
+輸入聲音，輸出辨識後的文字是語音辨識 Speech Recognition。反過來，輸入文字，輸出聲音訊號，就是語音合成 Text-to-Speech Synthesis
+Seq2seq for Chatbot 文字方面，也可透過使用Seq2seq的模型來訓練，例如可以訓練聊天機器人，輸入輸出都是文字，訓練資料是一堆對話的內容
+Most Natural Language Processing applications 很多NLP的問題可以看成是QA的問題，多數QA的問題又可以透過Seq2seq解決。輸入問題與文章，輸出就是問題的答案
+想了解更多NLP的處理，可參考以下連結 To learn more :
+ The Natural Language Decathlon: Multitask Learning as Question Answering : Link LAMOL: LAnguage MOdeling for Lifelong Language Learning : Link DEEP LEARNING FOR HUMAN LANGUAGE PROCESSING 2020 SPRING : Link  Seq2seq for Syntactic Parsing Seq2seq也可用於文法剖析，輸入是一段文字，但輸出就不是sequence，而是樹狀結構用來分析各文字的組成</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 5 - Normalization</title>
       <link>https://Offliners.github.io/post/ntuml-week5-2/</link>

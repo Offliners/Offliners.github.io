@@ -3,21 +3,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - DL </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 7 - Transformer </title>
     
     
-    <meta content="Offliner&#39;s Blog" name="keywords">
+    <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - A website called Offliner&#39;s Blog" name="description">
+    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 [Video 2]
+Applications of Sequence-to-sequence (Seq2seq) 當模型輸入是sequence時，輸出可以是與輸入相同長度的sequence，也可能是未知長度的sequence，由機器去決定。輸出是未知長度sequence的例子如
+ 語音辨識 Speech Recognition 機器翻譯 Machine Translation 語音翻譯 Speech Translation  這時可能有人問為何要做語音翻譯?直接語音辨識再機器翻譯不就好了?因為世界上有眾多語言，有些語言甚至連文字都沒有，沒有文字的語言難以做語音辨識
+若想了解台語語音辨識可點以下連結: To learn more : Link
+輸入聲音，輸出辨識後的文字是語音辨識 Speech Recognition。反過來，輸入文字，輸出聲音訊號，就是語音合成 Text-to-Speech Synthesis
+Seq2seq for Chatbot 文字方面，也可透過使用Seq2seq的模型來訓練，例如可以訓練聊天機器人，輸入輸出都是文字，訓練資料是一堆對話的內容
+Most Natural Language Processing applications 很多NLP的問題可以看成是QA的問題，多數QA的問題又可以透過Seq2seq解決。輸入問題與文章，輸出就是問題的答案
+想了解更多NLP的處理，可參考以下連結 To learn more :
+ The Natural Language Decathlon: Multitask Learning as Question Answering : Link LAMOL: LAnguage MOdeling for Lifelong Language Learning : Link DEEP LEARNING FOR HUMAN LANGUAGE PROCESSING 2020 SPRING : Link  Seq2seq for Syntactic Parsing Seq2seq也可用於文法剖析，輸入是一段文字，但輸出就不是sequence，而是樹狀結構用來分析各文字的組成" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
         <link rel="icon" href="/images/dino.png">
     
 
-    
-        <link href="/categories/dl/index.xml" rel="alternate" type="application/rss&#43;xml" title="Offliner&#39;s Blog" />
-        <link href="/categories/dl/index.xml" rel="feed" type="application/rss&#43;xml" title="Offliner&#39;s Blog" />
     
 
     
@@ -121,30 +128,15 @@ layui.use('element', function(){
 </script>
 
         <div id="content" style="min-height:80%">
-
-<main id="main">
-
-<div class="layui-fluid list-show" >
-    <div class="layui-row">
-        <div class="layui-col-md6 layui-col-sm12 layui-col-xs12">
-            <div class="list-show-title">
-                <h1>These are my blogs</h1>
-                <h2>and also my life</h2>
-            </div>
-        </div>
-        <div class="layui-col-md6 layui-col-sm12 layui-col-xs12" style="text-align:center;">
-            <img src="/self/img/blog.png" class="list-title-pic">
-        </div>
-    </div>
-</div>
-
-<div class="layui-container">
-        
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week7-1/">
-            <h2 class="">NTU - 機器學習 Week 7 - Transformer</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+<div class="layui-container" style="margin-bottom: 10px">
+    
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>NTU - 機器學習 Week 7 - Transformer</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-13</span>
 
@@ -187,22 +179,124 @@ layui.use('element', function(){
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 [Video 2]
-Applications of ...
-             <a href="/post/ntuml-week7-1/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <p><img src="/2021NTUML/Week7/cover-1.JPG" alt="cover 1"></p>
+<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=n9TlOhRjYoc">Video 1</a> <a href="https://youtu.be/N6aRv06iv2g">Video 2</a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=zmOuJkH9l9M">Video 1</a> [Video 2]</p>
+<h2 id="applications-of-sequence-to-sequence-seq2seq">Applications of Sequence-to-sequence (Seq2seq)</h2>
+<p><img src="/2021NTUML/Week7/seq2seq.JPG" alt="Sequence-to-sequence">
+當模型輸入是sequence時，輸出可以是與輸入相同長度的sequence，也可能是未知長度的sequence，由機器去決定。輸出是未知長度sequence的例子如</p>
+<ul>
+<li>語音辨識 Speech Recognition</li>
+<li>機器翻譯 Machine Translation</li>
+<li>語音翻譯 Speech Translation</li>
+</ul>
+<p>這時可能有人問為何要做語音翻譯?直接語音辨識再機器翻譯不就好了?因為世界上有眾多語言，有些語言甚至連文字都沒有，沒有文字的語言難以做語音辨識</p>
+<p>若想了解台語語音辨識可點以下連結:
+To learn more : <a href="https://sites.google.com/speech.ntut.edu.tw/fsw/home/challenge-2020">Link</a></p>
+<p>輸入聲音，輸出辨識後的文字是<code>語音辨識 Speech Recognition</code>。反過來，輸入文字，輸出聲音訊號，就是<code>語音合成 Text-to-Speech Synthesis</code></p>
+<h3 id="seq2seq-for-chatbot">Seq2seq for Chatbot</h3>
+<p><img src="/2021NTUML/Week7/chatbot.JPG" alt="Seq2seq for Chatbot">
+文字方面，也可透過使用Seq2seq的模型來訓練，例如可以訓練聊天機器人，輸入輸出都是文字，訓練資料是一堆對話的內容</p>
+<h3 id="most-natural-language-processing-applications">Most Natural Language Processing applications</h3>
+<p><img src="/2021NTUML/Week7/NLP.JPG" alt="Most Natural Language Processing applications">
+很多NLP的問題可以看成是QA的問題，多數QA的問題又可以透過Seq2seq解決。輸入問題與文章，輸出就是問題的答案</p>
+<p>想了解更多NLP的處理，可參考以下連結
+To learn more :</p>
+<ul>
+<li>The Natural Language Decathlon: Multitask Learning as Question Answering : <a href="https://arxiv.org/abs/1806.08730">Link</a></li>
+<li>LAMOL: LAnguage MOdeling for Lifelong Language Learning : <a href="https://arxiv.org/abs/1909.03329">Link</a></li>
+<li>DEEP LEARNING FOR HUMAN LANGUAGE PROCESSING 2020 SPRING : <a href="https://speech.ee.ntu.edu.tw/~hylee/dlhlp/2020-spring.html">Link</a></li>
+</ul>
+<h3 id="seq2seq-for-syntactic-parsing">Seq2seq for Syntactic Parsing</h3>
+<p><img src="/2021NTUML/Week7/syntacticparsing-1.JPG" alt="Seq2seq for Syntactic Parsing">
+Seq2seq也可用於文法剖析，輸入是一段文字，但輸出就不是sequence，而是樹狀結構用來分析各文字的組成</p>
+<p><img src="/2021NTUML/Week7/syntacticparsing-2.JPG" alt="Seq2seq for Syntactic Parsing">
+不過樹狀結構也可以看成是一段sequence，這樣就可以套用Seq2seq來處理</p>
+<p>To learn more :</p>
+<ul>
+<li>Grammar as a Foreign Language : <a href="https://arxiv.org/abs/1412.7449">Link</a></li>
+</ul>
+<h3 id="seq2seq-for-multi-label-classification">Seq2seq for Multi-label Classification</h3>
+<p><img src="/2021NTUML/Week7/multilabel.JPG" alt="Seq2seq for Multi-label Classification">
+首先要區分<code>Multi-label Classification</code> 與<code>Multi-class Classification</code>。Multi-class Classification是多個class由機器去選擇一個，Multi-label Classification是指同一個東西但屬於可能有多個class。那要怎麼處理Multi-label Classification的問題呢?可以透過Seq2seq，比如輸入文章，輸出是他所屬於的class</p>
+<p>To learn more :</p>
+<ul>
+<li>Order-free Learning Alleviating Exposure Bias in Multi-label Classification : <a href="https://arxiv.org/abs/1909.03434">Link</a></li>
+<li>Order-Free RNN with Visual Attention for Multi-Label Classification : <a href="https://arxiv.org/abs/1707.05495">Link</a></li>
+</ul>
+<h3 id="seq2seq-for-object-detection">Seq2seq for Object Detection</h3>
+<p><img src="/2021NTUML/Week7/object.JPG" alt="Seq2seq for Object Detection">
+甚至連物件偵測也能透過Seq2seq來解決</p>
+<p>To learn more :</p>
+<ul>
+<li>End-to-End Object Detection with Transformers : <a href="https://arxiv.org/abs/2005.12872">Link</a></li>
+</ul>
+<h2 id="seq2seq">Seq2seq</h2>
+<p><img src="/2021NTUML/Week7/seq2seq-1.JPG" alt="Seq2seq">
+一般的Seq2seq會由encoder與decoder組成，上圖是Seq2seq早期的架構</p>
+<p>To learn more :</p>
+<ul>
+<li>Sequence to Sequence Learning with Neural Networks : <a href="https://arxiv.org/abs/1409.3215">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week7/transformer.JPG" alt="Transformer">
+現今主流架構會是<code>Transformer</code></p>
+<h2 id="encoder">Encoder</h2>
+<p><img src="/2021NTUML/Week7/encoder.JPG" alt="Encoder">
+Encoder在做的事情是輸入一排向量，輸出也是一排向量。Transformer中的encoder就是self-attention，透過下圖來簡單介紹</p>
+<p><img src="/2021NTUML/Week7/transformer-1.JPG" alt="Transformer Emcoder 1">
+上圖每個block都是輸入一排向量，輸出一排向量。而block中會先對輸入做self-attention，接著送入fully connected network中，最後就是輸出的向量</p>
+<p><img src="/2021NTUML/Week7/transformer-2.JPG" alt="Transformer Emcoder 2">
+而實際的Transformer中，會把self-attention輸出的向量加上原本的輸入，這樣的行為叫做<code>Residual</code>。接著會把residual後的向量做<code>Layer Normalization</code>，不同於Batch Normalization的是Batch Normalization是對同一個維度不同的feature做計算，但Layer Normalization不同的維度同一個的feature做計算。做完Layer Normalization得到的輸出就會是fully connected network的輸入，這裡也會套用residual與Layer Normalization的架構</p>
+<p><img src="/2021NTUML/Week7/transformer-3.JPG" alt="Transformer Emcoder 3">
+上述介紹的簡易模型也就是Transformer encoder中block處理的方式，而這複雜的block再之後會介紹的BERT也會用到</p>
+<p>若想了解更多為何要這樣encoder，可參考以下連結
+To learn more :</p>
+<ul>
+<li>On Layer Normalization in the Transformer Architecture : <a href="https://arxiv.org/abs/2002.04745">Link</a></li>
+<li>PowerNorm: Rethinking Batch Normalization in Transformers : <a href="https://arxiv.org/abs/2003.07845">Link</a></li>
+</ul>
+</div>
+            </div>
+            
+                <script src="https://utteranc.es/client.js"
+                    repo="Offliners/MyBlogComments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            
+        </div>
 
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week5-2/">
-            <h2 class="">NTU - 機器學習 Week 5 - Normalization</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Table of Contents -</h2>
+                <div style="margin-left: 10px;">   
+                    <div>
+
+<ul class="toc-h2"><li><a href="/post/ntuml-week7-1/#applications-of-sequence-to-sequence-seq2seq">Applications of Sequence-to-sequence (Seq2seq)</a></li>
+            <li><a href="/post/ntuml-week7-1/#seq2seq">Seq2seq</a></li>
+            <li><a href="/post/ntuml-week7-1/#encoder">Encoder</a></li>
+            </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Relevant Topics -</h2>
+                
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week5-2/">
+                                <h3 class="">NTU - 機器學習 Week 5 - Normalization</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-11</span>
 
@@ -245,22 +339,15 @@ Applications of ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Changing Landscape 如果有個簡易的模型，x1輸入值小，因此 ...
-             <a href="/post/ntuml-week5-2/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week5-1/">
-            <h2 class="">NTU - 機器學習 Week 5 - Self-Attention</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week5-1/">
+                                <h3 class="">NTU - 機器學習 Week 5 - Self-Attention</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-10</span>
 
@@ -303,22 +390,15 @@ Changing Landscape 如果有個簡易的模型，x1輸入值小，因此 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Vedio 2
-Youtube Video Link (English): Video 1 Vedio 2
-Sophisticated ...
-             <a href="/post/ntuml-week5-1/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week3-3/">
-            <h2 class="">NTU - 機器學習 Week 3 - CNN</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week3-3/">
+                                <h3 class="">NTU - 機器學習 Week 3 - CNN</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-08</span>
 
@@ -361,22 +441,15 @@ Sophisticated ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Image Classification 通常會假設輸入圖片大小是固定的，如 ...
-             <a href="/post/ntuml-week3-3/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week3-2/">
-            <h2 class="">NTU - 機器學習 Week 3 - Loss Function: Classification</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week3-2/">
+                                <h3 class="">NTU - 機器學習 Week 3 - Loss Function: Classification</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-06</span>
 
@@ -419,22 +492,15 @@ Image Classification 通常會假設輸入圖片大小是固定的，如 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Classification as Regression? 如果 ...
-             <a href="/post/ntuml-week3-2/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week3-1/">
-            <h2 class="">NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week3-1/">
+                                <h3 class="">NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-06</span>
 
@@ -477,24 +543,26 @@ Classification as Regression? 如果 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Training Stuck equals Small Gradient?  ...
-             <a href="/post/ntuml-week3-1/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
+                        </blockquote>
+                    </div>
+                	
+                
+                <br />
+            </div>
+            
 
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week2-3/">
-            <h2 class="">NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Recent Posts -</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week7-1/">
+                        <h3 class="">NTU - 機器學習 Week 7 - Transformer</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-05</span>
+    <span>2021-04-13</span>
 
     
      
@@ -535,24 +603,17 @@ Training Stuck equals Small Gradient?  ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Optimization with Batch 每次update參數是將每 ...
-             <a href="/post/ntuml-week2-3/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week2-2/">
-            <h2 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week5-2/">
+                        <h3 class="">NTU - 機器學習 Week 5 - Normalization</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-05</span>
+    <span>2021-04-11</span>
 
     
      
@@ -593,24 +654,17 @@ Optimization with Batch 每次update參數是將每 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Why Optimization fails? 有時會發現隨著參數不 ...
-             <a href="/post/ntuml-week2-2/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week2-1/">
-            <h2 class="">NTU - 機器學習 Week 2 - Guideline of ML: overfit</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week5-1/">
+                        <h3 class="">NTU - 機器學習 Week 5 - Self-Attention</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
+    <span>2021-04-10</span>
 
     
      
@@ -651,24 +705,17 @@ Why Optimization fails? 有時會發現隨著參數不 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Framework of ML General Guide 如果覺得訓練不滿 ...
-             <a href="/post/ntuml-week2-1/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
-
-    
-            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-        <a href="/post/ntuml-week1/">
-            <h2 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h2>
-        </a>
-        <h3 style="margin-top:10px; margin-bottom:10px"> 
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week3-3/">
+                        <h3 class="">NTU - 機器學習 Week 3 - CNN</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
+    <span>2021-04-08</span>
 
     
      
@@ -709,44 +756,77 @@ Framework of ML General Guide 如果覺得訓練不滿 ...
     
 </h3>
 
-        <h3>
-        	
-				NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 Video 2
-What is Machine ...
-             <a href="/post/ntuml-week1/"><span style="color:#01AAED">Read More</span></a>
-        </h3>
-    </blockquote>
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week3-2/">
+                        <h3 class="">NTU - 機器學習 Week 3 - Loss Function: Classification</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-06</span>
 
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
     
 
     
-<div class="pager">
-    <div class="layui-btn-group">
-        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-            <a href="/categories/dl/"><i class="layui-icon">&#xe65a;</i></a>
-        </button>
-        
-        <button type="button" class="layui-btn layui-btn-disabled layui-btn-sm">
-            <i class="layui-icon">&#xe603;</i>
-        </button>
-        
-        
-        <button type="button" class="layui-btn layui-btn-disabled layui-btn-sm">
-            <i class="layui-icon">&#xe602;</i>
-        </button>
-        
-        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-            <a href="/categories/dl/"><i class="layui-icon">&#xe65b;</i></a>
-        </button>
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
     </div>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WFQ2VM3C00');
+</script>
+    
 </div>
-
-</div>
-
-</main>
-
 
         </div><footer>
     
