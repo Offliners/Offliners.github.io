@@ -6,7 +6,32 @@
     <description>Recent content in Hung Yi - Lee on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 13 Apr 2021 20:43:16 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Apr 2021 20:04:48 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 7 - GAN</title>
+      <link>https://Offliners.github.io/post/ntuml-week7-2/</link>
+      <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week7-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): [Video 1] [Video 2]
+Network as Generator 現在要將network當成Generator使用，這個network會輸入x與隨機變數z來生成y，每次使用這個network時會透過簡單的分布來生成不同的z，這種簡單的分布可以是Gaussian Distribution或者是Uniform Distribution等。加入隨機變數z後，network輸出會變成複雜的分布。這種特殊的network叫做Generator
+那為什麼要訓練Generator?為什麼要訓練這種輸出是一個複雜分布的模型?
+Why Distribution? 假設今天有個任務，是要去預測之後的遊戲畫面，那可能會將過去遊戲畫面作為模型輸入，然後模型會輸出下一個預測的遊戲畫面
+但這樣會有個問題，就是有時候會發現小精靈會分裂，甚至消失。因為在訓練資料中有時候小精靈是向左轉，有時候是向右轉，那會造成機器覺得向左轉是對的，向右轉也是對的，但同時向左向右就是錯的，那要怎麼處理這類問題呢?讓機器輸出是有機率的，而不是單一的輸出
+將給network一個機率分布z時，模型輸出就會變成一個Distribution，這個Distribution包含向左轉與向右轉的可能
+那什麼時候需要這種network?當任務需要一些創造力的時候，也就是同樣的輸入卻有多種可能的輸出，而這些輸出都是對的。例如繪畫或者聊天機器人
+Generative Adversarial Network GAN有多種的變形，多到許多不同GAN的變形卻有相同的名字，可以到以下連結去查看:
+ The GAN Zoo : Link  Anime Face Generation 接著要舉的例子是生成動畫人物的臉，使用的是Unconditional Generation，也就是模型輸入只有Z，沒有x。因此Generator只輸入Z輸出y，然後Z是使用Normal distribution中sample出來的向量，向量維度是自訂的。所以透過輸入低維度的隨機向量，去透過Generator產生圖片這種高維度的向量(如果圖片大小是64 * 64且是RGB，那輸出的向量就會是64 * 64 * 3)
+Discriminator 在GAN中，除了訓練Generator，還要訓練Discriminator，圖片會輸入到Discriminator，接著輸出一個數值，數值越大表示這張圖片越像是二次元人物的圖像
+Basic Idea of GAN 首先第一代的Generator因為參數是隨機的，因此產生的圖片就是雜訊，那換Discriminator來分辨這些圖片與真正的圖片不同，一開始Discriminator可能只判斷是否有眼睛，有眼睛是真正的圖片，沒有的是Generator產生的。那換第二代的Generator，調整參數來騙過Discriminator，因為Discriminator判斷的依據是是否有眼睛，所以第二代的Generator開始產生眼睛，可以騙過第一代的Discriminator，但Discriminator也會進化，第二代的Discriminator可能發現可以根據是否有頭髮或嘴巴來分辨圖片。那第三代的Generator就會繼續想辦法去騙過第二代的Discriminator。以此類推，所以Generator產生的圖片會越像二次元人物，而Discriminator也會越來越嚴苛
+Algorithm 接下來從演算法來介紹，Generator與Discriminator是兩個Network，首先要初始化參數，再來會將Generator定住，只訓練Discriminator。由於Generator參數是隨機的又被定住，所以輸出會是雜訊，接著從database中拿出二次元人物的圖像與Generator產生的圖像來訓練Discriminator做分辨，實作上可能將真正圖片的label設為1，Generator產生的設為0，最後就是要當成分類問題或這Refression問題，如果是分類問題就是分辨0或者1，如果是Regression則是看到真正的圖片輸出1，另一些圖片輸出0
+訓練完Discriminator後，定住Discriminator改訓練Generator。為了能欺騙Discriminator，Generator輸入隨機分布的向量後產生一張圖片給Discriminator，Discriminator會給這圖片分數，因此Generator訓練的目標是Discriminator的分數越高越好。實際操作會是將Generator與Discriminator接起來變成一個大network，這個大network輸入是向量，輸出是數值，但要注意只會更新Generator的參數而已
+再來就是反覆以上的步驟
+Anime Face Generation Result 隨著update次數增加，圖像呈現越來越好</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 7 - Transformer</title>
       <link>https://Offliners.github.io/post/ntuml-week7-1/</link>
