@@ -6,7 +6,25 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 15 Apr 2021 20:04:48 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Apr 2021 22:21:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析</title>
+      <link>https://Offliners.github.io/zone/orbslam2_list/</link>
+      <pubDate>Sat, 17 Apr 2021 22:21:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/zone/orbslam2_list/</guid>
+      <description>ORBSLAM2 程式碼解析    Topic Link     System 入口 Link   Tracking 線程 TBD   LocalMapping 線程 TBD   LocalClosing 線程 (迴路檢測) TBD   LocalClosing 線程 (Sim3 計算) TBD   LocalClosing 線程 (correctLoop) TBD   Frame TBD   Monocular Initializer TBD   Tracking TBD   ORBmatcher TBD   Optimizer TBD    </description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2 程式碼解析 - 圖片輸入</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-1/</link>
+      <pubDate>Sat, 17 Apr 2021 00:46:46 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-1/</guid>
+      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    圖片輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Stereo cv::Mat Tracking::GrabImageStereo(const cv::Mat &amp;amp;imRectLeft, const cv::Mat &amp;amp;imRectRight, const double &amp;amp;timestamp) { // 輸入圖像  mImGray = imRectLeft; cv::Mat imGrayRight = imRectRight; // 轉為灰階圖  if(mImGray.</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 7 - GAN</title>
       <link>https://Offliners.github.io/post/ntuml-week7-2/</link>
@@ -96,7 +114,7 @@ What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與�
       <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
-      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning    Self-Attention Link   Normalization Link   Transformer Link   GAN Link    </description>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning TBD   Self-Attention Link   Normalization Link   Transformer Link   GAN Link    </description>
     </item>
     
     <item>
@@ -169,15 +187,6 @@ Training with Adagrad 之前沒有使用Adagrad來訓練，update參數10萬次�
 除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。
 warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(https://arxiv.org/abs/1908.03265)這篇論文
 Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?</description>
-    </item>
-    
-    <item>
-      <title>ORBSLAM2 程式碼解析</title>
-      <link>https://Offliners.github.io/post/orbslam2-code-analysis/</link>
-      <pubDate>Tue, 06 Apr 2021 00:46:46 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/post/orbslam2-code-analysis/</guid>
-      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 code : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows code: https://github.com/phdsky/ORBSLAM24Windows  System Overview  Tracking.cc LocalMapping.cc LoopClosing.cc Viewer.cc  變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    System 輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Tracking 線程 coming soon</description>
     </item>
     
     <item>

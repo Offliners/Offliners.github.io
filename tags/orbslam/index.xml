@@ -6,14 +6,14 @@
     <description>Recent content in ORBSLAM on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 06 Apr 2021 00:46:46 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/orbslam/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Apr 2021 00:46:46 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/orbslam/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>ORBSLAM2 程式碼解析</title>
-      <link>https://Offliners.github.io/post/orbslam2-code-analysis/</link>
-      <pubDate>Tue, 06 Apr 2021 00:46:46 +0800</pubDate>
+      <title>ORBSLAM2 程式碼解析 - 圖片輸入</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-1/</link>
+      <pubDate>Sat, 17 Apr 2021 00:46:46 +0800</pubDate>
       
-      <guid>https://Offliners.github.io/post/orbslam2-code-analysis/</guid>
-      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 code : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows code: https://github.com/phdsky/ORBSLAM24Windows  System Overview  Tracking.cc LocalMapping.cc LoopClosing.cc Viewer.cc  變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    System 輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Tracking 線程 coming soon</description>
+      <guid>https://Offliners.github.io/post/orbslam2-code-1/</guid>
+      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    圖片輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Stereo cv::Mat Tracking::GrabImageStereo(const cv::Mat &amp;amp;imRectLeft, const cv::Mat &amp;amp;imRectRight, const double &amp;amp;timestamp) { // 輸入圖像  mImGray = imRectLeft; cv::Mat imGrayRight = imRectRight; // 轉為灰階圖  if(mImGray.</description>
     </item>
     
   </channel>

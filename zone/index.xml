@@ -6,14 +6,23 @@
     <description>Recent content in Zones on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 10 Apr 2021 14:55:15 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/zone/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Apr 2021 22:21:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/zone/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析</title>
+      <link>https://Offliners.github.io/zone/orbslam2_list/</link>
+      <pubDate>Sat, 17 Apr 2021 22:21:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/zone/orbslam2_list/</guid>
+      <description>ORBSLAM2 程式碼解析    Topic Link     System 入口 Link   Tracking 線程 TBD   LocalMapping 線程 TBD   LocalClosing 線程 (迴路檢測) TBD   LocalClosing 線程 (Sim3 計算) TBD   LocalClosing 線程 (correctLoop) TBD   Frame TBD   Monocular Initializer TBD   Tracking TBD   ORBmatcher TBD   Optimizer TBD    </description>
+    </item>
+    
     <item>
       <title>NTU 機器學習</title>
       <link>https://Offliners.github.io/zone/ntuml-list/</link>
       <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
-      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning    Self-Attention Link   Normalization Link   Transformer Link   GAN Link    </description>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning TBD   Self-Attention Link   Normalization Link   Transformer Link   GAN Link    </description>
     </item>
     
   </channel>

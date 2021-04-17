@@ -3,30 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Guideline of ML: overfit </title>
+    <title>Offliner&#39;s Blog - ORBSLAM2 程式碼解析 - 圖片輸入 </title>
     
     
-    <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
+    <meta content="ORBSLAM, code analysis" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
-有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
-解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
-但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
-這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
-當training data的loss不夠低時，是哪個問題呢?
-可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
-因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
-如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
-那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
-舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
-一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
-剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
-如何限制模型呢?
- 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?" name="description">
+    <meta content="Offliner&#39;s Blog - ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    圖片輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Stereo cv::Mat Tracking::GrabImageStereo(const cv::Mat &amp;imRectLeft, const cv::Mat &amp;imRectRight, const double &amp;timestamp) { // 輸入圖像  mImGray = imRectLeft; cv::Mat imGrayRight = imRectRight; // 轉為灰階圖  if(mImGray." name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -143,10 +125,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Guideline of ML: overfit</h1>
+                    <h1>ORBSLAM2 程式碼解析 - 圖片輸入</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
+    <span>2021-04-17</span>
 
     
      
@@ -154,16 +136,12 @@ layui.use('element', function(){
     
 
     
-        <a href="/categories/ml/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        <a href="/categories/orbslam/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
         </a>
     
-        <a href="/categories/dl/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
-        </a>
-    
-        <a href="/categories/hung-yi-lee/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        <a href="/categories/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
         </a>
     
 
@@ -172,16 +150,12 @@ layui.use('element', function(){
     
 
     
-        <a href="/tags/machine-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        <a href="/tags/orbslam/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
         </a>
     
-        <a href="/tags/deep-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
-        </a>
-    
-        <a href="/tags/ntu-ml-2021/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        <a href="/tags/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
         </a>
     
     
@@ -189,64 +163,168 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week2/cover1.JPG" alt="cover1"></p>
-<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://www.youtube.com/watch?v=WeHM2xpYQpw">Video</a></p>
-<p>Youtube Video Link (English): <a href="https://youtu.be/3qgKpBptyFY">Video</a></p>
-<h2 id="framework-of-ml">Framework of ML</h2>
-<p><img src="/2021NTUML/Week2/framework.JPG" alt="framework"></p>
-<h2 id="general-guide">General Guide</h2>
-<p><img src="/2021NTUML/Week2/general-guide-1.JPG" alt="General Guide 1">
-如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data</p>
-<p><img src="/2021NTUML/Week2/model-bias.JPG" alt="Model Bias">
-有可是<code>model bias</code>使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。</p>
-<p>解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式</p>
-<p><img src="/2021NTUML/Week2/general-guide-2.JPG" alt="General Guide 2">
-但不代表training時loss大就一定是model bias，有可能是optimization做不夠好</p>
-<p><img src="/2021NTUML/Week2/optimization-issue.JPG" alt="Optimization Issue">
-這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。</p>
-<p><img src="/2021NTUML/Week2/which.JPG" alt="Which one">
-當training data的loss不夠低時，是哪個問題呢?</p>
-<p><img src="/2021NTUML/Week2/compare.JPG" alt="Compare">
-可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。</p>
-<p><img src="/2021NTUML/Week2/method-1.JPG" alt="Method1">
-因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解</p>
-<p><img src="/2021NTUML/Week2/general-guide-3.JPG" alt="General Guide 3">
-如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。</p>
-<p><img src="/2021NTUML/Week2/general-guide-4.JPG" alt="General Guide 4">
-那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。</p>
-<p><img src="/2021NTUML/Week2/overfitting-1.JPG" alt="Overfitting-1">
-舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大</p>
-<p><img src="/2021NTUML/Week2/overfitting-2.JPG" alt="Overfitting-2">
-一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大</p>
-<p><img src="/2021NTUML/Week2/method-2.JPG" alt="Method2">
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式</p>
-<p><img src="/2021NTUML/Week2/method-3.JPG" alt="Method3">
-剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同</p>
-<p><img src="/2021NTUML/Week2/method-4.JPG" alt="Method4">
-如何限制模型呢?</p>
-<ul>
-<li>漸少參數、神經元，或者共用參數(CNN)</li>
-<li>用比較少的feature</li>
-<li>Early stopping</li>
-<li>Regularization</li>
-<li>Dropout</li>
+                    <ul>
+<li>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras
+(<a href="https://arxiv.org/abs/1610.06475">https://arxiv.org/abs/1610.06475</a>)</li>
+<li>ORBSLAM2 : <a href="https://github.com/raulmur/ORB_SLAM2">https://github.com/raulmur/ORB_SLAM2</a></li>
+<li>ORBSLAM2 for Windows : <a href="https://github.com/phdsky/ORBSLAM24Windows">https://github.com/phdsky/ORBSLAM24Windows</a></li>
 </ul>
-<p><img src="/2021NTUML/Week2/method-5.JPG" alt="Method5">
-但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?不是，這是model bias</p>
-<p><img src="/2021NTUML/Week2/trade-off.JPG" alt="Trade off">
-以上會產生矛盾狀況，當model越複雜，但太複雜時teting的loss會暴增。所以期望能選到中庸的模型</p>
-<p><img src="/2021NTUML/Week2/kaggle.JPG" alt="Kaggle">
-在kaggle上，如果是選擇在public data中loss最低的模型的話，往往在private data中表現會差很多</p>
-<p><img src="/2021NTUML/Week2/cross-validation.JPG" alt="Cross Validation">
-可以將training data拆成Training set與Validation set，透過衡量Validation set的結果，比較不會發生public分數很好，但private分數很差的情況</p>
-<p><img src="/2021NTUML/Week2/n-cross-validation.JPG" alt="N-fold Cross Validation">
-但如果training data分的不好，有分到結果差的資料。因此可以透過N-fold Cross Validation，將資料切成3等分，如上圖例子切成3等分，首先前兩份用來訓練，會後一份用來驗證，接著換順序，總共重複3次。接著假設有3個模型，將這三個模型在3種情況下跑出結果，再將結果取平均，假設model 1結果最好，那就將training data全丟給model 1訓練，最後再將testing data給訓練好的model 1</p>
-<p><img src="/2021NTUML/Week2/general-guide-5.JPG" alt="General Guide 5">
-除了overfitting，還會有一種錯誤形式是mismatch，有些人會說mismatch是一種overfitting，但這是名詞定義問題。一般的overfitting可以透過蒐集更多的資料來克服，但mismatch是指說訓練資料與測試資料分布不同</p>
-<p><img src="/2021NTUML/Week2/mismatch.JPG" alt="Mismatch">
-如在Homework 11，訓練資料與測試資料完全不同，因此增加訓練資料沒有用。所以要解決這種問題，等待homework 11再講。要判斷是否發生Mismatch，要看對資料本身的理解，對訓練資料與測試資料有些理解才能判斷</p>
-</div>
+<h2 id="system-overview">System Overview</h2>
+<p><img src="/ORBSLAM2-img/system-overview.JPG" alt="System Overview"></p>
+<h2 id="變數命名規則">變數命名規則</h2>
+<table>
+<thead>
+<tr>
+<th>開頭</th>
+<th>變數資料型態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+</tr>
+<tr>
+<td>b</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>p</td>
+<td>pointer</td>
+</tr>
+<tr>
+<td>s</td>
+<td>set</td>
+</tr>
+<tr>
+<td>v</td>
+<td>vector</td>
+</tr>
+<tr>
+<td>l</td>
+<td>list</td>
+</tr>
+<tr>
+<td>m</td>
+<td>class member variable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="圖片輸入">圖片輸入</h2>
+<p><img src="/ORBSLAM2-img/system_input.JPG" alt="System Input"></p>
+<ul>
+<li>註 : <code>mpIniORBextractor</code>比<code>mpORBextractorLeft</code>多提取一倍的特徵點</li>
+</ul>
+<h3 id="stereo">Stereo</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageStereo(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRectLeft, <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRectRight, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
+{
+    <span style="color:#75715e">// 輸入圖像
+</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> imRectLeft;
+    cv<span style="color:#f92672">::</span>Mat imGrayRight <span style="color:#f92672">=</span> imRectRight;
+
+    <span style="color:#75715e">// 轉為灰階圖
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+        {
+            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
+            cvtColor(imGrayRight,imGrayRight,CV_RGB2GRAY);
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            cvtColor(mImGray,mImGray,CV_BGR2GRAY);
+            cvtColor(imGrayRight,imGrayRight,CV_BGR2GRAY);
+        }
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+        {
+            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
+            cvtColor(imGrayRight,imGrayRight,CV_RGBA2GRAY);
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
+            cvtColor(imGrayRight,imGrayRight,CV_BGRA2GRAY);
+        }
+    }
+
+    <span style="color:#75715e">// 建構Frame
+</span><span style="color:#75715e"></span>    mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,imGrayRight,timestamp,mpORBextractorLeft,mpORBextractorRight,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+
+    <span style="color:#75715e">// Track
+</span><span style="color:#75715e"></span>    Track();
+
+    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
+}
+</code></pre></div><h3 id="rgbd">RGBD</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageRGBD(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRGB,<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imD, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
+{
+    <span style="color:#75715e">// 輸入圖像
+</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> imRGB;
+    cv<span style="color:#f92672">::</span>Mat imDepth <span style="color:#f92672">=</span> imD;
+
+    <span style="color:#75715e">// 轉為灰階圖
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#a6e22e">cvtColor</span>(mImGray,mImGray,CV_BGR2GRAY);
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
+        <span style="color:#66d9ef">else</span>
+            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
+    }
+
+    <span style="color:#66d9ef">if</span>((fabs(mDepthMapFactor<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1e-5</span>) <span style="color:#f92672">||</span> imDepth.type()<span style="color:#f92672">!=</span>CV_32F)
+        imDepth.convertTo(imDepth,CV_32F,mDepthMapFactor);
+
+    <span style="color:#75715e">// 建構Frame
+</span><span style="color:#75715e"></span>    mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,imDepth,timestamp,mpORBextractorLeft,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+
+    <span style="color:#75715e">// Track
+</span><span style="color:#75715e"></span>    Track();
+
+    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
+}
+</code></pre></div><h3 id="mono">Mono</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageMonocular(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>im, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
+{
+    <span style="color:#75715e">// 輸入圖像
+</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> im;
+
+    <span style="color:#75715e">// 轉為灰階圖
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#a6e22e">cvtColor</span>(mImGray,mImGray,CV_BGR2GRAY);
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
+    {
+        <span style="color:#66d9ef">if</span>(mbRGB)
+            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
+        <span style="color:#66d9ef">else</span>
+            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
+    }
+
+    <span style="color:#66d9ef">if</span>(mState<span style="color:#f92672">==</span>NOT_INITIALIZED <span style="color:#f92672">||</span> mState<span style="color:#f92672">==</span>NO_IMAGES_YET)
+        mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,timestamp,mpIniORBextractor,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+    <span style="color:#66d9ef">else</span>
+        mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,timestamp,mpORBextractorLeft,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+
+    <span style="color:#75715e">// Track
+</span><span style="color:#75715e"></span>    Track();
+
+    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
+}
+</code></pre></div></div>
             </div>
             
                 <script src="https://utteranc.es/client.js"
@@ -266,72 +344,14 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">   
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week2-1/#framework-of-ml">Framework of ML</a></li>
-            <li><a href="/post/ntuml-week2-1/#general-guide">General Guide</a></li>
+<ul class="toc-h2"><li><a href="/post/orbslam2-code-1/#system-overview">System Overview</a></li>
+            <li><a href="/post/orbslam2-code-1/#%e8%ae%8a%e6%95%b8%e5%91%bd%e5%90%8d%e8%a6%8f%e5%89%87">變數命名規則</a></li>
+            <li><a href="/post/orbslam2-code-1/#%e5%9c%96%e7%89%87%e8%bc%b8%e5%85%a5">圖片輸入</a></li>
             </div>
                 </div>
             </div>
             
 
-            
-            <div class="layui-card single-card">
-                <h2 class="single-title">- Relevant Topics -</h2>
-                
-                	
-                    <div style="margin-left: 10px;">
-                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week1/">
-                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
-                            </a>
-                            <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
-
-    
-     
-    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
-    
-
-    
-        <a href="/categories/ml/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
-        </a>
-    
-        <a href="/categories/dl/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
-        </a>
-    
-        <a href="/categories/hung-yi-lee/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
-        </a>
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/machine-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
-        </a>
-    
-        <a href="/tags/deep-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
-        </a>
-    
-        <a href="/tags/ntu-ml-2021/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
-        </a>
-    
-    
-</h3>
-
-                        </blockquote>
-                    </div>
-                	
-                
-                <br />
-            </div>
             
 
             <div class="layui-card single-card">
