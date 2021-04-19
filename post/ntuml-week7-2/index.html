@@ -285,6 +285,74 @@ GAN有多種的變形，多到許多不同GAN的變形卻有相同的名字，�
 <li>Improved Training of Wasserstein GANs : <a href="https://arxiv.org/abs/1704.00028">Link</a></li>
 <li>Spectral Normalization for Generative Adversarial Networks : <a href="https://arxiv.org/abs/1802.05957">Link</a></li>
 </ul>
+<h2 id="gan-still-challenging">GAN still challenging</h2>
+<p><img src="/2021NTUML/Week7/challenge.JPG" alt="GAN still challenging">
+當其中一個模型發生問題而停止訓練，那另外一者也會停止或表現更差。因此有許多訓練GAN的技巧，有興趣的可以參考以下連結 :</p>
+<ul>
+<li>How to Train a GAN? Tips and tricks to make GANs work : <a href="https://github.com/soumith/ganhacks">Link</a></li>
+<li>Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks : <a href="https://arxiv.org/abs/1511.06434">Link</a></li>
+<li>Improved Techniques for Training GANs : <a href="https://arxiv.org/abs/1606.03498">Link</a></li>
+<li>Large Scale GAN Training for High Fidelity Natural Image Synthesis : <a href="https://arxiv.org/abs/1809.11096">Link</a></li>
+</ul>
+<h2 id="gan-for-sequence-generation">GAN for Sequence Generation</h2>
+<p><img src="/2021NTUML/Week7/gan-seq2seq.JPG" alt="GAN for Sequence Generation">
+訓練GAN最困難的在生成文字，因為會發現無法透過梯度下降法來使得分更高，因為decoder的微小變化無法使輸入Discriminator的token造成改變，因此得分也不變，就沒辦法算微分。那可能有人會問CNN有maxpooling可以算梯度，那為什麼GAN在decoder不能?這問題就留給大家深思</p>
+<p>那不能使用梯度下降法怎麼辦?使用<code>Reinforcement Learning (RL)</code>硬做</p>
+<p><img src="/2021NTUML/Week7/gan-seq2seq-1.JPG" alt="GAN for Sequence Generation 1">
+RL是以難訓練聞名，GAN也是以難訓練聞名，因此兩個結合就更難訓練，因此有很長的一段時間都沒有人可以成功使用GAN來訓練Generator生成文字，通常需要pretrain</p>
+<p><img src="/2021NTUML/Week7/gan-seq2seq-2.JPG" alt="GAN for Sequence Generation 2">
+直到有一篇文章使用Scratch的方式，並使用一大堆的超參數與技巧，有興趣的可以參考以下連結 :</p>
+<ul>
+<li>Training language GANs from Scratch : <a href="https://arxiv.org/abs/1905.09922">Link</a></li>
+</ul>
+<p>想更了解GAN或其他Generative模型的可以參考以下連結 :</p>
+<ul>
+<li>Generative Adversarial Network (GAN) : <a href="https://www.youtube.com/playlist?list=PLJV_el3uVTsMq6JEFPW35BCiOQTsoqwNw">Video List</a></li>
+<li>Unsupervised Learning - Deep Generative Model : <a href="https://youtu.be/8zomhgKrsmQ">Video</a></li>
+<li>Flow-based Generative Model : <a href="https://youtu.be/uXY18nzdSsM">Video</a></li>
+</ul>
+<h2 id="other-method">Other Method</h2>
+<p><img src="/2021NTUML/Week7/supervise.JPG" alt="Possible Solution">
+除了使用GAN來生成，那能不能使用Supervised Learning來做? 可以，將每個圖片配置向量，將這項量輸入到network中，輸出就是這個向量對應的圖片。但難的點在於如果圖片對應的向量是隨機的表現會很差，需要特殊的方法來配置向量，對特殊方法有興趣的可以參考以下連結 :</p>
+<ul>
+<li>Optimizing the Latent Space of Generative Networks : <a href="https://arxiv.org/abs/1707.05776">Link</a></li>
+<li>Gradient Origin Networks : <a href="https://arxiv.org/abs/2007.02798">Link</a></li>
+</ul>
+<h2 id="evaluation-of-generation">Evaluation of Generation</h2>
+<h3 id="quality-of-image">Quality of Image</h3>
+<p><img src="/2021NTUML/Week7/quality.JPG" alt="Quality of Image">
+那要怎麼評估GAN生成的東西是好還是壞?最直覺的作法是找人來評量，但這會有不客觀與不穩定的問題。針對特定的任務可以有特定的方法，如動漫人物生成，可以透過訓練人臉偵測系統來捕捉GAN生成的人臉是否成功。對一般的圖片生成case，可以透過訓練影像分類系統，將生成圖片來做分類，如果越集中在特定的類別，那表示這個GAN表現得越好</p>
+<h3 id="mode-collapse">Mode Collapse</h3>
+<p><img src="/2021NTUML/Week7/mode.JPG" alt="Mode Collapse">
+透過上述方法還是行不通的，因為會有<code>Mode Collapse</code>的問題，也就是生成的圖片就只有特定的幾張，如動漫人物生成，可以發現同樣的臉出現機率變高。那為什麼會有這樣的問題? 因為當Generator生成特定圖片能一直騙過Discriminator，因此Generator就提高產生出這圖片的機率。那要怎麼避免呢? 至今還沒有很好的方法來完全避免，最有效的方法就是存取每次訓練的checkpoint，當發現遇到Mode Collapse時，就停止訓練去尋找還沒有Mode Collapse時的checkpoint來用</p>
+<h3 id="mode-dropping">Mode Dropping</h3>
+<p><img src="/2021NTUML/Week7/mode-1.JPG" alt="Mode Collapse 1">
+除了Mode Collapse的問題，還有更難被偵測到的<code>Mode Dropping</code>，Mode Dropping是指產生的資料只有真實資料的一部分，單純看產生的資料會覺得不錯且多樣性夠，但其實真實資料的多樣性更大。至今有名的模型可能也都還有Mode Dropping問題，當看很多生成的圖片後，就可以猜出說這是生成的人臉</p>
+<h3 id="diversity">Diversity</h3>
+<p><img src="/2021NTUML/Week7/diversity.JPG" alt="Diversity">
+那要怎麼知道模型多樣性夠不夠? 有作法是將生成的圖片丟入Classifier來做分類，每個圖片可以獲得一個分布，將所有分布平均起來來判斷，如果分布集中表示多樣性不夠</p>
+<p><img src="/2021NTUML/Week7/diversity-1.JPG" alt="Diversity 1">
+反之，如果分布平均表示多樣性足夠。有些人可能覺得Quality與Diversity有點互斥，但他們評估範圍不同，Quality是只看一張圖片，Diversity是看一堆圖片。因此有個指標是<code>Inception Score (IS)</code>，如果Quality高，Diversity大，IS就會越高分。但對於特定類別的生成，如二次元人臉生成，因為輸出都是人臉，Quality都會集中在人臉的類別因此高，但Diversity就會較集中因此低，所以IS可能不適用</p>
+<h3 id="fréchet-inception-distance-fid">Fréchet Inception Distance (FID)</h3>
+<p><img src="/2021NTUML/Week7/FID.JPG" alt="Fréchet Inception Distance">
+FID是將圖片輸入Classifier，拿取經過softmax前產生類別前的高維度向量，因為就算類別都是人臉，但向量的分布還是會不同。將實際資料的分布與生成向量的分布都假設是高斯分布，然後計算<code>Fréchet Distance</code>，因為是距離，所以值是越小越好。但會有些問題，如分布不是高斯分布、準確計算向量分布需要大量的樣本資料等</p>
+<p>想了解Fréchet Distance可以參考以下連結 :</p>
+<ul>
+<li>GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium : <a href="https://arxiv.org/pdf/1706.08500.pdf">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week7/FID-1.JPG" alt="Fréchet Inception Distance 1">
+有實驗將四個不同資料集與不同的模型分別去計算FID，因為有不同的Random seed去訓練，因此得到的FID是一個分布，而不是單一數值。其中還有個不是GAN的作法是VAE，明顯可以看出GAN產生的結果比VAE更好，因為FID是越小越好。有些人可能覺得不同的GAN結果差不多，是因為這個實驗的network架構都是同一個，實際上可能某些network架構對某種GAN比較好</p>
+<p>對此實驗有興趣可以參考以下連結 :</p>
+<ul>
+<li>Are GANs Created Equal? A Large-Scale Study : <a href="https://arxiv.org/abs/1711.10337">Link</a></li>
+</ul>
+<h3 id="we-dont-want-memory-gan">We don&rsquo;t want memory GAN</h3>
+<p><img src="/2021NTUML/Week7/memory.JPG" alt="We don&rsquo;t want memory GAN">
+除了上述的評估方法，GAN還有可能有個問題沒辦法被評估，假設Generator能產生出跟真實資料相同的圖片，FID會很小，但如果GAN只會產生相同圖片不如直接去資料集中sample圖片就好，何必用GAN? 有人可能會提說比較生成圖片與真實圖片的相似度，那如果GAN只會產生左右翻轉的圖片呢? 相似度會比不出來</p>
+<p>若有興趣了解GAN的評估方式可參考以下連結，這篇論文有20種評估GAN Generator的方式 :</p>
+<ul>
+<li>Pros and Cons of GAN Evaluation Measures : <a href="https://arxiv.org/abs/1802.03446">Link</a></li>
+</ul>
 </div>
             </div>
             
@@ -312,6 +380,10 @@ GAN有多種的變形，多到許多不同GAN的變形卻有相同的名字，�
             <li><a href="/post/ntuml-week7-2/#js-divergence-is-not-suitable">JS divergence is not suitable</a></li>
             <li><a href="/post/ntuml-week7-2/#wasserstein-distance">Wasserstein distance</a></li>
             <li><a href="/post/ntuml-week7-2/#wgan">WGAN</a></li>
+            <li><a href="/post/ntuml-week7-2/#gan-still-challenging">GAN still challenging</a></li>
+            <li><a href="/post/ntuml-week7-2/#gan-for-sequence-generation">GAN for Sequence Generation</a></li>
+            <li><a href="/post/ntuml-week7-2/#other-method">Other Method</a></li>
+            <li><a href="/post/ntuml-week7-2/#evaluation-of-generation">Evaluation of Generation</a></li>
             </div>
                 </div>
             </div>
