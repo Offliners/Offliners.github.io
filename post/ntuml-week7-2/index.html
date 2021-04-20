@@ -353,6 +353,56 @@ FID是將圖片輸入Classifier，拿取經過softmax前產生類別前的高維
 <ul>
 <li>Pros and Cons of GAN Evaluation Measures : <a href="https://arxiv.org/abs/1802.03446">Link</a></li>
 </ul>
+<h2 id="conditional-generation">Conditional Generation</h2>
+<p><img src="/2021NTUML/Week7/condition.JPG" alt="Conditional Generation">
+之前都只輸入隨機分布z來產生y，但不見得非常有用。透過多輸入條件的x，來操控Generator的輸出。那有什麼應用呢? 可以做文字對圖片的生成</p>
+<h3 id="conditional-gan">Conditional GAN</h3>
+<p><img src="/2021NTUML/Week7/conditionGAN.JPG" alt="Conditional GAN">
+過去的Discriminator是輸入圖片，然後輸出數值來判斷是真實的還是生成的。但這樣無法解Conditional GAN的問題，因為Generator只需要能騙過Discriminator就好，所以不會管x的輸入</p>
+<p><img src="/2021NTUML/Week7/conditionGAN-1.JPG" alt="Conditional GAN 1">
+所以在Conditional GAN中，Discriminator還需要輸入x，除了圖片好還要能配得上x，也就是文字敘述，兩個都好才給高分，因此輸入要是文字敘述與圖片成對的資料。但實作上只有這樣得到的結果往往不夠好，需要加上好的圖片和不配的文字敘述</p>
+<p><img src="/2021NTUML/Week7/conditionGAN-2.JPG" alt="Conditional GAN 2">
+Conditional GAN除了用文字產生圖片外，還能用圖片產生圖片，這樣的應用叫<code>Image translation</code>或是<code>pix2pix</code></p>
+<p><img src="/2021NTUML/Week7/conditionGAN-3.JPG" alt="Conditional GAN 3">
+同樣的作法，只是輸入文字改成圖片。這類問題也可以使用supervised的方法，但結果往往不夠好，圖片可能會模糊，因為同樣的輸入可能對應到不同的輸出。如果單純使用GAN的話，結果較supervised好但創造力比較豐富，圖片往往會多加一些東西。因此將GAN結合supervised的方法，也就是Conditional GAN，結果較佳</p>
+<p><img src="/2021NTUML/Week7/conditionGAN-4.JPG" alt="Conditional GAN 4">
+輸入甚至可以是聲音訊號，藉由聽到的聲音來產生圖片</p>
+<h2 id="learning-from-unpaired-data">Learning from Unpaired Data</h2>
+<p><img src="/2021NTUML/Week7/unpair.JPG" alt="Learning from Unpaired Data">
+到獏前為止幾乎都是supervised learning，輸入要是成對的資料(x, y)。那如果有一堆資料沒有被標記要怎麼使用呢? 可以使用<code>pseudo labeling</code>或<code>: back translation</code>，但這些方法還是需要一些成對的資料。那什麼時候會連一點成對的資料都沒有呢?</p>
+<p><img src="/2021NTUML/Week7/unpair-1.JPG" alt="Learning from Unpaired Data 1">
+比如說影像風格轉換，將真人圖片轉換成二次元人物，要有成對資料需要有人去將真人圖片描繪成二次元風格成本會過於昂貴，因此需要透過GAN來達成</p>
+<p><img src="/2021NTUML/Week7/unpair-2.JPG" alt="Learning from Unpaired Data 2">
+這問題的輸入是真人圖片的分布，輸出是二次元圖片的分布</p>
+<p><img src="/2021NTUML/Week7/unpair-3.JPG" alt="Learning from Unpaired Data 3">
+看起來好像只需要將之前的隨機分布改成真人圖片的分布就好，從真人圖片的分布sample出來輸入至Generator來產生圖片，再丟給Discriminator來辨識。</p>
+<p><img src="/2021NTUML/Week7/unpair-4.JPG" alt="Learning from Unpaired Data 4">
+但光是這樣是不夠的，因為Generator只要能騙過Discriminator就好，因此他可以無視輸入的真人圖片來產生二次元圖片就好，因此一般GAN的做法是不夠的。有些人可能想說可以使用Conditional GAN，但因為輸入資料不是成對的，沒辦法告訴Generator怎樣x與y的組合是對的，因此也沒辦法使用Conditional GAN</p>
+<h3 id="cycle-gan">Cycle GAN</h3>
+<p><img src="/2021NTUML/Week7/cycle.JPG" alt="Cycle GAN">
+因此有了<code>Cycle GAN</code>的想法，會訓練兩個Generator。第一個Generator會將X domain變成Y domain，第二個Generator會將Y domain還原成X domain，因此能增加一個額外目標，嘗試讓輸入的圖與還原的圖越接近越好。因此在Cycle GAN中有3個network，那跟一般的GAN有什麼不同嗎? 這樣的做法會使第一個Generator產生的圖片不會與輸入的圖片差太多，但這樣是可以的嗎? 有可能機器學習到奇怪的轉換，使得輸入與產生圖片的關係不是我們需要的，雖然理論上沒有保證輸入與產生的圖片很像，但實作上往往會很像，只是改變風格而已</p>
+<p><img src="/2021NTUML/Week7/cycle-1.JPG" alt="Cycle GAN 1">
+Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain，因此需要額外的Discriminator來判斷二次元圖片還原真人的圖片是否是真人還是產生的</p>
+<h3 id="star-gan">Star GAN</h3>
+<p><img src="/2021NTUML/Week7/star.JPG" alt="Star GAN">
+除了Cycle GAN之外，還有Star GAN，且Star GAN能做更多種風格的轉換，若有興趣可參考以下連結</p>
+<ul>
+<li>StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation : <a href="https://arxiv.org/abs/1711.09020">Link</a></li>
+</ul>
+<h3 id="text-style-transfer">Text Style Transfer</h3>
+<p><img src="/2021NTUML/Week7/text.JPG" alt="Text Style Transfer">
+除了圖片風格轉換，Cycle GAN也可用於文字風格轉換，將正面句子轉成正面的句子</p>
+<p><img src="/2021NTUML/Week7/text-1.JPG" alt="Text Style Transfer 1">
+但會有些問題，如句子間要比較相似度，還有句子輸入Discriminator會需要RL硬做等</p>
+<p>想了解更多風格轉換可參考以下連結 :</p>
+<ul>
+<li>Learning to Encode Text as Human-Readable Summaries using Generative Adversarial Networks : <a href="https://arxiv.org/abs/1810.02851">Link</a></li>
+<li>Word Translation Without Parallel Data : <a href="https://arxiv.org/abs/1710.04087">Link</a></li>
+<li>Unsupervised Neural Machine Translation : <a href="https://arxiv.org/abs/1710.11041">Link</a></li>
+<li>Completely Unsupervised Phoneme Recognition by Adversarially Learning Mapping Relationships from Audio Embeddings : <a href="https://arxiv.org/abs/1804.00316">Link</a></li>
+<li>Unsupervised Speech Recognition via Segmental Empirical Output Distribution Matching : <a href="https://arxiv.org/abs/1812.09323">Link</a></li>
+<li>Completely Unsupervised Speech Recognition By A Generative Adversarial Network Harmonized With Iteratively Refined Hidden Markov Models : <a href="https://arxiv.org/abs/1904.04100">Link</a></li>
+</ul>
 </div>
             </div>
             
@@ -384,6 +434,8 @@ FID是將圖片輸入Classifier，拿取經過softmax前產生類別前的高維
             <li><a href="/post/ntuml-week7-2/#gan-for-sequence-generation">GAN for Sequence Generation</a></li>
             <li><a href="/post/ntuml-week7-2/#other-method">Other Method</a></li>
             <li><a href="/post/ntuml-week7-2/#evaluation-of-generation">Evaluation of Generation</a></li>
+            <li><a href="/post/ntuml-week7-2/#conditional-generation">Conditional Generation</a></li>
+            <li><a href="/post/ntuml-week7-2/#learning-from-unpaired-data">Learning from Unpaired Data</a></li>
             </div>
                 </div>
             </div>
