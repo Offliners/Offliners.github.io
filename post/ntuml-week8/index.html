@@ -3,18 +3,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 1 - Introduction of ML/DL </title>
+    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 8 - BERT </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, ML, DL, Hung Yi - Lee" name="keywords">
     
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 Video 2
-What is Machine Learing? Q : 什麼是機器學習?
-A : 機器學習簡單來說就是讓機器學會找一個函式的能力 舉例來說:
- 語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容 影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容 Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置  Different types of Functions  Regression : 函是輸出為純量 舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度 Classification : 給定選項，函示輸出為機器從這些選項中的選擇 舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件  Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置
-Q : 機器學習只有這兩個任務嗎?" name="description">
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3
+Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
+說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
+直到現今還有更多參數量更大的模型出現
+   Model Parameter     ELMO 94M   BERT 340M   GPT-2 1542M   Megatron 8B   T5 11B   Turing NLG 17B   GPT-2 175B   Switch Transformer 1." name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -131,10 +131,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 1 - Introduction of ML/DL</h1>
+                    <h1>NTU - 機器學習 Week 8 - BERT</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-03</span>
+    <span>2021-04-21</span>
 
     
      
@@ -177,115 +177,78 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week1/cover.JPG" alt="cover"></p>
+                    <p><img src="/2021NTUML/Week8/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://youtu.be/Ye018rCVvOo"><code>Video 1</code></a> <a href="https://youtu.be/bHcJCp2Fyxs">Video 2</a></p>
-<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=Y87Ct23H3Kw"><code>Video 1</code></a> <a href="hhttps://www.youtube.com/watch?v=O69EqgzUl9U">Video 2</a></p>
-<h2 id="what-is-machine-learing">What is Machine Learing?</h2>
-<p>Q : 什麼是機器學習?</p>
-<p>A : 機器學習簡單來說就是<code>讓機器學會找一個函式的能力</code>
-<img src="/2021NTUML/Week1/ML.JPG" alt="ML">
-舉例來說:</p>
-<ol>
-<li>語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容</li>
-<li>影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容</li>
-<li>Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置</li>
-</ol>
-<h2 id="different-types-of-functions">Different types of Functions</h2>
-<p><img src="/2021NTUML/Week1/MLtype.JPG" alt="MLtype"></p>
-<ol>
-<li>Regression : 函是輸出為純量
-舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度</li>
-<li>Classification : 給定選項，函示輸出為機器從這些選項中的選擇
-舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件</li>
-</ol>
-<p><img src="/2021NTUML/Week1/AlphaGO.JPG" alt="alphaGO">
-Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置</p>
-<p>Q : 機器學習只有這兩個任務嗎?</p>
-<p>A : 還有<code>Structured Learning</code>，要機器產生有結構的物件</p>
-<h2 id="how-to-find-a-function">How to find a function?</h2>
-<h3 id="case-study--youtube-viewer-prediction">Case study : Youtube Viewer Prediction</h3>
-<p><img src="/2021NTUML/Week1/yt.JPG" alt="Youtube Viewer">
-透過輸入Youtube後台數據(2017~2020觀看流量)，預測隔天觀看數</p>
-<h3 id="1-function-with-unknown-parameter">1. Function with Unknown Parameter</h3>
-<p><img src="/2021NTUML/Week1/MLStep1.JPG" alt="ML step1">
-透過線性模型$$y = b + wx_1$$將輸入乘上weight(w)加上bias(b)，w和b皆為不知道的參數</p>
-<h3 id="2-define-loss-from-training-data">2. Define Loss from Training Data</h3>
-<p><img src="/2021NTUML/Week1/MLStep2.JPG" alt="ML step2">
-透過輸入資料到線性模型來輸出預測值，並將預測值與label相減取絕對值來計算誤差，label為正確數值</p>
-<p><img src="/2021NTUML/Week1/MLStep2-1.JPG" alt="ML step2-1">
-剛剛例子使用MAE，要選擇使用MAE或MSE看任務的需求以及對任務的理解。如果輸出與預測都是機率的話，會選擇Cross-entropy</p>
-<p><img src="/2021NTUML/Week1/MLStep2-2.JPG" alt="ML step2-2">
-上圖如果越偏紅色系表示誤差越大，藍色系誤差越小。這樣的等高線圖為<code>Error Surface</code></p>
-<h3 id="3-optimization">3. Optimization</h3>
-<p><img src="/2021NTUML/Week1/MLStep3.JPG" alt="ML step3">
-使用梯度下降法(Gradient Descent)，首先隨機選擇一個初始值，接著對loss function對w取微分並帶入初始值，如果是負值則增加w，反之正值則減少w，一直更新參數w。除了w之外還有η(learning rate)，需自行設定，屬於機器學習中超參數的部分。</p>
-<p>使用梯度下降法，容易產生區域最小值(Local minima)的問題，但實際使用這方法，最大的難題不是這個，之後會再提。</p>
-<p><img src="/2021NTUML/Week1/MLStep3-1.JPG" alt="ML step3-1">
-之前是對單一參數w做梯度下降法，接著是對兩參數w與b</p>
-<p><img src="/2021NTUML/Week1/MLStep3-2.JPG" alt="ML step3-2">
-再來對線性模型使用梯度下降法算w與b，Error Surface呈現如上</p>
-<h3 id="performance">Performance</h3>
-<p><img src="/2021NTUML/Week1/performance.JPG" alt="Performance">
-結果分析:
-紅色現為真實觀看數，藍色線為機器預測，藍色線幾乎為紅色線往右平移一天，因為輸入資料是前一天的觀看人次，因此機器幾乎是拿前一天觀看人次做預測</p>
-<h2 id="how-to-improve-performance">How to Improve Performance?</h2>
-<h3 id="1-more-feature">1. More Feature</h3>
-<p><img src="/2021NTUML/Week1/improve1.JPG" alt="Improve 1">
-輸入前7天的資料，loss從0.48k降到0.38k</p>
-<p>輸入前28天的資料，loss從0.48k降到0.33k</p>
-<p>輸入前56天的資料，loss從0.48k降到0.32k</p>
-<p>看來考慮更多天沒辦法再更進步了。</p>
-<h3 id="2-flexible-model">2. Flexible Model</h3>
-<p><img src="/2021NTUML/Week1/improve2-1.JPG" alt="Improve 2-1">
-由於Linear model過於簡單，被Model bias所限制過，因此需要一個更複雜更有彈性的模型</p>
-<p><img src="/2021NTUML/Week1/improve2-2.JPG" alt="Improve 2-2">
-透過<code>acitvation function</code>來使模型更有彈性，上圖使用<code>sigmoid</code>來減少model bias</p>
-<p><img src="/2021NTUML/Week1/improve2-3.JPG" alt="Improve 2-3">
-可以透過足夠多個acitvation function，可以變成任何扭曲的曲線</p>
-<p><img src="/2021NTUML/Week1/improve2-4.JPG" alt="Improve 2-4">
-再結合第一點，輸入更多feature</p>
-<h2 id="redefine-model-training">Redefine Model Training</h2>
-<h3 id="1-new-function-with-unknown-parameter">1. New Function with Unknown Parameter</h3>
-<p><img src="/2021NTUML/Week1/new-model1.JPG" alt="new-model1">
-將複雜的運算簡單化</p>
-<p><img src="/2021NTUML/Week1/new-model2.JPG" alt="new-model2">
-使用矩陣的方式來表達數學式</p>
-<p><img src="/2021NTUML/Week1/new-model3.JPG" alt="new-model3">
-σ表示acitvation function，這裡的acitvation function是使用sigmoid function，所以以上是將輸入x經過w縮放和b的位移，再通過acitvation function，通過後再經過c縮放和b的位移。兩個b不相同，一個是向量，另一個是純量。</p>
-<h3 id="2-redefine-loss-from-training-data">2. Redefine Loss from Training Data</h3>
-<p><img src="/2021NTUML/Week1/new-model4.JPG" alt="new-model4">
-與前面相同，只是function不同而已</p>
-<h3 id="3-optimization-of-new-model">3. Optimization of New Model</h3>
-<p><img src="/2021NTUML/Week1/new-model5.JPG" alt="new-model5">
-也與前面相同，使用梯度下降法，首先隨機選取初始值，接著把L對每個未知參數取微分，所得值及合成一個向量，這個向量就是Gradient。</p>
-<p><img src="/2021NTUML/Week1/new-model6.JPG" alt="new-model6">
-再來就是透過learning rate來做參數更新</p>
-<p><img src="/2021NTUML/Week1/new-model7.JPG" alt="new-model7">
-實際上，會將一大筆資料分成數個Batch，每個Batch都更新好參數後就是一個epoch。Update是更新參數，epoch是更新好每個Batch的參數。Batch size也是模型的超參數。</p>
-<h3 id="why-sigmoid">Why Sigmoid?</h3>
-<p><img src="/2021NTUML/Week1/why1.JPG" alt="why1">
-為何使用sigmoid?也可以使用ReLU，使用兩個ReLU可以組合成一個Hard Sigmoid。</p>
-<p><img src="/2021NTUML/Week1/why2.JPG" alt="why2">
-至於哪個比較好，之後會說。</p>
-<h3 id="experimental-results">Experimental Results</h3>
-<p><img src="/2021NTUML/Week1/exp1.JPG" alt="exp1">
-100個ReLU有顯著差別，訓練Loss從0.32k降到0.28k</p>
-<p>1000個ReLU雖然訓練loss有降低，但沒看過的測試資料就沒有差別</p>
-<h2 id="what-else-can-we-do">What else can we do?</h2>
-<p><img src="/2021NTUML/Week1/layer.JPG" alt="layer">
-可以透過增加層數，先前是經過一次運算，而現在是將一次計算結果再經過多次計算。層數也是模型超參數之一</p>
-<h3 id="experimental-results-1">Experimental Results</h3>
-<p><img src="/2021NTUML/Week1/exp2.JPG" alt="exp2">
-實驗結果顯示3層可以將訓練loss降到0.14k，沒看過的測試資料可以降到0.38k</p>
-<p><img src="/2021NTUML/Week1/exp3.JPG" alt="exp3">
-可以發現機器預測更接近實際值，至於問號的地方是機器高估，由於那天過年，機器不知道新年，所以預測較差</p>
-<h2 id="deep-learning">Deep Learning</h2>
-<p><img src="/2021NTUML/Week1/DL.JPG" alt="DL">
-為何不排一排多個activation function使模型變肥，而是加深模型，日後再說</p>
-<h2 id="why-dont-we-go-deeper">Why don&rsquo;t we go deeper?</h2>
-<p><img src="/2021NTUML/Week1/exp4.JPG" alt="exp4">
-加深到第四層時，訓練資料有變好，但沒看過的測試資料反而變差了，這就是overfitting</p>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/e422eloJ0W4"><code>Video 1</code></a> <a href="https://youtu.be/gh0hewYkjgo"><code>Video 2</code></a> <a href="https://youtu.be/ExXA05i8DEQ"><code>Video 3</code></a></p>
+<p>Youtube Video Link (English): [<code>Video 1</code>] [<code>Video 2</code>] [<code>Video 3</code>]</p>
+<h2 id="model-introduction">Model Introduction</h2>
+<p><img src="/2021NTUML/Week8/name.JPG" alt="Name">
+<code>Self-Supervised Learning</code>的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名</p>
+<p><img src="/2021NTUML/Week8/BERT.JPG" alt="BERT">
+說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍</p>
+<p><img src="/2021NTUML/Week8/Model.JPG" alt="Model">
+直到現今還有更多參數量更大的模型出現</p>
+<p><img src="/2021NTUML/Week8/Model-1.JPG" alt="Model 1">
+<img src="/2021NTUML/Week8/Model-2.JPG" alt="Model 2">
+<img src="/2021NTUML/Week8/Model-3.JPG" alt="Model 3"></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Parameter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ELMO</td>
+<td>94M</td>
+</tr>
+<tr>
+<td>BERT</td>
+<td>340M</td>
+</tr>
+<tr>
+<td>GPT-2</td>
+<td>1542M</td>
+</tr>
+<tr>
+<td>Megatron</td>
+<td>8B</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>11B</td>
+</tr>
+<tr>
+<td>Turing NLG</td>
+<td>17B</td>
+</tr>
+<tr>
+<td>GPT-2</td>
+<td>175B</td>
+</tr>
+<tr>
+<td>Switch Transformer</td>
+<td>1.6T</td>
+</tr>
+</tbody>
+</table>
+<h2 id="self-supervised-learning">Self-supervised Learning</h2>
+<p><img src="/2021NTUML/Week8/self.JPG" alt="Self-supervised Learning">
+之前介紹的幾乎都是Supervised Learning，輸入的資料都是有label的。那Self-supervised Learning? 輸入的資料沒有label，所以會將輸入資料分成兩部分，一部分作為輸入，另一部分作為學習label用。有些人會稱這種沒有label的資料作為輸入的方法為Unsupervised Learning，但有人覺得Unsupervised方法涵蓋太多，因此這種自我學習label的方法改叫Self-supervised Learning</p>
+<p><img src="/2021NTUML/Week8/mask.JPG" alt="Masking Input">
+那實際上是如何自己產生label? 舉BERT為例，BERT是一種Transformer的encoder，輸入一排向量，輸出一排與輸入相同長度的一排向量，然後會將輸入的向量隨機遮蔽，那要怎麼遮蔽呢? 有兩種做法，一種是換成特殊符號，另一種是隨機互換成另一個向量。然後將被遮蔽的輸入所得到的輸出經過Linear轉換再經過Softmax得到一個分布。這種方法叫<code>Masking</code></p>
+<p><img src="/2021NTUML/Week8/mask-1.JPG" alt="Masking Input 1">
+那學習的目標是什麼? 目標是原本被遮蔽的向量，也就是個分類問題，訓練時需要訓練BERT與Linear Model</p>
+<p><img src="/2021NTUML/Week8/next.JPG" alt="Next Sentence Prediction">
+BERT訓練除了Masling之外，同時還會做另一個方法，叫<code>Next Sentence Prediction</code>，首先將輸入的資料庫取兩個Sequence，這兩個Sequence間會加入分隔符號，最前面會加入一個特別的符號，然後將整個Sequence輸入BERT，輸出會是與輸入相同長度的Sequence，但只看最前面特殊符號的輸出，將這個輸出經過Linear Model後做一個二元分類的問題，判斷輸入的兩個Sequence是否是相接的，是相接的話輸出Yes，反之輸出No。但後來研究發現<code>Next Sentence Prediction</code>對BERT後來要做的事沒有太大的幫助，後來還有另一個改進的做法叫<code> Sentence order prediction</code>，輸入兩個相連的句子讓BERT判斷是正接還是反接的，被用於BERT的進階版<code>ALBERT</code></p>
+<p>想了解更多可參考以下連結 :</p>
+<ul>
+<li>RoBERTa: A Robustly Optimized BERT Pretraining Approach : <a href="https://arxiv.org/abs/1907.11692">Link</a></li>
+<li>ALBERT: A Lite BERT for Self-supervised Learning of Language Representations : <a href="https://arxiv.org/abs/1909.11942">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week8/bert-1.JPG" alt="BERT 1">
+因此訓練時，BERT要學兩個任務，一個是遮蔽一些輸入要BERT補回來，另一個是判斷兩個句子是否接在一起。感覺BERT只學會填補資料，但實際上他可以完成其他任務，這些任務叫<code>Downstream Tasks</code>，但要BERT做這些任務還是需要有一些標註的資料。將BERT微調去做其他任務叫做<code>Fine-tune</code>，而產生BERT的過程叫做<code>Pretrain</code></p>
 </div>
             </div>
             
@@ -306,19 +269,276 @@ Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出�
                 <div style="margin-left: 10px;">   
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week1/#what-is-machine-learing">What is Machine Learing?</a></li>
-            <li><a href="/post/ntuml-week1/#different-types-of-functions">Different types of Functions</a></li>
-            <li><a href="/post/ntuml-week1/#how-to-find-a-function">How to find a function?</a></li>
-            <li><a href="/post/ntuml-week1/#how-to-improve-performance">How to Improve Performance?</a></li>
-            <li><a href="/post/ntuml-week1/#redefine-model-training">Redefine Model Training</a></li>
-            <li><a href="/post/ntuml-week1/#what-else-can-we-do">What else can we do?</a></li>
-            <li><a href="/post/ntuml-week1/#deep-learning">Deep Learning</a></li>
-            <li><a href="/post/ntuml-week1/#why-dont-we-go-deeper">Why don’t we go deeper?</a></li>
+<ul class="toc-h2"><li><a href="/post/ntuml-week8/#model-introduction">Model Introduction</a></li>
+            <li><a href="/post/ntuml-week8/#self-supervised-learning">Self-supervised Learning</a></li>
             </div>
                 </div>
             </div>
             
 
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Relevant Topics -</h2>
+                
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week7-2/">
+                                <h3 class="">NTU - 機器學習 Week 7 - GAN</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-15</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week7-1/">
+                                <h3 class="">NTU - 機器學習 Week 7 - Transformer</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-13</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week5-2/">
+                                <h3 class="">NTU - 機器學習 Week 5 - Normalization</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-11</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week5-1/">
+                                <h3 class="">NTU - 機器學習 Week 5 - Self-Attention</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-10</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week3-3/">
+                                <h3 class="">NTU - 機器學習 Week 3 - CNN</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-08</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ml/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ML</span>
+        </a>
+    
+        <a href="/categories/dl/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">DL</span>
+        </a>
+    
+        <a href="/categories/hung-yi-lee/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Hung Yi - Lee</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                
+                <br />
+            </div>
             
 
             <div class="layui-card single-card">

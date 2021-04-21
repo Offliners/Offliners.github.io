@@ -2,17 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Offliners.github.io/categories/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/tags/deep-learning/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/categories/dl/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/categories/hung-yi-lee/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/tags/machine-learning/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/categories/ml/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/post/ntuml-week8/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/tags/ntu-ml-2021/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
     <loc>https://Offliners.github.io/</loc>
-    <lastmod>2021-04-17T22:21:10+08:00</lastmod>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/post/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
+  </url><url>
+    <loc>https://Offliners.github.io/tags/</loc>
+    <lastmod>2021-04-21T21:33:28+08:00</lastmod>
   </url><url>
     <loc>https://Offliners.github.io/zone/orbslam2_list/</loc>
     <lastmod>2021-04-17T22:21:10+08:00</lastmod>
   </url><url>
     <loc>https://Offliners.github.io/zone/</loc>
     <lastmod>2021-04-17T22:21:10+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/categories/</loc>
-    <lastmod>2021-04-17T00:46:46+08:00</lastmod>
   </url><url>
     <loc>https://Offliners.github.io/tags/code-analysis/</loc>
     <lastmod>2021-04-17T00:46:46+08:00</lastmod>
@@ -29,31 +56,7 @@
     <loc>https://Offliners.github.io/post/orbslam2-code-1/</loc>
     <lastmod>2021-04-17T00:46:46+08:00</lastmod>
   </url><url>
-    <loc>https://Offliners.github.io/post/</loc>
-    <lastmod>2021-04-17T00:46:46+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/tags/</loc>
-    <lastmod>2021-04-17T00:46:46+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/tags/deep-learning/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/categories/dl/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/categories/hung-yi-lee/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/tags/machine-learning/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/categories/ml/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
     <loc>https://Offliners.github.io/post/ntuml-week7-2/</loc>
-    <lastmod>2021-04-15T20:04:48+08:00</lastmod>
-  </url><url>
-    <loc>https://Offliners.github.io/tags/ntu-ml-2021/</loc>
     <lastmod>2021-04-15T20:04:48+08:00</lastmod>
   </url><url>
     <loc>https://Offliners.github.io/post/ntuml-week7-1/</loc>

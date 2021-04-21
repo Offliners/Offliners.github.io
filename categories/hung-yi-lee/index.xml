@@ -6,7 +6,22 @@
     <description>Recent content in Hung Yi - Lee on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 15 Apr 2021 20:04:48 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 21:33:28 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/hung-yi-lee/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 8 - BERT</title>
+      <link>https://Offliners.github.io/post/ntuml-week8/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week8/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3
+Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
+說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
+直到現今還有更多參數量更大的模型出現
+   Model Parameter     ELMO 94M   BERT 340M   GPT-2 1542M   Megatron 8B   T5 11B   Turing NLG 17B   GPT-2 175B   Switch Transformer 1.</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 7 - GAN</title>
       <link>https://Offliners.github.io/post/ntuml-week7-2/</link>

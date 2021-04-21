@@ -6,7 +6,34 @@
     <description>Recent content in Categories on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 17 Apr 2021 00:46:46 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 21:33:28 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DL</title>
+      <link>https://Offliners.github.io/categories/dl/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/dl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hung Yi - Lee</title>
+      <link>https://Offliners.github.io/categories/hung-yi-lee/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/hung-yi-lee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>https://Offliners.github.io/categories/ml/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/categories/ml/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>code analysis</title>
       <link>https://Offliners.github.io/categories/code-analysis/</link>
@@ -22,33 +49,6 @@
       <pubDate>Sat, 17 Apr 2021 00:46:46 +0800</pubDate>
       
       <guid>https://Offliners.github.io/categories/orbslam/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DL</title>
-      <link>https://Offliners.github.io/categories/dl/</link>
-      <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/categories/dl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hung Yi - Lee</title>
-      <link>https://Offliners.github.io/categories/hung-yi-lee/</link>
-      <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/categories/hung-yi-lee/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ML</title>
-      <link>https://Offliners.github.io/categories/ml/</link>
-      <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/categories/ml/</guid>
       <description></description>
     </item>
     

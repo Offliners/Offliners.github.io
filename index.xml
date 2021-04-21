@@ -6,7 +6,22 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 17 Apr 2021 22:21:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 21:33:28 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 8 - BERT</title>
+      <link>https://Offliners.github.io/post/ntuml-week8/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week8/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3
+Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
+說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
+直到現今還有更多參數量更大的模型出現
+   Model Parameter     ELMO 94M   BERT 340M   GPT-2 1542M   Megatron 8B   T5 11B   Turing NLG 17B   GPT-2 175B   Switch Transformer 1.</description>
+    </item>
+    
     <item>
       <title>ORBSLAM2 程式碼解析</title>
       <link>https://Offliners.github.io/zone/orbslam2_list/</link>
@@ -114,7 +129,7 @@ What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與�
       <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
-      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning TBD   Self-Attention Link   Normalization Link   Transformer Link   GAN Link    </description>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning TBD   Self-Attention Link   Normalization Link   Transformer Link   GAN Link   BERT Link    </description>
     </item>
     
     <item>
