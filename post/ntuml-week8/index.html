@@ -249,6 +249,43 @@ BERT訓練除了Masling之外，同時還會做另一個方法，叫<code>Next S
 </ul>
 <p><img src="/2021NTUML/Week8/bert-1.JPG" alt="BERT 1">
 因此訓練時，BERT要學兩個任務，一個是遮蔽一些輸入要BERT補回來，另一個是判斷兩個句子是否接在一起。感覺BERT只學會填補資料，但實際上他可以完成其他任務，這些任務叫<code>Downstream Tasks</code>，但要BERT做這些任務還是需要有一些標註的資料。將BERT微調去做其他任務叫做<code>Fine-tune</code>，而產生BERT的過程叫做<code>Pretrain</code></p>
+<h2 id="glue">GLUE</h2>
+<p><img src="/2021NTUML/Week8/glue.JPG" alt="GLUE">
+要測試一個模型Self-supervised Learning的能力，會測試多個任務，在多個任務中的正確率取平均值，這樣的任務集最有名的是<code>General Language Understanding Evaluation (GLUE)</code>，分別微調在9個任務上</p>
+<p><img src="/2021NTUML/Week8/bertscore.JPG" alt="BERT scores">
+以上是BERT相關的模型在GLUE的得分，可以發現最近較強的模型在這些資料集中的平均得分超越人類的表現</p>
+<h2 id="how-to-use-bert">How to use BERT</h2>
+<h3 id="case-1">Case 1</h3>
+<p><img src="/2021NTUML/Week8/case-1.JPG" alt="How to use BERT 1">
+Case 1是輸入Sequence輸出一個類別，舉<code>Sentiment analysis</code>為例，將輸入的句子前面放置CLS這個特殊的token，接著得到一排向量的輸出，但只看CLS對應的輸出，接著經過Linear模型與softmax來判斷是正面還是負面。但仍需要提供BERT一些標註的資料，且Linear模型的參數是隨機初始化，但BERT是透過Fine-tune出來的，是已經被預訓練的模型，因此BERT的參數不是隨機初始化的</p>
+<p><img src="/2021NTUML/Week8/vs.JPG" alt="Pre-train v.s. Random Initialization">
+上圖比較可以發現有Fine-tune的模型(實線)loss下降較快且可以到比較低的位置，但沒有Fine-tune的模型(虛線)，也就是透過Scratch的方法，loss下降較慢且最終得到的loss也較大</p>
+<h3 id="case-2">Case 2</h3>
+<p><img src="/2021NTUML/Week8/case-2.JPG" alt="How to use BERT 2">
+Case 2是輸入Sequence輸出是與輸入相同長度的Sequence，舉<code>POS Tagging</code>為例，與Case 1不同的是輸出是看CLS以外的輸出，由於要輸出相同長度的Sequence，所以不會看CLS的輸出，接著輸入至Linear模型再經過Softmax來判斷說這是什麼詞性</p>
+<h3 id="case-3">Case 3</h3>
+<p><img src="/2021NTUML/Week8/case-3.JPG" alt="How to use BERT 3">
+Case 3是輸入兩個Sequence輸出一個類別，舉<code>Natural Language Inferencee (NLI)</code>為例，輸入的兩個句子，一個是前提另一個是假設，機器要用前提與假設判斷是否矛盾</p>
+<p><img src="/2021NTUML/Week8/case-3-1.JPG" alt="How to use BERT 3-1">
+BERT會輸入兩個句子組成的Sequence，並從CLS對應的輸出來判斷是否矛盾</p>
+<h3 id="case-4">Case 4</h3>
+<p><img src="/2021NTUML/Week8/case-4.JPG" alt="How to use BERT 4">
+接下來要介紹的問題是<code>Extraction-based Question Answering (QA)</code>，這是一種問答系統，且答案一定會出現在文章中。首先會將文章D與問題Q輸入到模型中，且會輸出兩個正整數s、e，這兩個正整數代表文章的第s個字到第e個字，串起來就是機器會輸出的答案</p>
+<p><img src="/2021NTUML/Week8/case-4-1.JPG" alt="How to use BERT 4-1">
+與Case 3相同，輸入為文章與問題組成的Sequence，接著BERT會輸出一串Sequence，然後將文章對應輸出的Sequence對橘色的向量做內積，再做softmax，得到數值最高的位置為s</p>
+<p><img src="/2021NTUML/Week8/case-4-2.JPG" alt="How to use BERT 4-2">
+再來對文章對應輸出的Sequence對藍色的向量做內積，再做softmax，得到數值最高的位置為e，這兩個顏色的向量是機器要訓練的，且向量是隨機初始化的</p>
+<h3 id="training-bert-is-challenging">Training BERT is challenging</h3>
+<p><img src="/2021NTUML/Week8/challenge.JPG" alt="Training BERT is challenging">
+要訓練BERT非常難，因為參數量過多因此十分耗時</p>
+<h2 id="pre-training-a-seq2seq-model">Pre-training a seq2seq model</h2>
+<p><img src="/2021NTUML/Week8/seq2seq.JPG" alt="Pre-training a seq2seq model">
+由於BERT是將Transformer的encoder先預訓練好，那如果要解seq2seq的問題，也可以預訓練decoder? 可以，會將輸入至encoder的資料增加一些擾動，然後預期deocder的輸出與沒有擾動的資料是相同的</p>
+<p><img src="/2021NTUML/Week8/mass.JPG" alt="Pre-training a seq2seq model 1">
+那要怎麼增加擾動呢? 有許多種方法，如使用特殊的符號遮蔽、直接刪除、弄亂順序、順序旋轉等</p>
+<p><img src="/2021NTUML/Week8/T5.JPG" alt="T5">
+Google已經有提供T5這個預訓練的模型，將多種擾動的方式用於其中</p>
+<h2 id="why-does-bert-work">Why does BERT work?</h2>
 </div>
             </div>
             
@@ -271,6 +308,10 @@ BERT訓練除了Masling之外，同時還會做另一個方法，叫<code>Next S
 
 <ul class="toc-h2"><li><a href="/post/ntuml-week8/#model-introduction">Model Introduction</a></li>
             <li><a href="/post/ntuml-week8/#self-supervised-learning">Self-supervised Learning</a></li>
+            <li><a href="/post/ntuml-week8/#glue">GLUE</a></li>
+            <li><a href="/post/ntuml-week8/#how-to-use-bert">How to use BERT</a></li>
+            <li><a href="/post/ntuml-week8/#pre-training-a-seq2seq-model">Pre-training a seq2seq model</a></li>
+            <li><a href="/post/ntuml-week8/#why-does-bert-work">Why does BERT work?</a></li>
             </div>
                 </div>
             </div>
