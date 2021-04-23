@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NTU 機器學習 note on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/categories/ntu-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-note/</link>
+    <description>Recent content in NTU 機器學習 note on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 21 Apr 2021 21:33:28 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/categories/ntu-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 8 - BERT</title>
+      <link>https://Offliners.github.io/post/ntuml-week8/</link>
+      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week8/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3
+Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
+說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
+直到現今還有更多參數量更大的模型出現
+   Model Parameter     ELMO 94M   BERT 340M   GPT-2 1542M   Megatron 8B   T5 11B   Turing NLG 17B   GPT-2 175B   Switch Transformer 1.</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 7 - GAN</title>
+      <link>https://Offliners.github.io/post/ntuml-week7-2/</link>
+      <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week7-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
+Youtube Video Link (English): Video 1 Video 2 [Video 3] [Video 4]
+Network as Generator 現在要將network當成Generator使用，這個network會輸入x與隨機變數z來生成y，每次使用這個network時會透過簡單的分布來生成不同的z，這種簡單的分布可以是Gaussian Distribution或者是Uniform Distribution等。加入隨機變數z後，network輸出會變成複雜的分布。這種特殊的network叫做Generator
+那為什麼要訓練Generator?為什麼要訓練這種輸出是一個複雜分布的模型?
+Why Distribution? 假設今天有個任務，是要去預測之後的遊戲畫面，那可能會將過去遊戲畫面作為模型輸入，然後模型會輸出下一個預測的遊戲畫面
+但這樣會有個問題，就是有時候會發現小精靈會分裂，甚至消失。因為在訓練資料中有時候小精靈是向左轉，有時候是向右轉，那會造成機器覺得向左轉是對的，向右轉也是對的，但同時向左向右就是錯的，那要怎麼處理這類問題呢?讓機器輸出是有機率的，而不是單一的輸出
+將給network一個機率分布z時，模型輸出就會變成一個Distribution，這個Distribution包含向左轉與向右轉的可能
+那什麼時候需要這種network?當任務需要一些創造力的時候，也就是同樣的輸入卻有多種可能的輸出，而這些輸出都是對的。例如繪畫或者聊天機器人
+Generative Adversarial Network GAN有多種的變形，多到許多不同GAN的變形卻有相同的名字，可以到以下連結去查看:
+ The GAN Zoo : Link  Anime Face Generation 接著要舉的例子是生成動畫人物的臉，使用的是Unconditional Generation，也就是模型輸入只有Z，沒有x。因此Generator只輸入Z輸出y，然後Z是使用Normal distribution中sample出來的向量，向量維度是自訂的。所以透過輸入低維度的隨機向量，去透過Generator產生圖片這種高維度的向量(如果圖片大小是64 * 64且是RGB，那輸出的向量就會是64 * 64 * 3)
+Discriminator 在GAN中，除了訓練Generator，還要訓練Discriminator，圖片會輸入到Discriminator，接著輸出一個數值，數值越大表示這張圖片越像是二次元人物的圖像
+Basic Idea of GAN 首先第一代的Generator因為參數是隨機的，因此產生的圖片就是雜訊，那換Discriminator來分辨這些圖片與真正的圖片不同，一開始Discriminator可能只判斷是否有眼睛，有眼睛是真正的圖片，沒有的是Generator產生的。那換第二代的Generator，調整參數來騙過Discriminator，因為Discriminator判斷的依據是是否有眼睛，所以第二代的Generator開始產生眼睛，可以騙過第一代的Discriminator，但Discriminator也會進化，第二代的Discriminator可能發現可以根據是否有頭髮或嘴巴來分辨圖片。那第三代的Generator就會繼續想辦法去騙過第二代的Discriminator。以此類推，所以Generator產生的圖片會越像二次元人物，而Discriminator也會越來越嚴苛</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 7 - Transformer</title>
+      <link>https://Offliners.github.io/post/ntuml-week7-1/</link>
+      <pubDate>Tue, 13 Apr 2021 20:43:16 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week7-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+Applications of Sequence-to-sequence (Seq2seq) 當模型輸入是sequence時，輸出可以是與輸入相同長度的sequence，也可能是未知長度的sequence，由機器去決定。輸出是未知長度sequence的例子如
+ 語音辨識 Speech Recognition 機器翻譯 Machine Translation 語音翻譯 Speech Translation  這時可能有人問為何要做語音翻譯?直接語音辨識再機器翻譯不就好了?因為世界上有眾多語言，有些語言甚至連文字都沒有，沒有文字的語言難以做語音辨識
+若想了解台語語音辨識可點以下連結: To learn more : Link
+輸入聲音，輸出辨識後的文字是語音辨識 Speech Recognition。反過來，輸入文字，輸出聲音訊號，就是語音合成 Text-to-Speech Synthesis
+Seq2seq for Chatbot 文字方面，也可透過使用Seq2seq的模型來訓練，例如可以訓練聊天機器人，輸入輸出都是文字，訓練資料是一堆對話的內容
+Most Natural Language Processing applications 很多NLP的問題可以看成是QA的問題，多數QA的問題又可以透過Seq2seq解決。輸入問題與文章，輸出就是問題的答案
+想了解更多NLP的處理，可參考以下連結 To learn more :
+ The Natural Language Decathlon: Multitask Learning as Question Answering : Link LAMOL: LAnguage MOdeling for Lifelong Language Learning : Link DEEP LEARNING FOR HUMAN LANGUAGE PROCESSING 2020 SPRING : Link  Seq2seq for Syntactic Parsing Seq2seq也可用於文法剖析，輸入是一段文字，但輸出就不是sequence，而是樹狀結構用來分析各文字的組成</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 5 - Normalization</title>
+      <link>https://Offliners.github.io/post/ntuml-week5-2/</link>
+      <pubDate>Sun, 11 Apr 2021 15:34:25 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week5-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Changing Landscape 如果有個簡易的模型，x1輸入值小，因此當w1改變時，loss也會有微小的改變，但x2因為輸入大，所以對loss的改變也會很大，這使error surface變成橢圓形。因為兩參數對loss斜率差很大，導致error surface相當難訓練，因此要使用Batch Normalization來使error surface變比較好訓練
+Feature Normalization 透過這種Normalization，最後得到平均為0，且變異數是1，因此數值分布會在0左右，所以做出比較好得error surface，做梯度下降時，能收斂得快一些
+將Normalization後得數值丟入network做計算，進一步思考會發現只有W1輸入的值有Normalize，但W2沒有，那如果z得數值差異大那對W2的訓練會不會變困難?因此輸入W2的值也應該要做Normalize
+Q : 那要在activation function前做Normalize還是之後做?
+A : 實作上其實差異不大，如果activation function是使用sigmoid的話建議在之前做
+假設現在對z做Normalize
+由於z、mean與std都是向量，因此這裡的除法是對向量中的每個對應的元素計算。由於mean與std是經過z1、z2與z3計算得到的，沒做Feature Normalization時，各個是獨立計算的，z1只影響a1，但當Feature Normalization後，z1改變時，會對影響到a2與a3。因此現在的network不是分別處理，而是一次處理多個輸入。由於GPU記憶體有限，因此network不會一次考慮整個訓練資料，而是考慮一個batch，這就是Batch Normalization，但這適用於batch size較大的情況，這樣計算batch的mean與std比較能得到資料的分布
+有時Batch Normalization還加入兩個未知參數來做訓練，這兩參數需要透過模型另外再學習出來，那為何需要加入這兩未知參數呢?由於做完Batch Normalization時，平均值為0對network多了限制，因此透過這兩參數來調整
+有Batch Normalization後要怎麼測試呢?一般會想說一次測試一組batch的資料，但實際上不會等訓練出一組batch再測試，如pytorch會使用moving average來將訓練的mean與std進行處理，測試時就不用再計算batch的mean與std，而是使用moving average後的數值來測試
+上圖是Batch Normalization論文中的圖表，可以發現有做Batch Normalization的模型可以使用較短的時間達到終點
+原始Batch Normalization提出Internal Covariate Shift來解釋為何Batch Normalization能優化，簡單來說是更新參數時，更新後的參數是對更新前的參數比較好不是對更新後的，因此做Batch Normalization能先使原始參數的分布較接近更新後的，使更新參數的方向往適合更新後參數的方向走，但仍然有其他論文做實驗來解釋其他理由
+上圖所描述文章講解透過實驗與理論來證實Batch Normalization能改變error surface，使error surface變得比較不崎嶇。要改變error surface其實還有其他方法，試其他方法改變error surface後發現與Batch Normalization的表現差不多，因此感嘆說Batch Normalization是偶然發現的，但是是一種有用的方法
+To Learn More  Batch Renormalization : Link Layer Normalization : Link Instance Normalization : Link Group Normalization : Link Weight Normalization : Link Spectrum Normalization : Link  </description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 5 - Self-Attention</title>
+      <link>https://Offliners.github.io/post/ntuml-week5-1/</link>
+      <pubDate>Sat, 10 Apr 2021 23:06:41 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week5-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Vedio 2
+Youtube Video Link (English): Video 1 Vedio 2
+Sophisticated Input 以往的輸入(預測Youtube觀看人數、影像處理等)都可以看成是一個向量，那如果輸入變成一排向量呢? 或者輸入許多大小不一的向量呢?
+那有什麼輸入是Sequence且長度會改變的呢?如文字處理，輸入是多個句子，且句子長度不同。那要怎麼把詞彙變成像量呢?最簡單的做法是one-hot encoding，假如有個很長的向量，向量長度為世界上存在詞彙的數目，當出現某個詞彙，那該詞彙所在的index就會為1。除了需要非常長的向量之外會存在一個嚴重的問題，那就是詞彙之間沒有關係，即使詞彙都是動物的種類，但彼此沒有關係，因為這種表示法沒有語意的資訊。因此有word emdeding，想得知更多可觀看以下連結的影片
+ To Learn More : Unsupervised Learning - Word Embedding Video  還有聲音訊號也可當成長度不一的向量組，可以把聲音訊號取一個範圍，將這裡面的資訊描述成向量，也就是一個Frame，將一段訊號描述成向量有多種作法。為了描述整個整個向量會移動這個範圍，再將這裡面描述成新的向量，因此就能組成向量組
+還有Graph也能看成是向量組，每個節點可以描述成向量，這些向量也能組成向量組來描述Graph
+既然Graph能描述成向量組，那分子也可以，每個分子當成一個Graph，而每種元素能用one-hot encoding來描述成向量
+What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與輸出的向量可以對應到一個Label，如果Label對應到數值，那就是Regression問題;如果對應到class，那就是Classification問題，這種形式輸入輸出的長度是相同的。有以下應用:
+ POS Tagging 詞性標註 語音處理 Social Network Porblem  那還有輸入向量組，輸出只是一個Label。有以下應用:
+ Sentiment Analysis 情緒分析 語者辨認 分子分析  最後一種可能的輸出是不知道要輸出多少Label，機器要自己決定，這種任務叫做Sequence to Sequence</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 3 - CNN</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-3/</link>
+      <pubDate>Thu, 08 Apr 2021 21:12:19 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-3/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Image Classification 通常會假設輸入圖片大小是固定的，如果圖片大小不一樣，會先Rescale。
+Neuron Version Story about Convolutional Layer 通常一張彩色圖片會是3維張量，分別為圖片的長、寬與Channel，這三個Channel為圖片的RGB。接著會把tensor給拉直，變成一維向量，那要如何拉直呢?將每個channel的數值排一排，就可以當成network的輸入，這個向量的每個數值，代表該顏色的強度。
+將這個向量輸入到fully-connected network，如果輸入有100 * 100 * 3個feature，經過第一層假設有1000個神經元，那這一層會有30000000個weight。那這麼多參數會有什麼問題?雖然參數增加可以增加模型的彈性與能力，但也增加了訓練overfit的機率。考慮到影像的自身特性，其實不需要每個feature都有一個weight。那影像有什麼特性呢?
+Observation 1 對於影像辨識而言，希望神經元內能辨識的是圖片部分的pattern。比如圖片出現鳥嘴、鳥眼與鳥腳，因此能辨識出這是隻鳥
+因此神經元不需要逐一對應到每一個特徵，神經元只需要對應到小區域的特徵群就好
+在CNN中，會定義一個區域叫Receptive field，這範圍內的特徵會被拉直輸入到一個神經元中，因此神經元只需要輸入3 * 3 * 3個特徵，相較之前的100 * 100 * 3少了許多
+那要怎麼決定Receptive field呢?這要自行決定。且Receptive field可以彼此重疊，甚至多個神經元去守備相同的Receptive field。
+那Receptive field可以有不同大小嗎? 可以
+那Receptive field可以有只考慮一個channel嗎? 可以
+那Receptive field可以用長方形嗎? 可以
+雖然Receptive field可以自行設定，那這邊要介紹經典的安排方式
+會涵蓋所有的channel，因為深度會全涵蓋，所以只需要講高和寬，這個高和寬是kernel size，通常不會太大，常見的是(3, 3)
+Receptive field會由一組多個神經元去守備，不會只有一個
+Receptive field會移動到新的Receptive field，移動的長度是stride，通常不會太大(通常設1或2)，這樣才能重疊。假設Receptive field完全沒有重疊的話，如果有個pattern出現在兩個Receptive field的重疊處時，就會沒有神經元去偵測，就會遺失這個pattern。因此會希望Receptive field高度重疊</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 3 - Loss Function: Classification</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-2/</link>
+      <pubDate>Tue, 06 Apr 2021 15:46:03 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Classification as Regression? 如果把Classification當成Regression來看，將每個class用編號來記錄，那意味著class 1跟class 2比較像，class 1跟class 3比較不像，因此這方法會有點瑕疵
+透過使用one hot vector，就不會有上述問題，因為把one hot vector算距離，class之間兩兩距離都是相同的。那現在目標需要三個數值，但以前regression的output都是一個數值，那要怎麼做呢?
+那只需要將原本output一個數值的方法重複三次，乘上3個不同的weight加上bias得到三個數值，得到的這個向量期望與目標向量越接近越好
+在做Classification時，往往會加上輸出向量再通過softmax得到另一個向量再去跟label做比較。簡單來說，因為label是0或1的值，因此通過softmax能將任何值移到0~1之間，方便來做跟label的比較
+Softmax 透過上次可得知，每個y值介於0~1之間，且總和為1。這裡討論三個class的情形，那如果只有兩個class呢?也可以使用softmax，但常聽到的是sigmoid，其實兩者是等價的
+Loss of Classification 以前計算預測值與實際值的距離可能常用MSE，但在分類問題更常用cross-entrory。使用pytorch時，cross-entrory與softmax是綁在一起的，使用cross-entrory時，pytorch會自動將softmax加到最後一層
+ Mathematical proof : Video  比較兩者的error surface，如果y1大y2小時loss小，y1小y2大時loss大，因此期望參數能走到右下角loss小的地方。假設一開始在左上角，由於在cross-entrory下左上角仍有斜率，因此能往右下走。但在MSE下，左上角非常平坦，gradient小，使用梯度下降法會卡住，有很大機率會訓練不起來，但使用Adam會調大learning rate，還是有機會走到右下角，只是訓練還是困難的。總結來說，改變loss function能改變訓練的難易度
+To Learn More  Classification : Video Logistic Regression : Video  </description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</title>
+      <link>https://Offliners.github.io/post/ntuml-week3-1/</link>
+      <pubDate>Tue, 06 Apr 2021 14:24:24 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week3-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Training Stuck equals Small Gradient? 在訓練network時，通常會記錄loss，會發現loss越來越小，然後就卡住了不再下降，通常會覺得是遇到critical point，但真的是如此嗎?多數人可能不會確認說此時的gradient真的是否很小。上圖例子可以發現，loss不再下降，但gradient沒有很小。
+假設今天有個error surface，在參數b的變化非常小，參數w非常陡峭。如果learning rate設0.01時，會在山壁上震盪，無法滑進山谷。但learning rate設0.0000001時，雖然進入山谷，但仍然無法到終點，因為learning rate太小，步伐過小使參數要更新過多次也無法踏出多大的距離
+會有這樣的問題在於learning rate是固定的，因此learning rate需要為每個參數客製化
+Different parameters needs different learning rate 大原則 : 在某個方向上，gradient很小非常平坦，會希望有較大的learning rate;gradient很大非常陡峭，會希望有較小的learning rate
+為簡單起見，只用一個參數來講解。
+將原本的learning rate除以一個參數，這個參數是depend on i，為每個參數客製化，接下來看說這個參數有什麼常見的計算方式
+Adagrad 首先是，過去所有gradient的均方根
+這被使用在Adagrad的方法中
+那這會有什麼問題呢?由於每個參數會需要的learning rate可能會隨時間改變，因此會希望同參數同方向，也能有動態調整的learning rate
+RMSProp 透過alpha來調整現在與過去的gradient的重要性，這個alpha也是一個超參數要自行設定。如果alpha設接近0，表示現在的gradient比較重要。反之設接近1，表示過去的gradient比較重要
+透過此機制，可以視gradient來動態調整learning rate
+Adam 最常使用的，Adam是RMSProp結合Momentum
+Training with Adagrad 之前沒有使用Adagrad來訓練，update參數10萬次只左一小步。但有了Adagrad來訓練，update參數10萬次較到達接近終點的地方，因為在平緩的地方會自動條大learning rate。那為什麼在終點時爆炸了呢?由於Adagrad是累積過去的gradient，因此在縱軸上每次累積很小的gradient，到一定程度時爆走，但沒關係，當衝出去時到大的gradient，會使sigma變大那update參數的步伐又會變小又回到峽谷，那如何解決這問題呢?
+隨著時間的增加，距離終點也越近，讓learning rate越來越小，使參數更新能慢下來，因此能解決剛剛的狀況
+除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。
+warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(https://arxiv.org/abs/1908.03265)這篇論文
+Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-3/</link>
+      <pubDate>Mon, 05 Apr 2021 21:55:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-3/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Optimization with Batch 每次update參數是將每個Batch出來計算loss與gradient，將每個batch計算過後是一個epoch。每個epoch都會經過shuffle，因此每個epoch中batch的資料都不一樣
+Small Batch v.s. Large Batch Large Batch 須看完每筆資料才更新參數，因此更新時間長，但每次更新很平穩
+Small Batch 每看完一筆資料就更新參數，因此更新時間短，但每次更新會顯得不穩
+但考慮平行運算的話，Large Batch時間不一定比Small Batch長
+由上圖可知batch從1~1000所花時間差不多，但GPU仍有極限，過大的batch size仍會需要花數倍的時間
+如果batch size等於1，那60000筆資料需要update參數60000次。batch size等於1000，那60000筆資料需要update參數60次。兩個每次update的時間差不多，但跑完一個epoch的差距就很大。因此考慮平行運算後，大batch size反而比較有效率
+考慮平行運算後，大batch沒有時間劣勢了，且update參數比較穩定，那大batch比較好嗎?小batch比較差?
+雖然在小batch size下update參數比較不穩，但有noisy的gradient反而能幫助訓練。比較上面兩資料集，小batch size的準確率比較高。那這是什麼問題呢?這是Optimization Issue
+那為何小batch size沒有Optimization Issue呢?如果使用full batch size的話，走到local minima時就會停止更新參數。但如果使用small batch size的話，可能其中一個batch卡住了，但其他batch可能沒有。因此這種noisy的update參數反而對訓練比較有幫助
+訓練上small batch size比較好，那測試呢?透過以上的實驗，將大batch和小batch訓練到差不多好，那比對測試時，發現小batch在測試集上表現比較好。大batch在訓練好，測試差，表示發生了overfitting。那為何會這樣呢?
+假設有一個loss，有許多local minima，但local minima有分好壞，那怎麼區分好壞呢?如果local minima落在峽谷中(上圖右側)，會認為是壞minima;反之，落在平原中會是好的minima。會這樣區分是因為，測試與訓練的loss或有些差別，平原型的minima差異較小，峽谷型的minima會有較大的loss差異。而小batch因為update參數的方向都不同，容易跳出峽谷的loss，容易落在平原型的minima;對大batch來說，反而容易落在峽谷的minima
+那有沒有辦法堅固兩者的優點呢?以下的論文有探討
+ Large Batch Optimization for Deep Learning: Training BERT in 76 minutes (https://arxiv.</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 2 - Critical Point: small gradient</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-2/</link>
+      <pubDate>Mon, 05 Apr 2021 00:38:19 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-2/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
+過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
+說到Gradient為0，有兩種常見的可能:
+ Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
+那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
+Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
+Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
+如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
+為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
+  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
+  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 2 - Guideline of ML: overfit</title>
+      <link>https://Offliners.github.io/post/ntuml-week2-1/</link>
+      <pubDate>Sat, 03 Apr 2021 23:32:44 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week2-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): Video
+Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
+有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
+解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
+但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
+這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
+當training data的loss不夠低時，是哪個問題呢?
+可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
+因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
+如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
+那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
+舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
+一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
+那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
+剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
+如何限制模型呢?
+ 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?</description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 1 - Introduction of ML/DL</title>
+      <link>https://Offliners.github.io/post/ntuml-week1/</link>
+      <pubDate>Sat, 03 Apr 2021 17:05:34 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+What is Machine Learing? Q : 什麼是機器學習?
+A : 機器學習簡單來說就是讓機器學會找一個函式的能力 舉例來說:
+ 語音辨識(Speech Recognition) : 函式輸入是聲音訊號，輸出是這段訊號的內容 影像辨識(Image Recognition) : 函式輸入是圖片，輸出是這張圖片的內容 Alpha Go : 函式輸入是棋盤上黑白棋的位置，輸出是機器下一步落子的位置  Different types of Functions  Regression : 函是輸出為純量 舉例 : 輸入今天的PM2.5濃度、溫度等，預測明天的PM2.5濃度 Classification : 給定選項，函示輸出為機器從這些選項中的選擇 舉例 : 輸入一封電子郵件，輸出為是否為垃圾郵件  Alpha Go也是一種Classification，輸入棋盤上黑白棋的位置，輸出棋盤19 * 19可以落子的位置選出下一步應該落子的位置
+Q : 機器學習只有這兩個任務嗎?</description>
+    </item>
+    
+  </channel>
+</rss>
