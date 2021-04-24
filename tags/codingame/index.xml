@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CodinGame on Offliner&#39;s Blog</title>
+    <link>https://Offliners.github.io/tags/codingame/</link>
+    <description>Recent content in CodinGame on Offliner&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 24 Apr 2021 11:42:41 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/codingame/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Legends of Code &amp; Magic 新手指南</title>
+      <link>https://Offliners.github.io/post/locm/</link>
+      <pubDate>Sat, 24 Apr 2021 11:42:41 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/locm/</guid>
+      <description>任務簡介  這是一個類似爐石戰記，玩家對玩家的卡牌遊戲 必須組出屬於你自己的牌組(deck)，並且與對手組好的牌組進行對戰 雙方玩家都有 30 點的血量，誰先把對方的血量降至 0 或更低就獲勝了  遊戲規則  玩家數 : 2人 (你與電腦)  選牌階段 每位玩家必須組出 30 張牌的牌組，每一回合都會提供你 3 張牌來挑選，你可以選擇其中一張加你的牌組，重複這個動作 30 次，你就成功的組完你的牌組
+組牌階段 戰鬥回合制 - 初始規則  遊戲分為先攻方以及後攻方，開始時，先攻方抽 4 張牌，後攻方抽 5 張牌，且在每一個回合，每一個玩家都可以從牌組抽出一張牌，有些牌可能擁有讓你下回合能夠多抽牌的能力 先攻方剛開始只會有 1 顆水晶，後攻方有 2 顆水晶。直到後攻方將其水晶一回合性的花光後，後攻方多出來的 1 顆水晶才會消失 每一回合每個玩家的水晶最大上限都會成長一顆，且回復至最大上限的水晶，最多成長到 12 顆水晶(如果後攻方一直沒有在某回合花完他全部的水晶，則可以達到 13 顆的上限) 玩家可以想辦法將自己的水晶花完來打出各種牌  出牌階段 戰鬥回合制 - 出牌以及生物規則   玩家可以從手牌召喚生物(SUMMONING)到場上，並付出同等於該生物的水晶花費，這些生物可以用來攻擊對手的生物或玩家，或者是防禦對手的生物
+  有些生物可能含有特殊能力
+  通常來說，生物剛上場的回合不能攻擊(除非此生物含有C的能力)，且一回合只能攻擊一次
+  當生物互相攻擊時，雙方的攻擊力會從彼此的防禦力互相扣除，若直接攻擊玩家，則該玩家的生命值扣除該生物的攻擊力   當某隻生物的防禦力變成 0 或更低，那隻生物就會被從場上移除</description>
+    </item>
+    
+  </channel>
+</rss>

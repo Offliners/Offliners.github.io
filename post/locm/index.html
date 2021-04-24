@@ -1,0 +1,687 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog - Legends of Code &amp; Magic 新手指南 </title>
+    
+    
+    <meta content="LoCM, CodinGame" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - 任務簡介  這是一個類似爐石戰記，玩家對玩家的卡牌遊戲 必須組出屬於你自己的牌組(deck)，並且與對手組好的牌組進行對戰 雙方玩家都有 30 點的血量，誰先把對方的血量降至 0 或更低就獲勝了  遊戲規則  玩家數 : 2人 (你與電腦)  選牌階段 每位玩家必須組出 30 張牌的牌組，每一回合都會提供你 3 張牌來挑選，你可以選擇其中一張加你的牌組，重複這個動作 30 次，你就成功的組完你的牌組
+組牌階段 戰鬥回合制 - 初始規則  遊戲分為先攻方以及後攻方，開始時，先攻方抽 4 張牌，後攻方抽 5 張牌，且在每一個回合，每一個玩家都可以從牌組抽出一張牌，有些牌可能擁有讓你下回合能夠多抽牌的能力 先攻方剛開始只會有 1 顆水晶，後攻方有 2 顆水晶。直到後攻方將其水晶一回合性的花光後，後攻方多出來的 1 顆水晶才會消失 每一回合每個玩家的水晶最大上限都會成長一顆，且回復至最大上限的水晶，最多成長到 12 顆水晶(如果後攻方一直沒有在某回合花完他全部的水晶，則可以達到 13 顆的上限) 玩家可以想辦法將自己的水晶花完來打出各種牌  出牌階段 戰鬥回合制 - 出牌以及生物規則   玩家可以從手牌召喚生物(SUMMONING)到場上，並付出同等於該生物的水晶花費，這些生物可以用來攻擊對手的生物或玩家，或者是防禦對手的生物
+  有些生物可能含有特殊能力
+  通常來說，生物剛上場的回合不能攻擊(除非此生物含有C的能力)，且一回合只能攻擊一次
+  當生物互相攻擊時，雙方的攻擊力會從彼此的防禦力互相扣除，若直接攻擊玩家，則該玩家的生命值扣除該生物的攻擊力   當某隻生物的防禦力變成 0 或更低，那隻生物就會被從場上移除" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+        <link rel="icon" href="/images/dino.png">
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+          gtag('config', 'G-WFQ2VM3C00');
+        </script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/zone/">Archives</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">Home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/zone/">Archives</a></dd>
+                    
+                        <dd><a href="/about/">About</a></dd>
+                    
+                        <dd><a href="/">Home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>Legends of Code &amp; Magic 新手指南</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-24</span>
+
+    
+    
+
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/locm/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">LoCM</span>
+        </a>
+    
+        <a href="/tags/codingame/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CodinGame</span>
+        </a>
+    
+    
+</h3>
+
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <p><img src="/LoCM/cover.JPG" alt="Legends of Code & Magic"></p>
+<h2 id="任務簡介">任務簡介</h2>
+<ul>
+<li>這是一個類似爐石戰記，玩家對玩家的卡牌遊戲</li>
+<li>必須組出屬於你自己的牌組(deck)，並且與對手組好的牌組進行對戰</li>
+<li>雙方玩家都有 30 點的血量，誰先把對方的血量降至 0 或更低就獲勝了</li>
+</ul>
+<h2 id="遊戲規則">遊戲規則</h2>
+<ul>
+<li>玩家數 : 2人 (你與電腦)</li>
+</ul>
+<h2 id="選牌階段">選牌階段</h2>
+<p>每位玩家必須組出 30 張牌的牌組，每一回合都會提供你 3 張牌來挑選，你可以選擇其中一張加你的牌組，重複這個動作 30 次，你就成功的組完你的牌組</p>
+<h2 id="組牌階段">組牌階段</h2>
+<p><img src="/LoCM/choice.JPG" alt="組牌階段"></p>
+<h2 id="戰鬥回合制---初始規則">戰鬥回合制 - 初始規則</h2>
+<ul>
+<li>遊戲分為先攻方以及後攻方，開始時，先攻方抽 4 張牌，後攻方抽 5 張牌，且在每一個回合，每一個玩家都可以從牌組抽出一張牌，有些牌可能擁有讓你下回合能夠多抽牌的能力</li>
+<li>先攻方剛開始只會有 1 顆水晶，後攻方有 2 顆水晶。直到後攻方將其水晶一回合性的花光後，後攻方多出來的 1 顆水晶才會消失</li>
+<li>每一回合每個玩家的水晶最大上限都會成長一顆，且回復至最大上限的水晶，最多成長到 12 顆水晶(如果後攻方一直沒有在某回合花完他全部的水晶，則可以達到 13 顆的上限)</li>
+<li>玩家可以想辦法將自己的水晶花完來打出各種牌</li>
+</ul>
+<h2 id="出牌階段">出牌階段</h2>
+<p><img src="/LoCM/play.JPG" alt="出牌階段"></p>
+<h2 id="戰鬥回合制---出牌以及生物規則">戰鬥回合制 - 出牌以及生物規則</h2>
+<ul>
+<li>
+<p>玩家可以從手牌召喚生物(SUMMONING)到場上，並付出同等於該生物的水晶花費，這些生物可以用來攻擊對手的生物或玩家，或者是防禦對手的生物</p>
+</li>
+<li>
+<p>有些生物可能含有特殊能力</p>
+</li>
+<li>
+<p>通常來說，生物剛上場的回合不能攻擊(除非此生物含有C的能力)，且一回合只能攻擊一次</p>
+</li>
+<li>
+<p>當生物互相攻擊時，雙方的攻擊力會從彼此的防禦力互相扣除，若直接攻擊玩家，則該玩家的生命值扣除該生物的攻擊力
+<img src="/LoCM/ex.JPG" alt="Ex"></p>
+</li>
+<li>
+<p>當某隻生物的防禦力變成 0 或更低，那隻生物就會被從場上移除</p>
+</li>
+</ul>
+<h2 id="生物能力">生物能力</h2>
+<p>不同的生物可能會有不同的關鍵字能力，並顯示在卡牌的中央，主要分為六種關鍵字</p>
+<ul>
+<li>
+<p>B : Breakthrough 穿透</p>
+<p>擁有此能力的生物在攻擊對方生物時，自己的攻擊力比目標生物的防禦力高多少，這個差值就會直接對敵方玩家造成傷害</p>
+</li>
+<li>
+<p>C : Charge 衝鋒</p>
+<p>擁有此能力的生物在剛召喚時便可進行攻擊</p>
+</li>
+<li>
+<p>D : Drain 竊取生命</p>
+<p>擁有此能力的生物在攻擊對手時，玩家會回復相當於該生物造成之傷害值的生命值</p>
+</li>
+<li>
+<p>G : Guard 嘲諷</p>
+<p>若場上有此能力的生物，敵方必須先攻擊這個生物</p>
+</li>
+<li>
+<p>L : Lethal 致命</p>
+<p>擁有此能力的生物在對敵方生物造成傷害時，會直接殺掉那個生物</p>
+</li>
+<li>
+<p>W : Ward 護盾</p>
+<p>擁有此能力的生物免疫第一次受到的傷害(若受到攻擊力為 0 的生物攻擊，此護盾不會消失)</p>
+</li>
+</ul>
+<p><img src="/LoCM/card.JPG" alt="Card"></p>
+<h4 id="wward與其餘某些關鍵字之間有一些特殊的判定">W(Ward)與其餘某些關鍵字之間有一些特殊的判定</h4>
+<p><img src="/LoCM/info.JPG" alt="W(Ward)與其餘某些關鍵字之間有一些特殊的判定"></p>
+<ul>
+<li>生物&amp;物品能力總覽 : <a href="https://files.codingame.com/legends-of-code-and-magic/index.html">Link</a></li>
+</ul>
+<h2 id="物品能力">物品能力</h2>
+<ul>
+<li>Green Items:對友方生物有益的物品</li>
+<li>Red Items:對敵方或敵方的生物有害的物品</li>
+<li>Blue Items:不限制只能放在生物身上的物品，可能對自己有益，也可能對敵方有害</li>
+</ul>
+<p><img src="/LoCM/item.JPG" alt="物品能力"></p>
+<ul>
+<li>生物&amp;物品能力總覽 : <a href="https://files.codingame.com/legends-of-code-and-magic/index.html">Link</a></li>
+</ul>
+<h2 id="輸入資訊">輸入資訊</h2>
+<h3 id="動態資訊-每回合都需讀入--用迴圈讀入">動態資訊 (每回合都需讀入 – 用迴圈讀入)</h3>
+<p>首先讀入兩位玩家各自的狀態 : <code>playerHealth</code>，<code>playerMana</code>， <code>playerDeck</code>， <code>playerRune</code>， <code>playerDraw</code></p>
+<table>
+<thead>
+<tr>
+<th>輸入</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>playerHealth</td>
+<td>該玩家剩下的生命值</td>
+</tr>
+<tr>
+<td>playerMana</td>
+<td>該玩家當前最大水晶值</td>
+</tr>
+<tr>
+<td>playerDeck</td>
+<td>該玩家牌堆的卡牌數量</td>
+</tr>
+<tr>
+<td>playerRune</td>
+<td>該玩家所剩下的臨界點指示物</td>
+</tr>
+<tr>
+<td>playerDraw</td>
+<td>該玩家應抽出幾張牌</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>先讀入自己的資訊，緊接著讀入對手的資訊</li>
+<li>組牌階段時，playerMana一直都是 0</li>
+</ul>
+<p>再來是<code>opponentHand</code>， <code>opponentActions</code>，<code>cardNumberAndActions</code></p>
+<table>
+<thead>
+<tr>
+<th>輸入</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opponentHand</td>
+<td>對手玩家的手牌數量，你不會知道對手的手牌有什麼，除非他們打出在場面上</td>
+</tr>
+<tr>
+<td>opponentActions</td>
+<td>對手玩家回合時做出的行動總數(若對面回合做出五個行動，此變數即是5)</td>
+</tr>
+<tr>
+<td>cardNumberAndActions</td>
+<td>為一個字串，總共會有opponentActions行，代表敵方做出的行動，詳細請見輸出資訊的戰鬥階段</td>
+</tr>
+</tbody>
+</table>
+<p>接著，讀入一個整數<code>card_count</code>，接下來的<code>card_count</code>行，緊接著讀入每張卡片的資訊<code>cardNumber</code>，<code>instanceId</code>，<code>Location</code>，<code>cardType</code>，<code>cost</code>，<code>attack</code>，<code>defense</code>，<code>abilities</code>，<code>myhealthChange</code>，<code>opponentHealthChange</code>，<code>cardDraw</code></p>
+<table>
+<thead>
+<tr>
+<th>輸入</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card_count</td>
+<td>自己手上的牌數加上自己場上放置的牌數，在組牌階段時，此變數會被設置為 3</td>
+</tr>
+<tr>
+<td>Card_Number</td>
+<td>該卡片的 Id(詳情請見最後一頁圖鑑)</td>
+</tr>
+<tr>
+<td>instanceId</td>
+<td>該卡片被設置的辨認 Id，以此 Id 來進行戰鬥或召喚的動作</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>在戰鬥階段時： 0 代表在自己手上、1 代表在自己的場上，-1 代表在對面的場上，在組牌階段時，此變數會被設置為 0</td>
+</tr>
+<tr>
+<td>cardType</td>
+<td>卡牌的類型：0 代表生物(Creature)、1 代表綠色物品(Green item)、2 代表紅色物品(Red item)、3 代表藍色物品(Blue item)</td>
+</tr>
+<tr>
+<td>cost</td>
+<td>該卡片的水晶花費</td>
+</tr>
+<tr>
+<td>attack</td>
+<td>生物：該生物的攻擊力、物品：該物品的攻擊改變量</td>
+</tr>
+<tr>
+<td>denfence</td>
+<td>生物：該生物的防禦力、物品：該物品的防禦改變量，若為負值則代表此張物品會造成傷害</td>
+</tr>
+<tr>
+<td>abilities</td>
+<td>為一個 size 為 6 的陣列，分別裝有 B、C、G、D、L、W 等能力(詳細能力請見遊戲規則)</td>
+</tr>
+<tr>
+<td>myhealthChange</td>
+<td>自己生命的改變量</td>
+</tr>
+<tr>
+<td>opponentHealthChange</td>
+<td>對手生命的改變量</td>
+</tr>
+<tr>
+<td>cardDraw</td>
+<td>自己下一回合會額外抽出的卡片數量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="輸出資訊">輸出資訊</h2>
+<ul>
+<li>每回合均須輸出 (除了第一次的選牌以及戰鬥階段需在 1000 ms 內輸出，其餘每個回合皆需在 100 ms 內輸出，不然會 TLE)</li>
+</ul>
+<h4 id="選牌階段-1">選牌階段</h4>
+<p>PICK (0、1、2)：選擇從左到右哪一張牌，PICK 0 即為第一張，以此類推
+PASS：自動選擇左邊第一張</p>
+<h4 id="戰鬥階段">戰鬥階段</h4>
+<p>SUMMON id：從你的手牌召喚編號為id的生物到場上
+ATTACK id1 id2：使用編號為id1的生物攻擊編號為id2的生物
+ATTACK id -1：使用編號為id的生物直接攻擊對手玩家
+USE id1 id2：對編號為id2的生物使用編號為id1的物品
+USE id -1：使用編號為id的物品
+PASS：什麼事也不做</p>
+<h2 id="緊急抽卡臨界點">緊急抽卡臨界點</h2>
+<ul>
+<li>每個玩家擁有 5 個抽卡的臨界點指示物，分別對應到了玩家 25、20、15、10、5殘餘生命值的時候</li>
+<li>當玩家的生命值被降到某個特定的值時，該玩家會因此失去該臨界點對應的指示物，並且在下一回合能夠多抽出一張卡，一個臨界點只能被使用一次。(舉例:如果你的生命值從 30 點直接降到 18 點，你會失去 25、20 的對應指示物，在下回合能夠額外抽出 2 張卡，但如果你之後的回合回復生命值至 23 點，又被打掉 5 滴血變成 18 點生命值，你無法再使用 20 的對應指示物使你下回合多抽一張卡。)</li>
+<li>如果你牌組沒有牌了，但你必須得抽一張牌出來，你會失去血量直到對應到目前擁有的對應指示物之血量，並且失去一個對應指示物。(舉例:如果我有 28 點血量，且還有 3 個指示物，但我的牌組沒牌了，我必須得抽一張牌出來，則我的血量會變到 15滴血，並且扣除一個指示物)</li>
+<li>如果你沒有指示物了，且你牌組也沒有牌了，你會直接掛掉</li>
+</ul>
+<h2 id="ui">UI</h2>
+<p><img src="/LoCM/UI.JPG" alt="UI"></p>
+<h2 id="demo">DEMO</h2>
+<p><img src="/LoCM/DEMO.gif" alt="DEMO"></p>
+</div>
+            </div>
+            
+                <script src="https://utteranc.es/client.js"
+                    repo="Offliners/MyBlogComments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            
+        </div>
+
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Table of Contents -</h2>
+                <div style="margin-left: 10px;">   
+                    <div>
+
+<ul class="toc-h2"><li><a href="/post/locm/#%e4%bb%bb%e5%8b%99%e7%b0%a1%e4%bb%8b">任務簡介</a></li>
+            <li><a href="/post/locm/#%e9%81%8a%e6%88%b2%e8%a6%8f%e5%89%87">遊戲規則</a></li>
+            <li><a href="/post/locm/#%e9%81%b8%e7%89%8c%e9%9a%8e%e6%ae%b5">選牌階段</a></li>
+            <li><a href="/post/locm/#%e7%b5%84%e7%89%8c%e9%9a%8e%e6%ae%b5">組牌階段</a></li>
+            <li><a href="/post/locm/#%e6%88%b0%e9%ac%a5%e5%9b%9e%e5%90%88%e5%88%b6---%e5%88%9d%e5%a7%8b%e8%a6%8f%e5%89%87">戰鬥回合制 - 初始規則</a></li>
+            <li><a href="/post/locm/#%e5%87%ba%e7%89%8c%e9%9a%8e%e6%ae%b5">出牌階段</a></li>
+            <li><a href="/post/locm/#%e6%88%b0%e9%ac%a5%e5%9b%9e%e5%90%88%e5%88%b6---%e5%87%ba%e7%89%8c%e4%bb%a5%e5%8f%8a%e7%94%9f%e7%89%a9%e8%a6%8f%e5%89%87">戰鬥回合制 - 出牌以及生物規則</a></li>
+            <li><a href="/post/locm/#%e7%94%9f%e7%89%a9%e8%83%bd%e5%8a%9b">生物能力</a></li>
+            <li><a href="/post/locm/#%e7%89%a9%e5%93%81%e8%83%bd%e5%8a%9b">物品能力</a></li>
+            <li><a href="/post/locm/#%e8%bc%b8%e5%85%a5%e8%b3%87%e8%a8%8a">輸入資訊</a></li>
+            <li><a href="/post/locm/#%e8%bc%b8%e5%87%ba%e8%b3%87%e8%a8%8a">輸出資訊</a></li>
+            <li><a href="/post/locm/#%e7%b7%8a%e6%80%a5%e6%8a%bd%e5%8d%a1%e8%87%a8%e7%95%8c%e9%bb%9e">緊急抽卡臨界點</a></li>
+            <li><a href="/post/locm/#ui">UI</a></li>
+            <li><a href="/post/locm/#demo">DEMO</a></li>
+            </div>
+                </div>
+            </div>
+            
+
+            
+
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Recent Posts -</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/locm/">
+                        <h3 class="">Legends of Code &amp; Magic 新手指南</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-24</span>
+
+    
+    
+
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/locm/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">LoCM</span>
+        </a>
+    
+        <a href="/tags/codingame/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CodinGame</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week8/">
+                        <h3 class="">NTU - 機器學習 Week 8 - BERT</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-21</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-code-1/">
+                        <h3 class="">ORBSLAM2 程式碼解析 - 圖片輸入</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-17</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2 程式碼解析</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        </a>
+    
+        <a href="/tags/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week7-2/">
+                        <h3 class="">NTU - 機器學習 Week 7 - GAN</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-15</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week7-1/">
+                        <h3 class="">NTU - 機器學習 Week 7 - Transformer</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-13</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
+    </div>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WFQ2VM3C00');
+</script>
+    
+</div>
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/zone/"><p class="footer-url">Archives</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/"><p class="footer-url">Home</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>
