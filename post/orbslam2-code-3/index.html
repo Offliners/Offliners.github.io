@@ -8,7 +8,7 @@
     
     <meta content="ORBSLAM, code analysis, ORBSLAM2 程式碼解析" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - System Overview Source Code : Link MapPoint是地圖中的特徵點，自身參數是三為座標與描述子，在此類別中會完成以下工作 :
+    <meta content="Offliner&#39;s Blog - System Overview Source Code : Link MapPoint是地圖中的特徵點，自身參數是3D座標與描述子，在此類別中會完成以下工作 :
  維護關鍵幀之間的共視關係 通過計算描述向量之間的距離，在多個關鍵幀的特徵點中找到最匹配的特徵點 在閉環完成修正後，需要根據修正的主幀位姿來修正特徵點 對於非關鍵幀，也能產生MapPoint，只是是用來給Tracking功能臨時使用  以下為MapPoint中的主要函數
 MapPoint │ ├── MapPoint // 建構函數 ├──────── 關鍵幀地圖點建構函數 ├──────── 普通幀地圖點建構函數 │ ├── AddObservation // 增加地圖點觀測關係 │ ├── EraseObservation // 刪除地圖點觀測關係 │ ├── SetBadFlag // 刪除地圖點 │ ├── Replace // 替換地圖點 │ ├── ComputeDistinctiveDescriptors // 計算描述子 │ ├── UpdateNormalAndDepth // 更新法向量和深度值 │ ├── PredictScale // 預測尺度 建構函數 MapPoint 一共有兩個，分別對應關鍵幀與普通幀
 關鍵幀的地圖點建構函數 MapPoint(const cv::Mat &amp;Pos, KeyFrame *pRefKF, Map* pMap) Pos為該點的3D位置，pRefKF是參考關鍵幀，pMap是地圖。關鍵幀的地圖點建構函數主要是突出地圖點與關鍵幀之間的關係，一個地圖點會被多個關鍵幀偵測到，多個關鍵幀之間透過共同偵測到的地圖點來產生關係，叫做共視關係。在ORBSLAM中，是透過MapPoint來維護共視關係。在進行BA優化時，指優化具有共視關係的關鍵幀，其他關鍵幀的位姿則不參與優化" name="description">
@@ -165,7 +165,7 @@ layui.use('element', function(){
                     <h2 id="system-overview">System Overview</h2>
 <p><img src="/ORBSLAM2-img/system-overview.JPG" alt="System Overview"></p>
 <h4 id="source-code--linkhttpsgithubcomraulmurorb_slam2">Source Code : <a href="https://github.com/raulmur/ORB_SLAM2">Link</a></h4>
-<p>MapPoint是地圖中的特徵點，自身參數是三為座標與描述子，在此類別中會完成以下工作 :</p>
+<p>MapPoint是地圖中的特徵點，自身參數是3D座標與描述子，在此類別中會完成以下工作 :</p>
 <ul>
 <li>維護關鍵幀之間的共視關係</li>
 <li>通過計算描述向量之間的距離，在多個關鍵幀的特徵點中找到最匹配的特徵點</li>
@@ -582,6 +582,45 @@ layui.use('element', function(){
                 
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-code-4/">
+                        <h3 class="">ORBSLAM2 程式碼解析 - Frame</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-28</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2 程式碼解析</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        </a>
+    
+        <a href="/tags/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/orbslam2-code-3/">
                         <h3 class="">ORBSLAM2 程式碼解析 - MapPoint</h3>
                     </a>
@@ -726,45 +765,6 @@ layui.use('element', function(){
     
         <a href="/tags/ntu-ml-2021/">
             <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
-        </a>
-    
-    
-</h3>
-
-                    </blockquote>
-                </div>
-                
-                <div style="margin-left: 10px;">
-                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                    <a href="/post/orbslam2-code-1/">
-                        <h3 class="">ORBSLAM2 程式碼解析 - 論文閱讀</h3>
-                    </a>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-17</span>
-
-    
-     
-    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
-    
-
-    
-        <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2 程式碼解析</span>
-        </a>
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/orbslam/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
-        </a>
-    
-        <a href="/tags/code-analysis/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
         </a>
     
     
