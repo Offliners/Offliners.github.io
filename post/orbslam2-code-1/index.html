@@ -3,12 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - ORBSLAM2 程式碼解析 - 圖片輸入 </title>
+    <title>Offliner&#39;s Blog - ORBSLAM2 程式碼解析 - 論文閱讀 </title>
     
     
     <meta content="ORBSLAM, code analysis, ORBSLAM2 程式碼解析" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    圖片輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Stereo cv::Mat Tracking::GrabImageStereo(const cv::Mat &amp;imRectLeft, const cv::Mat &amp;imRectRight, const double &amp;timestamp) { // 輸入圖像  mImGray = imRectLeft; cv::Mat imGrayRight = imRectRight; // 轉為灰階圖  if(mImGray." name="description">
+    <meta content="Offliner&#39;s Blog - ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    Coming Soon" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -125,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>ORBSLAM2 程式碼解析 - 圖片輸入</h1>
+                    <h1>ORBSLAM2 程式碼解析 - 論文閱讀</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-17</span>
@@ -206,121 +206,8 @@ layui.use('element', function(){
 </tr>
 </tbody>
 </table>
-<h2 id="圖片輸入">圖片輸入</h2>
-<p><img src="/ORBSLAM2-img/system_input.JPG" alt="System Input"></p>
-<ul>
-<li>註 : <code>mpIniORBextractor</code>比<code>mpORBextractorLeft</code>多提取一倍的特徵點</li>
-</ul>
-<h3 id="stereo">Stereo</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageStereo(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRectLeft, <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRectRight, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
-{
-    <span style="color:#75715e">// 輸入圖像
-</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> imRectLeft;
-    cv<span style="color:#f92672">::</span>Mat imGrayRight <span style="color:#f92672">=</span> imRectRight;
-
-    <span style="color:#75715e">// 轉為灰階圖
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-        {
-            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
-            cvtColor(imGrayRight,imGrayRight,CV_RGB2GRAY);
-        }
-        <span style="color:#66d9ef">else</span>
-        {
-            cvtColor(mImGray,mImGray,CV_BGR2GRAY);
-            cvtColor(imGrayRight,imGrayRight,CV_BGR2GRAY);
-        }
-    }
-    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-        {
-            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
-            cvtColor(imGrayRight,imGrayRight,CV_RGBA2GRAY);
-        }
-        <span style="color:#66d9ef">else</span>
-        {
-            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
-            cvtColor(imGrayRight,imGrayRight,CV_BGRA2GRAY);
-        }
-    }
-
-    <span style="color:#75715e">// 建構Frame
-</span><span style="color:#75715e"></span>    mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,imGrayRight,timestamp,mpORBextractorLeft,mpORBextractorRight,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
-
-    <span style="color:#75715e">// Track
-</span><span style="color:#75715e"></span>    Track();
-
-    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
-}
-</code></pre></div><h3 id="rgbd">RGBD</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageRGBD(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imRGB,<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imD, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
-{
-    <span style="color:#75715e">// 輸入圖像
-</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> imRGB;
-    cv<span style="color:#f92672">::</span>Mat imDepth <span style="color:#f92672">=</span> imD;
-
-    <span style="color:#75715e">// 轉為灰階圖
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
-        <span style="color:#66d9ef">else</span>
-            <span style="color:#a6e22e">cvtColor</span>(mImGray,mImGray,CV_BGR2GRAY);
-    }
-    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
-        <span style="color:#66d9ef">else</span>
-            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
-    }
-
-    <span style="color:#66d9ef">if</span>((fabs(mDepthMapFactor<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1e-5</span>) <span style="color:#f92672">||</span> imDepth.type()<span style="color:#f92672">!=</span>CV_32F)
-        imDepth.convertTo(imDepth,CV_32F,mDepthMapFactor);
-
-    <span style="color:#75715e">// 建構Frame
-</span><span style="color:#75715e"></span>    mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,imDepth,timestamp,mpORBextractorLeft,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
-
-    <span style="color:#75715e">// Track
-</span><span style="color:#75715e"></span>    Track();
-
-    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
-}
-</code></pre></div><h3 id="mono">Mono</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Tracking<span style="color:#f92672">::</span>GrabImageMonocular(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>im, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">&amp;</span>timestamp)
-{
-    <span style="color:#75715e">// 輸入圖像
-</span><span style="color:#75715e"></span>    mImGray <span style="color:#f92672">=</span> im;
-
-    <span style="color:#75715e">// 轉為灰階圖
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-            cvtColor(mImGray,mImGray,CV_RGB2GRAY);
-        <span style="color:#66d9ef">else</span>
-            <span style="color:#a6e22e">cvtColor</span>(mImGray,mImGray,CV_BGR2GRAY);
-    }
-    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(mImGray.channels()<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>)
-    {
-        <span style="color:#66d9ef">if</span>(mbRGB)
-            cvtColor(mImGray,mImGray,CV_RGBA2GRAY);
-        <span style="color:#66d9ef">else</span>
-            cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
-    }
-
-    <span style="color:#66d9ef">if</span>(mState<span style="color:#f92672">==</span>NOT_INITIALIZED <span style="color:#f92672">||</span> mState<span style="color:#f92672">==</span>NO_IMAGES_YET)
-        mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,timestamp,mpIniORBextractor,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
-    <span style="color:#66d9ef">else</span>
-        mCurrentFrame <span style="color:#f92672">=</span> Frame(mImGray,timestamp,mpORBextractorLeft,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
-
-    <span style="color:#75715e">// Track
-</span><span style="color:#75715e"></span>    Track();
-
-    <span style="color:#66d9ef">return</span> mCurrentFrame.mTcw.clone();
-}
-</code></pre></div></div>
+<p><code>Coming Soon</code></p>
+</div>
             </div>
             
                 <script src="https://utteranc.es/client.js"
@@ -342,7 +229,6 @@ layui.use('element', function(){
 
 <ul class="toc-h2"><li><a href="/post/orbslam2-code-1/#system-overview">System Overview</a></li>
             <li><a href="/post/orbslam2-code-1/#%e8%ae%8a%e6%95%b8%e5%91%bd%e5%90%8d%e8%a6%8f%e5%89%87">變數命名規則</a></li>
-            <li><a href="/post/orbslam2-code-1/#%e5%9c%96%e7%89%87%e8%bc%b8%e5%85%a5">圖片輸入</a></li>
             </div>
                 </div>
             </div>
@@ -353,6 +239,45 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <h2 class="single-title">- Recent Posts -</h2>
             
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-code-2/">
+                        <h3 class="">ORBSLAM2 程式碼解析 - 系統流程</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-27</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2 程式碼解析</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        </a>
+    
+        <a href="/tags/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
                 
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
@@ -433,7 +358,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/orbslam2-code-1/">
-                        <h3 class="">ORBSLAM2 程式碼解析 - 圖片輸入</h3>
+                        <h3 class="">ORBSLAM2 程式碼解析 - 論文閱讀</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -477,49 +402,6 @@ layui.use('element', function(){
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-15</span>
-
-    
-     
-    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
-    
-
-    
-        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
-        </a>
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/machine-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
-        </a>
-    
-        <a href="/tags/deep-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
-        </a>
-    
-        <a href="/tags/ntu-ml-2021/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
-        </a>
-    
-    
-</h3>
-
-                    </blockquote>
-                </div>
-                
-                <div style="margin-left: 10px;">
-                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                    <a href="/post/ntuml-week7-1/">
-                        <h3 class="">NTU - 機器學習 Week 7 - Transformer</h3>
-                    </a>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-13</span>
 
     
      

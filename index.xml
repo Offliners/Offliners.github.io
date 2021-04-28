@@ -6,7 +6,18 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 24 Apr 2021 11:42:41 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Apr 2021 19:39:14 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析 - 系統流程</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-2/</link>
+      <pubDate>Tue, 27 Apr 2021 19:39:14 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-2/</guid>
+      <description>System Overview Source Code : Link 系統流程的入口在System.cc，裡面有4個主要的函數 :
+ System TrackStereo TrackRGBD TrackMonocular  其中System是SLAM系統的建構函數，包括所有功能模塊與所有線程的初始化。而TrackStereo、TrackRGBD、TrackMonocular分別為二元、深度與一元相機的數據入口，使用ORBSLAM時會先透過System來生成SLAM系統的使用對象，然後根據傳感器的類型來選擇相對應的入口來傳入數據
+建構函數 System System // 建構函數 │ ├── mpVocabulary = new ORBVocabulary(); // 加載ORB詞袋模型 │ │── mpKeyFrameDatabase = new KeyFrameDatabase(*mpVocabulary); │ // 創建關鍵幀數據集，數據集中主要存放詞袋模型中的值，這些值用於閉環檢測與重定位 │ │── mpMap = new Map(); // 創建地圖 │ │── mpFrameDrawer = new FrameDrawer(mpMap); // 畫關鍵幀的Drawer │ │── mpMapDrawer = new MapDrawer(mpMap, strSettingsFile); // 畫地圖的Drawer │ │── mpTracker = new Tracking(this, mpVocabulary, mpFrameDrawer, mpMapDrawer, mpMap, mpKeyFrameDatabase, strSettingsFile, mSensor); │ // 建立跟踪線程 │ │── mpLocalMapper = new LocalMapping(mpMap, mSensor==MONOCULAR); │ // 建立局部地圖線程 │ │── mpLoopCloser = new LoopClosing(mpMap, mpKeyFrameDatabase, mpVocabulary, mSensor!</description>
+    </item>
+    
     <item>
       <title>Legends of Code &amp; Magic 新手指南</title>
       <link>https://Offliners.github.io/post/locm/</link>
@@ -41,16 +52,16 @@ Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的�
       <pubDate>Sat, 17 Apr 2021 22:21:10 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/orbslam2_list/</guid>
-      <description>ORBSLAM2 程式碼解析    Topic Link     System 入口 Link   Tracking 線程 TBD   LocalMapping 線程 TBD   LocalClosing 線程 (迴路檢測) TBD   LocalClosing 線程 (Sim3 計算) TBD   LocalClosing 線程 (correctLoop) TBD   Frame TBD   Monocular Initializer TBD   Tracking TBD   ORBmatcher TBD   Optimizer TBD    </description>
+      <description>ORBSLAM2 程式碼解析    Topic Link     論文閱讀 Link   系統流程 Link    </description>
     </item>
     
     <item>
-      <title>ORBSLAM2 程式碼解析 - 圖片輸入</title>
+      <title>ORBSLAM2 程式碼解析 - 論文閱讀</title>
       <link>https://Offliners.github.io/post/orbslam2-code-1/</link>
       <pubDate>Sat, 17 Apr 2021 00:46:46 +0800</pubDate>
       
       <guid>https://Offliners.github.io/post/orbslam2-code-1/</guid>
-      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    圖片輸入  註 : mpIniORBextractor比mpORBextractorLeft多提取一倍的特徵點  Stereo cv::Mat Tracking::GrabImageStereo(const cv::Mat &amp;amp;imRectLeft, const cv::Mat &amp;amp;imRectRight, const double &amp;amp;timestamp) { // 輸入圖像  mImGray = imRectLeft; cv::Mat imGrayRight = imRectRight; // 轉為灰階圖  if(mImGray.</description>
+      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    Coming Soon</description>
     </item>
     
     <item>
