@@ -6,7 +6,19 @@
     <description>Recent content on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 27 Apr 2021 19:39:14 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 14:04:05 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析 - MapPoint</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-3/</link>
+      <pubDate>Wed, 28 Apr 2021 14:04:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-3/</guid>
+      <description>System Overview Source Code : Link MapPoint是地圖中的特徵點，自身參數是三為座標與描述子，在此類別中會完成以下工作 :
+ 維護關鍵幀之間的共視關係 通過計算描述向量之間的距離，在多個關鍵幀的特徵點中找到最匹配的特徵點 在閉環完成修正後，需要根據修正的主幀位姿來修正特徵點 對於非關鍵幀，也能產生MapPoint，只是是用來給Tracking功能臨時使用  以下為MapPoint中的主要函數
+MapPoint │ ├── MapPoint // 建構函數 ├──────── 關鍵幀地圖點建構函數 ├──────── 普通幀地圖點建構函數 │ ├── AddObservation // 增加地圖點觀測關係 │ ├── EraseObservation // 刪除地圖點觀測關係 │ ├── SetBadFlag // 刪除地圖點 │ ├── Replace // 替換地圖點 │ ├── ComputeDistinctiveDescriptors // 計算描述子 │ ├── UpdateNormalAndDepth // 更新法向量和深度值 │ ├── PredictScale // 預測尺度 建構函數 MapPoint 一共有兩個，分別對應關鍵幀與普通幀
+關鍵幀的地圖點建構函數 MapPoint(const cv::Mat &amp;amp;Pos, KeyFrame *pRefKF, Map* pMap) Pos為該點的3D位置，pRefKF是參考關鍵幀，pMap是地圖。關鍵幀的地圖點建構函數主要是突出地圖點與關鍵幀之間的關係，一個地圖點會被多個關鍵幀偵測到，多個關鍵幀之間透過共同偵測到的地圖點來產生關係，叫做共視關係。在ORBSLAM中，是透過MapPoint來維護共視關係。在進行BA優化時，指優化具有共視關係的關鍵幀，其他關鍵幀的位姿則不參與優化</description>
+    </item>
+    
     <item>
       <title>ORBSLAM2 程式碼解析 - 系統流程</title>
       <link>https://Offliners.github.io/post/orbslam2-code-2/</link>
@@ -52,7 +64,7 @@ Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的�
       <pubDate>Sat, 17 Apr 2021 22:21:10 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/orbslam2_list/</guid>
-      <description>ORBSLAM2 程式碼解析    Topic Link     論文閱讀 Link   系統流程 Link    </description>
+      <description>ORBSLAM2 程式碼解析    Topic Link     論文閱讀 Link   系統流程 Link   MapPoint Link    </description>
     </item>
     
     <item>
