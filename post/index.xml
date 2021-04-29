@@ -13,7 +13,9 @@
       <pubDate>Wed, 28 Apr 2021 20:50:07 +0800</pubDate>
       
       <guid>https://Offliners.github.io/post/orbslam2-code-4/</guid>
-      <description>System Overview Source Code : Link </description>
+      <description>System Overview Source Code : Link Frame是指幀，也就是對應的圖像，可以是一元、二元或RGBD，所以此類別所包含SLAM中以幀為單位的操作，有以下方面 :
+ 讀寫該幀對應的相機位姿 處理幀和特徵點之間的關係，包括判斷特徵點是否在視野內、獲取該幀依定區域內的特徵點、校正特徵點等 恢復深度，如果是RGBD就直接讀取深度值，如果是一元或二元則進行深度恢復  以下為Frame類別中的主要函數 :
+Frame │ ├── Frame // 建構函數，有以下五種 ├────── 預設建構函數 ├────── 複製建構函數 ├────── 二元幀建構函數 ├────── RGBD幀建構函數 ├────── 一元幀建構函數 │ ├── ExtractORB // 提取ORB特徵點 │ ├── ComputeBoW // 計算詞袋數據 │ ├── SetPose // 設置相機位姿參數 │ ├── isInFrustum // 判斷路標點是否在視野中 │ ├── GetFeaturesInArea // 查找特定區域內的特徵點 │ ├── ComputeStereoMatches // 利用二元恢復深度 │ ├── ComputeStereoFromRGBD // RGBD獲取深度訊息 │ ├── UnprojectStereo // 特徵點座標反投影到3D地圖點 建構函數 建構函數除了預設與複製之外，其他主要對應三種相機模型，主要功能也類似，就是提取特徵點，然後把特徵點劃分到網格中，使特徵點在圖像中分布較均勻</description>
     </item>
     
     <item>
