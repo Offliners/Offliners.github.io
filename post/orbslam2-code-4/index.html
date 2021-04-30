@@ -393,7 +393,7 @@ layui.use('element', function(){
 <li>const float &amp;bf  // bf = 二元基線 * fx</li>
 <li>const float &amp;thDepth  // 深度的閥值，特徵點深度大於或小於此值時，會被分為close與far兩類</li>
 </ul>
-<h2 id="提取特徵點">提取特徵點</h2>
+<h2 id="提取orb特徵點">提取ORB特徵點</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">void</span> Frame<span style="color:#f92672">::</span>ExtractORB(<span style="color:#66d9ef">int</span> flag, <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>im)
 {
     <span style="color:#66d9ef">if</span>(flag<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
@@ -412,7 +412,7 @@ layui.use('element', function(){
     }
 }
 </code></pre></div><p>如果沒有輸入已有的詞袋數據，則用當前的描述子重新計算來生成詞袋數據</p>
-<h2 id="設置相機外部參數">設置相機外部參數</h2>
+<h2 id="設置相機位姿參數">設置相機位姿參數</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">void</span> Frame<span style="color:#f92672">::</span>SetPose(cv<span style="color:#f92672">::</span>Mat Tcw)
 {
     mTcw <span style="color:#f92672">=</span> Tcw.clone();
@@ -426,8 +426,8 @@ layui.use('element', function(){
     mtcw <span style="color:#f92672">=</span> mTcw.rowRange(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>).col(<span style="color:#ae81ff">3</span>);
     mOw <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>mRcw.t()<span style="color:#f92672">*</span>mtcw;
 }
-</code></pre></div><p>設置相機外部參數，並計算相機光心的位置</p>
-<h2 id="判斷該mappoint是否在當前幀的視野中">判斷該MapPoint是否在當前幀的視野中</h2>
+</code></pre></div><p>設置相機位姿參數，並計算相機光心的位置</p>
+<h2 id="判斷路標點是否在視野中">判斷路標點是否在視野中</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">bool</span> Frame<span style="color:#f92672">::</span>isInFrustum(MapPoint <span style="color:#f92672">*</span>pMP, <span style="color:#66d9ef">float</span> viewingCosLimit)
 {
     pMP<span style="color:#f92672">-&gt;</span>mbTrackInView <span style="color:#f92672">=</span> false;
@@ -486,9 +486,310 @@ layui.use('element', function(){
 }
 
 </code></pre></div><p>先計算MapPoint在相機坐標系下的位置，用該點與相機光心的連線可知道它在相機的哪個視角範圍內(即該連線與相機正前方的夾角)，如果這角度大於設定值則認為該點不在視野內，反之則在，在的話就計算該MapPoint在該幀圖像上的座標，以便跟踪時使用</p>
-<h2 id="獲得特定區域內的座標點">獲得特定區域內的座標點</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">
-</code></pre></div></div>
+<h2 id="查找特定區域內的特徵點">查找特定區域內的特徵點</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> Frame<span style="color:#f92672">::</span>GetFeaturesInArea(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>x, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span>  <span style="color:#f92672">&amp;</span>y, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span>  <span style="color:#f92672">&amp;</span>r, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> minLevel, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxLevel) <span style="color:#66d9ef">const</span>
+{
+    vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> vIndices;
+    vIndices.reserve(N);
+
+    <span style="color:#75715e">// 計算正方形的四邊在網格中的行列數
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// nMinCellX 是正方形左邊在mGrid中的列數，如果大於mGrid的列數的話，表示正方形內沒有特徵點，所以返回
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> nMinCellX <span style="color:#f92672">=</span> max(<span style="color:#ae81ff">0</span>,(<span style="color:#66d9ef">int</span>)floor((x<span style="color:#f92672">-</span>mnMinX<span style="color:#f92672">-</span>r)<span style="color:#f92672">*</span>mfGridElementWidthInv));
+    <span style="color:#66d9ef">if</span>(nMinCellX<span style="color:#f92672">&gt;=</span>FRAME_GRID_COLS)
+        <span style="color:#66d9ef">return</span> vIndices;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> nMaxCellX <span style="color:#f92672">=</span> min((<span style="color:#66d9ef">int</span>)FRAME_GRID_COLS<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,(<span style="color:#66d9ef">int</span>)ceil((x<span style="color:#f92672">-</span>mnMinX<span style="color:#f92672">+</span>r)<span style="color:#f92672">*</span>mfGridElementWidthInv));
+    <span style="color:#66d9ef">if</span>(nMaxCellX<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">return</span> vIndices;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> nMinCellY <span style="color:#f92672">=</span> max(<span style="color:#ae81ff">0</span>,(<span style="color:#66d9ef">int</span>)floor((y<span style="color:#f92672">-</span>mnMinY<span style="color:#f92672">-</span>r)<span style="color:#f92672">*</span>mfGridElementHeightInv));
+    <span style="color:#66d9ef">if</span>(nMinCellY<span style="color:#f92672">&gt;=</span>FRAME_GRID_ROWS)
+        <span style="color:#66d9ef">return</span> vIndices;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> nMaxCellY <span style="color:#f92672">=</span> min((<span style="color:#66d9ef">int</span>)FRAME_GRID_ROWS<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,(<span style="color:#66d9ef">int</span>)ceil((y<span style="color:#f92672">-</span>mnMinY<span style="color:#f92672">+</span>r)<span style="color:#f92672">*</span>mfGridElementHeightInv));
+    <span style="color:#66d9ef">if</span>(nMaxCellY<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">return</span> vIndices;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> bCheckLevels <span style="color:#f92672">=</span> (minLevel<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">||</span> (maxLevel<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>);
+
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> ix <span style="color:#f92672">=</span> nMinCellX; ix<span style="color:#f92672">&lt;=</span>nMaxCellX; ix<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> iy <span style="color:#f92672">=</span> nMinCellY; iy<span style="color:#f92672">&lt;=</span>nMaxCellY; iy<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">const</span> vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> vCell <span style="color:#f92672">=</span> mGrid[ix][iy];
+            <span style="color:#66d9ef">if</span>(vCell.empty())
+                <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#66d9ef">for</span>(size_t j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, jend<span style="color:#f92672">=</span>vCell.size(); j<span style="color:#f92672">&lt;</span>jend; j<span style="color:#f92672">++</span>)
+            {
+                <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kpUn <span style="color:#f92672">=</span> mvKeysUn[vCell[j]];
+                <span style="color:#66d9ef">if</span>(bCheckLevels)
+                {
+                    <span style="color:#66d9ef">if</span>(kpUn.octave<span style="color:#f92672">&lt;</span>minLevel)
+                        <span style="color:#66d9ef">continue</span>;
+                    <span style="color:#66d9ef">if</span>(maxLevel<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>)
+                        <span style="color:#66d9ef">if</span>(kpUn.octave<span style="color:#f92672">&gt;</span>maxLevel)
+                            <span style="color:#66d9ef">continue</span>;
+                }
+
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> distx <span style="color:#f92672">=</span> kpUn.pt.x<span style="color:#f92672">-</span>x;
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> disty <span style="color:#f92672">=</span> kpUn.pt.y<span style="color:#f92672">-</span>y;
+
+                <span style="color:#75715e">// 把區域內所有特徵點放入容器中
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span>(fabs(distx)<span style="color:#f92672">&lt;</span>r <span style="color:#f92672">&amp;&amp;</span> fabs(disty)<span style="color:#f92672">&lt;</span>r)
+                    vIndices.push_back(vCell[j]);
+            }
+        }
+    }
+
+    <span style="color:#66d9ef">return</span> vIndices;
+}
+</code></pre></div><p>此函數用來找以x，y為中心，邊長為2r的正方形且在minLevel~maxLevel的特徵點</p>
+<h2 id="利用二元恢復深度">利用二元恢復深度</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">void</span> Frame<span style="color:#f92672">::</span>ComputeStereoMatches()
+{
+    mvuRight <span style="color:#f92672">=</span> vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(N,<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>);
+    mvDepth <span style="color:#f92672">=</span> vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(N,<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>);
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> thOrbDist <span style="color:#f92672">=</span> (ORBmatcher<span style="color:#f92672">::</span>TH_HIGH<span style="color:#f92672">+</span>ORBmatcher<span style="color:#f92672">::</span>TH_LOW)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> nRows <span style="color:#f92672">=</span> mpORBextractorLeft<span style="color:#f92672">-&gt;</span>mvImagePyramid[<span style="color:#ae81ff">0</span>].rows;
+
+    <span style="color:#75715e">// Step 1 : 建立特徵點搜索範圍對應表，一個特徵點在一個帶狀區域內搜索匹配特徵點
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 匹配搜索時，不只在一條橫線上搜索，而是在一條橫向搜索帶上搜索，簡言之，原本每個特徵點的縱座標為1，這裡把特徵點體積放大，縱座標橫跨好幾行
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 例如 : 左目圖像的某個特徵點縱座標為20，那麼右目圖像上搜索時會在縱座標18~22這範圍內搜索，搜索帶範圍為正負2，而搜索帶的寬度與特徵點與所在金字塔層數有關
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> vRowIndices(nRows,vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>());
+
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>nRows; i<span style="color:#f92672">++</span>)
+        vRowIndices[i].reserve(<span style="color:#ae81ff">200</span>);
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> Nr <span style="color:#f92672">=</span> mvKeysRight.size();
+
+    <span style="color:#75715e">// 把所有特徵點對應的y值都設置一個搜索帶，然後把搜索帶內所有y座標都和對應的特徵點座標做關聯
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> iR<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; iR<span style="color:#f92672">&lt;</span>Nr; iR<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kp <span style="color:#f92672">=</span> mvKeysRight[iR];
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>kpY <span style="color:#f92672">=</span> kp.pt.y;
+        
+        <span style="color:#75715e">// 計算匹配搜索帶的縱向寬度，尺度越大(層數越高，距離越近)，搜索帶範圍越大
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 如果特徵點在金字塔第一層時，則搜索範圍為正負2
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 尺度越大旗位置不確定性越高，所以搜索半徑越大
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0f</span><span style="color:#f92672">*</span>mvScaleFactors[mvKeysRight[iR].octave];
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxr <span style="color:#f92672">=</span> ceil(kpY<span style="color:#f92672">+</span>r);
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> minr <span style="color:#f92672">=</span> floor(kpY<span style="color:#f92672">-</span>r);
+
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> yi<span style="color:#f92672">=</span>minr;yi<span style="color:#f92672">&lt;=</span>maxr;yi<span style="color:#f92672">++</span>)
+            vRowIndices[yi].push_back(iR);
+    }
+
+    <span style="color:#75715e">// Set limits for search
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> minZ <span style="color:#f92672">=</span> mb;  <span style="color:#75715e">// Bug : mb沒有初始化，指派mb值的建構函數在ComputeStereoMatches函數後
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> minD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;  <span style="color:#75715e">// 最小視差，設置為0即可
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> maxD <span style="color:#f92672">=</span> mbf<span style="color:#f92672">/</span>minZ;  <span style="color:#75715e">// 最大視差，對應最小深度，mbf/minZ = mbf/mb = mbf/(mbf/fx) = fx
+</span><span style="color:#75715e"></span>
+    vector<span style="color:#f92672">&lt;</span>pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> vDistIdx;
+    vDistIdx.reserve(N);
+
+    <span style="color:#75715e">// Step 2 : 對左目相機每個特徵點，通過描述子在右目帶狀搜索區域中找到匹配點，再通過SAD做亞像素匹配
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 注意 : 這裡是使用校正前的mvKeys，而不是校正後的mvKeysUn
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 注意 : KeyFrame::UnprojectStereo與Frame::UnprojectStereo是不同的
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> iL<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; iL<span style="color:#f92672">&lt;</span>N; iL<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kpL <span style="color:#f92672">=</span> mvKeys[iL];
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>levelL <span style="color:#f92672">=</span> kpL.octave;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>vL <span style="color:#f92672">=</span> kpL.pt.y;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>uL <span style="color:#f92672">=</span> kpL.pt.x;
+
+        <span style="color:#66d9ef">const</span> vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>vCandidates <span style="color:#f92672">=</span> vRowIndices[vL];  <span style="color:#75715e">// 可能的匹配點
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">if</span>(vCandidates.empty())
+            <span style="color:#66d9ef">continue</span>;
+
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> minU <span style="color:#f92672">=</span> uL<span style="color:#f92672">-</span>maxD;  <span style="color:#75715e">// 最小匹配範圍
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> maxU <span style="color:#f92672">=</span> uL<span style="color:#f92672">-</span>minD;  <span style="color:#75715e">// 最大匹配範圍
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">if</span>(maxU<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>)
+            <span style="color:#66d9ef">continue</span>;
+
+        <span style="color:#66d9ef">int</span> bestDist <span style="color:#f92672">=</span> ORBmatcher<span style="color:#f92672">::</span>TH_HIGH;
+        size_t bestIdxR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+        <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>dL <span style="color:#f92672">=</span> mDescriptors.row(iL);  <span style="color:#75715e">// 每個特徵點描述子使用一行，建立一個指標指向iL特徵點對應的描述子
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// Step 2-1 : 尋遍右目所有可能的匹配點，找到最佳匹配點(描述子距離最小)
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(size_t iC<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; iC<span style="color:#f92672">&lt;</span>vCandidates.size(); iC<span style="color:#f92672">++</span>)
+        {
+            <span style="color:#66d9ef">const</span> size_t iR <span style="color:#f92672">=</span> vCandidates[iC];
+            <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kpR <span style="color:#f92672">=</span> mvKeysRight[iR];
+
+            <span style="color:#75715e">// 只對鄰近尺度的特徵點進行匹配
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(kpR.octave<span style="color:#f92672">&lt;</span>levelL<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> kpR.octave<span style="color:#f92672">&gt;</span>levelL<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+                <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>uR <span style="color:#f92672">=</span> kpR.pt.x;
+
+            <span style="color:#75715e">// 找出bestIdxR就是最匹配的特徵點，bestDict是該特徵點對應的描述向量距離
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(uR<span style="color:#f92672">&gt;=</span>minU <span style="color:#f92672">&amp;&amp;</span> uR<span style="color:#f92672">&lt;=</span>maxU)
+            {
+                <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>dR <span style="color:#f92672">=</span> mDescriptorsRight.row(iR);
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> dist <span style="color:#f92672">=</span> ORBmatcher<span style="color:#f92672">::</span>DescriptorDistance(dL,dR);
+
+                <span style="color:#66d9ef">if</span>(dist<span style="color:#f92672">&lt;</span>bestDist)
+                {
+                    bestDist <span style="color:#f92672">=</span> dist;
+                    bestIdxR <span style="color:#f92672">=</span> iR;
+                }
+            }
+        }
+
+        <span style="color:#75715e">// Step 2-2 : 通過SAD匹配來提高像素匹配修正量bestincR
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(bestDist<span style="color:#f92672">&lt;</span>thOrbDist)
+        {
+            <span style="color:#75715e">// kpL.pt.x對應金字塔最底層的座標，將最佳匹配特徵點的尺度轉換到尺度對應層
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> uR0 <span style="color:#f92672">=</span> mvKeysRight[bestIdxR].pt.x;
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> scaleFactor <span style="color:#f92672">=</span> mvInvScaleFactors[kpL.octave];
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> scaleduL <span style="color:#f92672">=</span> round(kpL.pt.x<span style="color:#f92672">*</span>scaleFactor);
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> scaledvL <span style="color:#f92672">=</span> round(kpL.pt.y<span style="color:#f92672">*</span>scaleFactor);
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> scaleduR0 <span style="color:#f92672">=</span> round(uR0<span style="color:#f92672">*</span>scaleFactor);
+
+            <span style="color:#75715e">// 滑動窗口大小為11*11
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 注意 : 該窗口取自Resize後的圖像
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> w <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+            cv<span style="color:#f92672">::</span>Mat IL <span style="color:#f92672">=</span> mpORBextractorLeft<span style="color:#f92672">-&gt;</span>mvImagePyramid[kpL.octave].rowRange(scaledvL<span style="color:#f92672">-</span>w,scaledvL<span style="color:#f92672">+</span>w<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>).colRange(scaleduL<span style="color:#f92672">-</span>w,scaleduL<span style="color:#f92672">+</span>w<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+            IL.convertTo(IL,CV_32F);
+            IL <span style="color:#f92672">=</span> IL <span style="color:#f92672">-</span> IL.at<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(w,w) <span style="color:#f92672">*</span>cv<span style="color:#f92672">::</span>Mat<span style="color:#f92672">::</span>ones(IL.rows,IL.cols,CV_32F);
+
+            <span style="color:#66d9ef">int</span> bestDist <span style="color:#f92672">=</span> INT_MAX;
+            <span style="color:#66d9ef">int</span> bestincR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> L <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+            vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span> vDists;
+            vDists.resize(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>L<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+
+            <span style="color:#75715e">// 滑動窗口的滑動範圍為(-L，L)，提前判斷滑動窗口過程是否發生越界
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> iniu <span style="color:#f92672">=</span> scaleduR0<span style="color:#f92672">+</span>L<span style="color:#f92672">-</span>w;
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> endu <span style="color:#f92672">=</span> scaleduR0<span style="color:#f92672">+</span>L<span style="color:#f92672">+</span>w<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span>(iniu<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> endu <span style="color:#f92672">&gt;=</span> mpORBextractorRight<span style="color:#f92672">-&gt;</span>mvImagePyramid[kpL.octave].cols)
+                <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> incR<span style="color:#f92672">=-</span>L; incR<span style="color:#f92672">&lt;=+</span>L; incR<span style="color:#f92672">++</span>)
+            {
+                <span style="color:#75715e">// 橫向滑動窗口
+</span><span style="color:#75715e"></span>                cv<span style="color:#f92672">::</span>Mat IR <span style="color:#f92672">=</span> mpORBextractorRight<span style="color:#f92672">-&gt;</span>mvImagePyramid[kpL.octave].rowRange(scaledvL<span style="color:#f92672">-</span>w,scaledvL<span style="color:#f92672">+</span>w<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>).colRange(scaleduR0<span style="color:#f92672">+</span>incR<span style="color:#f92672">-</span>w,scaleduR0<span style="color:#f92672">+</span>incR<span style="color:#f92672">+</span>w<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+                IR.convertTo(IR,CV_32F);
+                
+                <span style="color:#75715e">// 窗口中的每個元素減去中心的元素，並歸一化，來減少高照強度的影響
+</span><span style="color:#75715e"></span>                IR <span style="color:#f92672">=</span> IR <span style="color:#f92672">-</span> IR.at<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(w,w) <span style="color:#f92672">*</span>cv<span style="color:#f92672">::</span>Mat<span style="color:#f92672">::</span>ones(IR.rows,IR.cols,CV_32F);
+
+                <span style="color:#66d9ef">float</span> dist <span style="color:#f92672">=</span> cv<span style="color:#f92672">::</span>norm(IL,IR,cv<span style="color:#f92672">::</span>NORM_L1);
+                <span style="color:#66d9ef">if</span>(dist<span style="color:#f92672">&lt;</span>bestDist)
+                {
+                    bestDist <span style="color:#f92672">=</span>  dist;  <span style="color:#75715e">// SAD匹配目前最小匹配偏差
+</span><span style="color:#75715e"></span>                    bestincR <span style="color:#f92672">=</span> incR;  <span style="color:#75715e">// SAD匹配目前最佳的修正量
+</span><span style="color:#75715e"></span>                }
+
+                vDists[L<span style="color:#f92672">+</span>incR] <span style="color:#f92672">=</span> dist;
+            }
+
+            <span style="color:#75715e">// 整個滑動過程中，SAD值不是以拋物線形式呈現，則表示SAD匹配失敗，同時放棄求該特徵點深度
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(bestincR<span style="color:#f92672">==-</span>L <span style="color:#f92672">||</span> bestincR<span style="color:#f92672">==</span>L)
+                <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#75715e">// Step 2-3 : 做拋物線擬合來找谷底得到亞像素匹配deltaR
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// bestincR+deltaR就是拋物線谷底的位置
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> dist1 <span style="color:#f92672">=</span> vDists[L<span style="color:#f92672">+</span>bestincR<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> dist2 <span style="color:#f92672">=</span> vDists[L<span style="color:#f92672">+</span>bestincR];
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> dist3 <span style="color:#f92672">=</span> vDists[L<span style="color:#f92672">+</span>bestincR<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+
+            <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> deltaR <span style="color:#f92672">=</span> (dist1<span style="color:#f92672">-</span>dist3)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">2.0f</span><span style="color:#f92672">*</span>(dist1<span style="color:#f92672">+</span>dist3<span style="color:#f92672">-</span><span style="color:#ae81ff">2.0f</span><span style="color:#f92672">*</span>dist2));
+
+            <span style="color:#75715e">// 拋物線擬合得到的修正量不能超過一個像素，超過則放氣球該特徵點的深度
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(deltaR<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> deltaR<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1</span>)
+                <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#75715e">// 通過描述子匹配得到位置為scaleduR0
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 通過SAD匹配找到修正量bestincR
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// 通過拋物線擬合找到亞像素修正量deltaR
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">float</span> bestuR <span style="color:#f92672">=</span> mvScaleFactors[kpL.octave]<span style="color:#f92672">*</span>((<span style="color:#66d9ef">float</span>)scaleduR0<span style="color:#f92672">+</span>(<span style="color:#66d9ef">float</span>)bestincR<span style="color:#f92672">+</span>deltaR);
+
+            <span style="color:#66d9ef">float</span> disparity <span style="color:#f92672">=</span> (uL<span style="color:#f92672">-</span>bestuR);
+
+            <span style="color:#75715e">// 判斷視差是否在範圍內
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(disparity<span style="color:#f92672">&gt;=</span>minD <span style="color:#f92672">&amp;&amp;</span> disparity<span style="color:#f92672">&lt;</span>maxD)
+            {
+                <span style="color:#66d9ef">if</span>(disparity<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>)
+                {
+                    disparity<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>;
+                    bestuR <span style="color:#f92672">=</span> uL<span style="color:#f92672">-</span><span style="color:#ae81ff">0.01</span>;
+                }
+                
+                <span style="color:#75715e">// 深度 depth = baseline * fx / disparity
+</span><span style="color:#75715e"></span>                mvDepth[iL]<span style="color:#f92672">=</span>mbf<span style="color:#f92672">/</span>disparity;  <span style="color:#75715e">// 深度 
+</span><span style="color:#75715e"></span>                mvuRight[iL] <span style="color:#f92672">=</span> bestuR;  <span style="color:#75715e">// 匹配在右圖的橫坐標
+</span><span style="color:#75715e"></span>                vDistIdx.push_back(pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,<span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(bestDist,iL));  <span style="color:#75715e">// 該特徵點SAD匹配最小偏差
+</span><span style="color:#75715e"></span>            }
+        }
+    }
+
+    <span style="color:#75715e">// Step 3 : 去除SAD匹配偏差較大的特徵點
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 之前SAD匹配指判斷滑動窗口是否有局部最小值，這裡會根據對比去除SAD偏差較大特徵點的深度
+</span><span style="color:#75715e"></span>    sort(vDistIdx.begin(),vDistIdx.end());  <span style="color:#75715e">// 根據所有匹配對的SAD偏差進行排序，由小到大
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> median <span style="color:#f92672">=</span> vDistIdx[vDistIdx.size()<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>].first;
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> thDist <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5f</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1.4f</span><span style="color:#f92672">*</span>median;  <span style="color:#75715e">// 計算自適應距離，大於此距離的匹配則會被去除
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>vDistIdx.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">--</span>)
+    {
+        <span style="color:#66d9ef">if</span>(vDistIdx[i].first<span style="color:#f92672">&lt;</span>thDist)
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">else</span>
+        {
+            mvuRight[vDistIdx[i].second]<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>;
+            mvDepth[vDistIdx[i].second]<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>;
+        }
+    }
+}
+</code></pre></div><p>此函數是為左圖的每一個特徵點找到在右圖的匹配點，根據基線(有冗餘範圍)上描述子的距離找到匹配，再進行SAD精確定位，最後對所有SAD的值進行排序，去除SAD較大的匹配對，然後利用拋物線擬何來得到亞像素精度的匹配，匹配成功後會更新mvuRight與mvDepth</p>
+<h2 id="rgbd獲取深度訊息">RGBD獲取深度訊息</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">void</span> Frame<span style="color:#f92672">::</span>ComputeStereoFromRGBD(<span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>Mat <span style="color:#f92672">&amp;</span>imDepth)
+{
+    mvuRight <span style="color:#f92672">=</span> vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(N,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+    mvDepth <span style="color:#f92672">=</span> vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(N,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>N; i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kp <span style="color:#f92672">=</span> mvKeys[i];
+        <span style="color:#66d9ef">const</span> cv<span style="color:#f92672">::</span>KeyPoint <span style="color:#f92672">&amp;</span>kpU <span style="color:#f92672">=</span> mvKeysUn[i];
+
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>v <span style="color:#f92672">=</span> kp.pt.y;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> <span style="color:#f92672">&amp;</span>u <span style="color:#f92672">=</span> kp.pt.x;
+
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> d <span style="color:#f92672">=</span> imDepth.at<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(v,u);
+
+        <span style="color:#66d9ef">if</span>(d<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)
+        {
+            mvDepth[i] <span style="color:#f92672">=</span> d;
+            mvuRight[i] <span style="color:#f92672">=</span> kpU.pt.x<span style="color:#f92672">-</span>mbf<span style="color:#f92672">/</span>d;
+        }
+    }
+}
+</code></pre></div><p>根據像素座標獲取深度訊息並保存起來，這裡還計算假想右圖對應特徵點的橫坐標</p>
+<h2 id="特徵點座標反投影到3d地圖點">特徵點座標反投影到3D地圖點</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">cv<span style="color:#f92672">::</span>Mat Frame<span style="color:#f92672">::</span>UnprojectStereo(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>i)
+{
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> z <span style="color:#f92672">=</span> mvDepth[i];
+    <span style="color:#66d9ef">if</span>(z<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)
+    {
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> u <span style="color:#f92672">=</span> mvKeysUn[i].pt.x;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> v <span style="color:#f92672">=</span> mvKeysUn[i].pt.y;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> x <span style="color:#f92672">=</span> (u<span style="color:#f92672">-</span>cx)<span style="color:#f92672">*</span>z<span style="color:#f92672">*</span>invfx;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> y <span style="color:#f92672">=</span> (v<span style="color:#f92672">-</span>cy)<span style="color:#f92672">*</span>z<span style="color:#f92672">*</span>invfy;
+        cv<span style="color:#f92672">::</span>Mat x3Dc <span style="color:#f92672">=</span> (cv<span style="color:#f92672">::</span>Mat_<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;&lt;</span> x, y, z);
+        <span style="color:#66d9ef">return</span> mRwc<span style="color:#f92672">*</span>x3Dc<span style="color:#f92672">+</span>mOw;
+    }
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> cv<span style="color:#f92672">::</span>Mat();
+}
+</code></pre></div><p>此函數作用是將特徵點座標反投影到3D地圖點(世界座標)，在已知深度的情況下，可以確定二維像素對應的尺度，最後獲得3D地圖中的點座標</p>
+</div>
             </div>
             
                 <script src="https://utteranc.es/client.js"
@@ -510,11 +811,14 @@ layui.use('element', function(){
 
 <ul class="toc-h2"><li><a href="/post/orbslam2-code-4/#system-overview">System Overview</a></li>
             <li><a href="/post/orbslam2-code-4/#%e5%bb%ba%e6%a7%8b%e5%87%bd%e6%95%b8">建構函數</a></li>
-            <li><a href="/post/orbslam2-code-4/#%e6%8f%90%e5%8f%96%e7%89%b9%e5%be%b5%e9%bb%9e">提取特徵點</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e6%8f%90%e5%8f%96orb%e7%89%b9%e5%be%b5%e9%bb%9e">提取ORB特徵點</a></li>
             <li><a href="/post/orbslam2-code-4/#%e8%a8%88%e7%ae%97%e8%a9%9e%e8%a2%8b%e6%95%b8%e6%93%9a">計算詞袋數據</a></li>
-            <li><a href="/post/orbslam2-code-4/#%e8%a8%ad%e7%bd%ae%e7%9b%b8%e6%a9%9f%e5%a4%96%e9%83%a8%e5%8f%83%e6%95%b8">設置相機外部參數</a></li>
-            <li><a href="/post/orbslam2-code-4/#%e5%88%a4%e6%96%b7%e8%a9%b2mappoint%e6%98%af%e5%90%a6%e5%9c%a8%e7%95%b6%e5%89%8d%e5%b9%80%e7%9a%84%e8%a6%96%e9%87%8e%e4%b8%ad">判斷該MapPoint是否在當前幀的視野中</a></li>
-            <li><a href="/post/orbslam2-code-4/#%e7%8d%b2%e5%be%97%e7%89%b9%e5%ae%9a%e5%8d%80%e5%9f%9f%e5%85%a7%e7%9a%84%e5%ba%a7%e6%a8%99%e9%bb%9e">獲得特定區域內的座標點</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e8%a8%ad%e7%bd%ae%e7%9b%b8%e6%a9%9f%e4%bd%8d%e5%a7%bf%e5%8f%83%e6%95%b8">設置相機位姿參數</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e5%88%a4%e6%96%b7%e8%b7%af%e6%a8%99%e9%bb%9e%e6%98%af%e5%90%a6%e5%9c%a8%e8%a6%96%e9%87%8e%e4%b8%ad">判斷路標點是否在視野中</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e6%9f%a5%e6%89%be%e7%89%b9%e5%ae%9a%e5%8d%80%e5%9f%9f%e5%85%a7%e7%9a%84%e7%89%b9%e5%be%b5%e9%bb%9e">查找特定區域內的特徵點</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e5%88%a9%e7%94%a8%e4%ba%8c%e5%85%83%e6%81%a2%e5%be%a9%e6%b7%b1%e5%ba%a6">利用二元恢復深度</a></li>
+            <li><a href="/post/orbslam2-code-4/#rgbd%e7%8d%b2%e5%8f%96%e6%b7%b1%e5%ba%a6%e8%a8%8a%e6%81%af">RGBD獲取深度訊息</a></li>
+            <li><a href="/post/orbslam2-code-4/#%e7%89%b9%e5%be%b5%e9%bb%9e%e5%ba%a7%e6%a8%99%e5%8f%8d%e6%8a%95%e5%bd%b1%e5%88%b03d%e5%9c%b0%e5%9c%96%e9%bb%9e">特徵點座標反投影到3D地圖點</a></li>
             </div>
                 </div>
             </div>
