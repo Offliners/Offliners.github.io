@@ -6,7 +6,59 @@
     <description>Recent content in ORBSLAM2 on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 01 Apr 2021 01:31:05 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/orbslam2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 May 2021 21:26:54 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/orbslam2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORBSLAM2 程式碼解析 - KeyFrame</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-5/</link>
+      <pubDate>Sat, 01 May 2021 21:26:54 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-5/</guid>
+      <description>System Overview Source Code : Link </description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2 程式碼解析 - Frame</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-4/</link>
+      <pubDate>Wed, 28 Apr 2021 20:50:07 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-4/</guid>
+      <description>System Overview Source Code : Link Frame是指幀，也就是對應的圖像，可以是一元、二元或RGBD，所以此類別所包含SLAM中以幀為單位的操作，有以下方面 :
+ 讀寫該幀對應的相機位姿 處理幀和特徵點之間的關係，包括判斷特徵點是否在視野內、獲取該幀依定區域內的特徵點、校正特徵點等 恢復深度，如果是RGBD就直接讀取深度值，如果是一元或二元則進行深度恢復  以下為Frame類別中的主要函數 :
+Frame │ ├── Frame // 建構函數，有以下五種 ├────── 預設建構函數 ├────── 複製建構函數 ├────── 二元幀建構函數 ├────── RGBD幀建構函數 ├────── 一元幀建構函數 │ ├── ExtractORB // 提取ORB特徵點 │ ├── ComputeBoW // 計算詞袋數據 │ ├── SetPose // 設置相機位姿參數 │ ├── isInFrustum // 判斷路標點是否在視野中 │ ├── GetFeaturesInArea // 查找特定區域內的特徵點 │ ├── ComputeStereoMatches // 利用二元恢復深度 │ ├── ComputeStereoFromRGBD // RGBD獲取深度訊息 │ ├── UnprojectStereo // 特徵點座標反投影到3D地圖點 建構函數 建構函數除了預設與複製之外，其他主要對應三種相機模型，主要功能也類似，就是提取特徵點，然後把特徵點劃分到網格中，使特徵點在圖像中分布較均勻</description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2 程式碼解析 - MapPoint</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-3/</link>
+      <pubDate>Wed, 28 Apr 2021 14:04:05 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-3/</guid>
+      <description>System Overview Source Code : Link MapPoint是地圖中的特徵點，自身參數是3D座標與描述子，在此類別中會完成以下工作 :
+ 維護關鍵幀之間的共視關係 通過計算描述向量之間的距離，在多個關鍵幀的特徵點中找到最匹配的特徵點 在閉環完成修正後，需要根據修正的主幀位姿來修正特徵點 對於非關鍵幀，也能產生MapPoint，只是是用來給Tracking功能臨時使用  以下為MapPoint中的主要函數
+MapPoint │ ├── MapPoint // 建構函數 ├──────── 關鍵幀地圖點建構函數 ├──────── 普通幀地圖點建構函數 │ ├── AddObservation // 增加地圖點觀測關係 │ ├── EraseObservation // 刪除地圖點觀測關係 │ ├── SetBadFlag // 刪除地圖點 │ ├── Replace // 替換地圖點 │ ├── ComputeDistinctiveDescriptors // 計算描述子 │ ├── UpdateNormalAndDepth // 更新法向量和深度值 │ ├── PredictScale // 預測尺度 建構函數 MapPoint 一共有兩個，分別對應關鍵幀與普通幀
+關鍵幀的地圖點建構函數 MapPoint(const cv::Mat &amp;amp;Pos, KeyFrame *pRefKF, Map* pMap) Pos為該點的3D位置，pRefKF是參考關鍵幀，pMap是地圖。關鍵幀的地圖點建構函數主要是突出地圖點與關鍵幀之間的關係，一個地圖點會被多個關鍵幀偵測到，多個關鍵幀之間透過共同偵測到的地圖點來產生關係，叫做共視關係。在ORBSLAM中，是透過MapPoint來維護共視關係。在進行BA優化時，指優化具有共視關係的關鍵幀，其他關鍵幀的位姿則不參與優化</description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2 程式碼解析 - 系統流程</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-2/</link>
+      <pubDate>Tue, 27 Apr 2021 19:39:14 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-2/</guid>
+      <description>System Overview Source Code : Link 系統流程的入口在System.cc，裡面有4個主要的函數 :
+ System TrackStereo TrackRGBD TrackMonocular  其中System是SLAM系統的建構函數，包括所有功能模塊與所有線程的初始化。而TrackStereo、TrackRGBD、TrackMonocular分別為二元、深度與一元相機的數據入口，使用ORBSLAM時會先透過System來生成SLAM系統的使用對象，然後根據傳感器的類型來選擇相對應的入口來傳入數據
+建構函數 System System // 建構函數 │ ├── mpVocabulary = new ORBVocabulary(); // 加載ORB詞袋模型 │ │── mpKeyFrameDatabase = new KeyFrameDatabase(*mpVocabulary); │ // 創建關鍵幀數據集，數據集中主要存放詞袋模型中的值，這些值用於閉環檢測與重定位 │ │── mpMap = new Map(); // 創建地圖 │ │── mpFrameDrawer = new FrameDrawer(mpMap); // 畫關鍵幀的Drawer │ │── mpMapDrawer = new MapDrawer(mpMap, strSettingsFile); // 畫地圖的Drawer │ │── mpTracker = new Tracking(this, mpVocabulary, mpFrameDrawer, mpMapDrawer, mpMap, mpKeyFrameDatabase, strSettingsFile, mSensor); │ // 建立跟踪線程 │ │── mpLocalMapper = new LocalMapping(mpMap, mSensor==MONOCULAR); │ // 建立局部地圖線程 │ │── mpLoopCloser = new LoopClosing(mpMap, mpKeyFrameDatabase, mpVocabulary, mSensor!</description>
+    </item>
+    
+    <item>
+      <title>ORBSLAM2 程式碼解析 - 論文閱讀</title>
+      <link>https://Offliners.github.io/post/orbslam2-code-1/</link>
+      <pubDate>Sat, 17 Apr 2021 00:46:46 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/orbslam2-code-1/</guid>
+      <description>ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras (https://arxiv.org/abs/1610.06475) ORBSLAM2 : https://github.com/raulmur/ORB_SLAM2 ORBSLAM2 for Windows : https://github.com/phdsky/ORBSLAM24Windows  System Overview 變數命名規則    開頭 變數資料型態     n int   b bool   p pointer   s set   v vector   l list   m class member variable    Coming Soon</description>
+    </item>
+    
     <item>
       <title>ORBSLAM2 Build on Windows 10</title>
       <link>https://Offliners.github.io/post/orbslam2-build/</link>

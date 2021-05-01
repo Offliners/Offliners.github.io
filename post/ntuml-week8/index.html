@@ -9,8 +9,8 @@
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2 Video 3
-Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
+Youtube Video Link (English): Video 1 Video 2 Video 3 [Video 4]
 Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
 說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
 直到現今還有更多參數量更大的模型出現
@@ -171,8 +171,8 @@ layui.use('element', function(){
                 <div class="layui-card-body markdown-body single-content">
                     <p><img src="/2021NTUML/Week8/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://youtu.be/e422eloJ0W4"><code>Video 1</code></a> <a href="https://youtu.be/gh0hewYkjgo"><code>Video 2</code></a> <a href="https://youtu.be/ExXA05i8DEQ"><code>Video 3</code></a></p>
-<p>Youtube Video Link (English): [<code>Video 1</code>] [<code>Video 2</code>] [<code>Video 3</code>]</p>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/e422eloJ0W4"><code>Video 1</code></a> <a href="https://youtu.be/gh0hewYkjgo"><code>Video 2</code></a> <a href="https://youtu.be/ExXA05i8DEQ"><code>Video 3</code></a> <a href="https://youtu.be/WY_E0Sd4K80"><code>Video 4</code></a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=mEcVirwmrkA"><code>Video 1</code></a> <a href="https://www.youtube.com/watch?v=L-ZQ-6vKOxU"><code>Video 2</code></a> <a href="https://www.youtube.com/watch?v=L-ZQ-6vKOxU"><code>Video 3</code></a> [<code>Video 4</code>]</p>
 <h2 id="model-introduction">Model Introduction</h2>
 <p><img src="/2021NTUML/Week8/name.JPG" alt="Name">
 <code>Self-Supervised Learning</code>的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名</p>
@@ -312,6 +312,13 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
 若將英文資訊平均值與中文資訊平均值相減，將英文輸入BERT得到的輸出向量加上這個差值，那是否可以得到中文的答案?</p>
 <p><img src="/2021NTUML/Week8/multi-6.JPG" alt="Multi-lingual BERT 6">
 實驗結果證實這個假設，雖然不是個很好的翻譯，Multi-lingual BERT表面上看起來把不同語言同樣意思歸在同一類，但仍然有語言的資訊來做區分</p>
+<h2 id="gpt">GPT</h2>
+<p><img src="/2021NTUML/Week8/GPT.JPG" alt="GPT">
+BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測下一個詞是什麼。GPT有點像是transformer的decoder，只是沒有cross-attention</p>
+<p>想了更多關於GPT可以參考以下連結 :</p>
+<ul>
+<li>GPT-3 : <a href="https://www.youtube.com/watch?v=DOG1L9lvsDY">Video</a></li>
+</ul>
 </div>
             </div>
             
@@ -339,6 +346,7 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
             <li><a href="/post/ntuml-week8/#pre-training-a-seq2seq-model">Pre-training a seq2seq model</a></li>
             <li><a href="/post/ntuml-week8/#why-does-bert-work">Why does BERT work?</a></li>
             <li><a href="/post/ntuml-week8/#multi-lingual-bert">Multi-lingual BERT</a></li>
+            <li><a href="/post/ntuml-week8/#gpt">GPT</a></li>
             </div>
                 </div>
             </div>
@@ -575,6 +583,88 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
                 
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/orbslam2-code-5/">
+                        <h3 class="">ORBSLAM2 程式碼解析 - KeyFrame</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2 程式碼解析</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/code-analysis/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week10/">
+                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/orbslam2-code-4/">
                         <h3 class="">ORBSLAM2 程式碼解析 - Frame</h3>
                     </a>
@@ -598,8 +688,8 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
     
 
     
-        <a href="/tags/orbslam/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
         </a>
     
         <a href="/tags/code-analysis/">
@@ -637,8 +727,8 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
     
 
     
-        <a href="/tags/orbslam/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
         </a>
     
         <a href="/tags/code-analysis/">
@@ -676,88 +766,12 @@ BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來�
     
 
     
-        <a href="/tags/orbslam/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM</span>
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
         </a>
     
         <a href="/tags/code-analysis/">
             <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">code analysis</span>
-        </a>
-    
-    
-</h3>
-
-                    </blockquote>
-                </div>
-                
-                <div style="margin-left: 10px;">
-                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                    <a href="/post/locm/">
-                        <h3 class="">Legends of Code &amp; Magic 新手指南</h3>
-                    </a>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-24</span>
-
-    
-    
-
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/locm/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">LoCM</span>
-        </a>
-    
-        <a href="/tags/codingame/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CodinGame</span>
-        </a>
-    
-    
-</h3>
-
-                    </blockquote>
-                </div>
-                
-                <div style="margin-left: 10px;">
-                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                    <a href="/post/ntuml-week8/">
-                        <h3 class="">NTU - 機器學習 Week 8 - BERT</h3>
-                    </a>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-21</span>
-
-    
-     
-    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
-    
-
-    
-        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
-        </a>
-    
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
-    
-
-    
-        <a href="/tags/machine-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
-        </a>
-    
-        <a href="/tags/deep-learning/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
-        </a>
-    
-        <a href="/tags/ntu-ml-2021/">
-            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
         </a>
     
     

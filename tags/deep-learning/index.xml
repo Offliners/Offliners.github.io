@@ -6,7 +6,20 @@
     <description>Recent content in Deep Learning on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 21 Apr 2021 21:33:28 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 May 2021 18:21:00 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 10 - Auto-Encoder</title>
+      <link>https://Offliners.github.io/post/ntuml-week10/</link>
+      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week10/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): [Video 1] [Video 2]
+Self-supervised Learning Framework 將一些沒有標註的資料給模型訓練叫Self-supervised Learning或者Pre-train，訓練完後的模型做些微調整後可以應用在其他任務上
+Auto-encoder </description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 8 - BERT</title>
       <link>https://Offliners.github.io/post/ntuml-week8/</link>
@@ -14,8 +27,8 @@
       
       <guid>https://Offliners.github.io/post/ntuml-week8/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2 Video 3
-Youtube Video Link (English): [Video 1] [Video 2] [Video 3]
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
+Youtube Video Link (English): Video 1 Video 2 Video 3 [Video 4]
 Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
 說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
 直到現今還有更多參數量更大的模型出現
@@ -30,7 +43,7 @@ Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的�
       <guid>https://Offliners.github.io/post/ntuml-week7-2/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
-Youtube Video Link (English): Video 1 Video 2 [Video 3] [Video 4]
+Youtube Video Link (English): Video 1 Video 2 Video 3 Video 4
 Network as Generator 現在要將network當成Generator使用，這個network會輸入x與隨機變數z來生成y，每次使用這個network時會透過簡單的分布來生成不同的z，這種簡單的分布可以是Gaussian Distribution或者是Uniform Distribution等。加入隨機變數z後，network輸出會變成複雜的分布。這種特殊的network叫做Generator
 那為什麼要訓練Generator?為什麼要訓練這種輸出是一個複雜分布的模型?
 Why Distribution? 假設今天有個任務，是要去預測之後的遊戲畫面，那可能會將過去遊戲畫面作為模型輸入，然後模型會輸出下一個預測的遊戲畫面

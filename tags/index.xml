@@ -6,22 +6,49 @@
     <description>Recent content in Tags on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Apr 2021 20:50:07 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 May 2021 21:26:54 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>code analysis</title>
       <link>https://Offliners.github.io/tags/code-analysis/</link>
-      <pubDate>Wed, 28 Apr 2021 20:50:07 +0800</pubDate>
+      <pubDate>Sat, 01 May 2021 21:26:54 +0800</pubDate>
       
       <guid>https://Offliners.github.io/tags/code-analysis/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>ORBSLAM</title>
-      <link>https://Offliners.github.io/tags/orbslam/</link>
-      <pubDate>Wed, 28 Apr 2021 20:50:07 +0800</pubDate>
+      <title>ORBSLAM2</title>
+      <link>https://Offliners.github.io/tags/orbslam2/</link>
+      <pubDate>Sat, 01 May 2021 21:26:54 +0800</pubDate>
       
-      <guid>https://Offliners.github.io/tags/orbslam/</guid>
+      <guid>https://Offliners.github.io/tags/orbslam2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>https://Offliners.github.io/tags/deep-learning/</link>
+      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://Offliners.github.io/tags/machine-learning/</link>
+      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NTU ML 2021</title>
+      <link>https://Offliners.github.io/tags/ntu-ml-2021/</link>
+      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/ntu-ml-2021/</guid>
       <description></description>
     </item>
     
@@ -44,33 +71,6 @@
     </item>
     
     <item>
-      <title>Deep Learning</title>
-      <link>https://Offliners.github.io/tags/deep-learning/</link>
-      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/deep-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Machine Learning</title>
-      <link>https://Offliners.github.io/tags/machine-learning/</link>
-      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/machine-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NTU ML 2021</title>
-      <link>https://Offliners.github.io/tags/ntu-ml-2021/</link>
-      <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/ntu-ml-2021/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>CMake</title>
       <link>https://Offliners.github.io/tags/cmake/</link>
       <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
@@ -85,15 +85,6 @@
       <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
       
       <guid>https://Offliners.github.io/tags/opencv/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ORBSLAM2</title>
-      <link>https://Offliners.github.io/tags/orbslam2/</link>
-      <pubDate>Thu, 01 Apr 2021 01:31:05 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/orbslam2/</guid>
       <description></description>
     </item>
     
