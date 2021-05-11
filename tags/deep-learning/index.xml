@@ -15,9 +15,18 @@
       <guid>https://Offliners.github.io/post/ntuml-week10/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): [Video 1] [Video 2]
-Self-supervised Learning Framework 將一些沒有標註的資料給模型訓練叫Self-supervised Learning或者Pre-train，訓練完後的模型做些微調整後可以應用在其他任務上
-Auto-encoder </description>
+Youtube Video Link (English): Video 1 Video 2
+Self-supervised Learning Framework 將一些沒有標註的資料給模型訓練叫Self-supervised Learning或者Pre-train，訓練完後的模型做些微調整後可以應用在其他任務上。而Auto-encoder也是不需要標註資料的模型，因此也是一種Self-supervised Learning
+Auto-encoder 在Auto-encoder中有兩個network，一個是Encoder，另一個是Decoder。假設有一堆沒有標註的圖片，會輸入到Encoder中輸出成向量，這個向量再輸入至Decoder，輸出成一張圖片，Decoder運作類似GAN中的Generator。訓練目標是希望Decoder輸出的圖片與輸入Encoder的圖片越接近越好，而這件事叫做Reconstruction，行為類似Cycle GAN。中間的向量有人稱為Embedding、Representation或Code。通常Encoder的輸入會是高維度的向量，而Encoder的輸出會是低維度的向量，所以Encoder做的事就是Dimension Reduction
+若想了解更多Dimension Reduction技術可以參考以下連結 :
+ Unsupervised Learning - Linear Methods : Video Unsupervised Learning - Neighbor Embedding : Video  Why Auto-encoder? Auto-encoder中的Encoder能將複雜的圖片變成較簡單向量來表示
+Auto-encoder的想法已經持續許久，早在2006就已經有了
+De-noising Auto-encoder De-noising Auto-encoder會將輸入圖片加入一些雜訊，試圖讓Auto-encoder還原沒有雜訊的圖片，讓模型學會濾除雜訊的能力
+而BERT做的事情就像是De-noising Auto-encoder
+Feature Disentangle Auto-encoder在Encoder中會將複雜的高維向量變成簡單的code再透過Decoder變回複雜的高維向量，而這些code內有重要的資訊，但哪些維度代表什麼資訊並不知道
+因此有了Feature Disentangle的議題，在訓練Auto-encoder時Encoder輸出的向量，哪些維度代表哪些資訊
+若想了解Feature Disentangle是如何實現可以參考以下論文 :
+ One-shot Voice Conversion by Separating Speaker and Content Representations with Instance Normalization : Link Multi-target Voice Conversion without Parallel Data by Adversarially Learning Disentangled Audio Representations : Link AUTOVC: Zero-Shot Voice Style Transfer with Only Autoencoder Loss : Link  Application: Voice Conversion 在過去要做語者轉換需要兩種不同音色的人講相同的話來進行Supervised learning，但這非常不實際。使用Feature Disentangle的技術，可以做到透過訓練不同的話來進行語者轉換</description>
     </item>
     
     <item>
@@ -28,7 +37,7 @@ Auto-encoder </description>
       <guid>https://Offliners.github.io/post/ntuml-week8/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
-Youtube Video Link (English): Video 1 Video 2 Video 3 [Video 4]
+Youtube Video Link (English): Video 1 Video 2 Video 3 Video 4
 Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名
 說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍
 直到現今還有更多參數量更大的模型出現

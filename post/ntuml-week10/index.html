@@ -10,9 +10,18 @@
     
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): [Video 1] [Video 2]
-Self-supervised Learning Framework 將一些沒有標註的資料給模型訓練叫Self-supervised Learning或者Pre-train，訓練完後的模型做些微調整後可以應用在其他任務上
-Auto-encoder " name="description">
+Youtube Video Link (English): Video 1 Video 2
+Self-supervised Learning Framework 將一些沒有標註的資料給模型訓練叫Self-supervised Learning或者Pre-train，訓練完後的模型做些微調整後可以應用在其他任務上。而Auto-encoder也是不需要標註資料的模型，因此也是一種Self-supervised Learning
+Auto-encoder 在Auto-encoder中有兩個network，一個是Encoder，另一個是Decoder。假設有一堆沒有標註的圖片，會輸入到Encoder中輸出成向量，這個向量再輸入至Decoder，輸出成一張圖片，Decoder運作類似GAN中的Generator。訓練目標是希望Decoder輸出的圖片與輸入Encoder的圖片越接近越好，而這件事叫做Reconstruction，行為類似Cycle GAN。中間的向量有人稱為Embedding、Representation或Code。通常Encoder的輸入會是高維度的向量，而Encoder的輸出會是低維度的向量，所以Encoder做的事就是Dimension Reduction
+若想了解更多Dimension Reduction技術可以參考以下連結 :
+ Unsupervised Learning - Linear Methods : Video Unsupervised Learning - Neighbor Embedding : Video  Why Auto-encoder? Auto-encoder中的Encoder能將複雜的圖片變成較簡單向量來表示
+Auto-encoder的想法已經持續許久，早在2006就已經有了
+De-noising Auto-encoder De-noising Auto-encoder會將輸入圖片加入一些雜訊，試圖讓Auto-encoder還原沒有雜訊的圖片，讓模型學會濾除雜訊的能力
+而BERT做的事情就像是De-noising Auto-encoder
+Feature Disentangle Auto-encoder在Encoder中會將複雜的高維向量變成簡單的code再透過Decoder變回複雜的高維向量，而這些code內有重要的資訊，但哪些維度代表什麼資訊並不知道
+因此有了Feature Disentangle的議題，在訓練Auto-encoder時Encoder輸出的向量，哪些維度代表哪些資訊
+若想了解Feature Disentangle是如何實現可以參考以下論文 :
+ One-shot Voice Conversion by Separating Speaker and Content Representations with Instance Normalization : Link Multi-target Voice Conversion without Parallel Data by Adversarially Learning Disentangled Audio Representations : Link AUTOVC: Zero-Shot Voice Style Transfer with Only Autoencoder Loss : Link  Application: Voice Conversion 在過去要做語者轉換需要兩種不同音色的人講相同的話來進行Supervised learning，但這非常不實際。使用Feature Disentangle的技術，可以做到透過訓練不同的話來進行語者轉換" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -170,12 +179,97 @@ layui.use('element', function(){
                     <p><img src="/2021NTUML/Week10/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
 <p>Youtube Video Link (Chinese): <a href="https://youtu.be/3oHlf8-J3Nc"><code>Video 1</code></a> <a href="https://youtu.be/JZvEzb5PV3U"><code>Video 2</code></a></p>
-<p>Youtube Video Link (English): [<code>Video 1</code>] [<code>Video 2</code>]</p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=E7wlA85RxcI"><code>Video 1</code></a> <a href="https://www.youtube.com/watch?v=PsBHWq9KKqk"><code>Video 2</code></a></p>
 <h2 id="self-supervised-learning-framework">Self-supervised Learning Framework</h2>
 <p><img src="/2021NTUML/Week10/self.JPG" alt="Self-supervised Learning Framework">
-將一些沒有標註的資料給模型訓練叫<code>Self-supervised Learning</code>或者<code>Pre-train</code>，訓練完後的模型做些微調整後可以應用在其他任務上</p>
+將一些沒有標註的資料給模型訓練叫<code>Self-supervised Learning</code>或者<code>Pre-train</code>，訓練完後的模型做些微調整後可以應用在其他任務上。而<code>Auto-encoder</code>也是不需要標註資料的模型，因此也是一種Self-supervised Learning</p>
 <h2 id="auto-encoder">Auto-encoder</h2>
-<p><img src="/2021NTUML/Week10/autoencoder.JPG" alt="Auto-encoder"></p>
+<p><img src="/2021NTUML/Week10/autoencoder.JPG" alt="Auto-encoder">
+在Auto-encoder中有兩個network，一個是Encoder，另一個是Decoder。假設有一堆沒有標註的圖片，會輸入到Encoder中輸出成向量，這個向量再輸入至Decoder，輸出成一張圖片，Decoder運作類似GAN中的Generator。訓練目標是希望Decoder輸出的圖片與輸入Encoder的圖片越接近越好，而這件事叫做<code>Reconstruction</code>，行為類似Cycle GAN。中間的向量有人稱為<code>Embedding</code>、<code>Representation</code>或<code>Code</code>。通常Encoder的輸入會是高維度的向量，而Encoder的輸出會是低維度的向量，所以Encoder做的事就是<code>Dimension Reduction</code></p>
+<p>若想了解更多Dimension Reduction技術可以參考以下連結 :</p>
+<ul>
+<li>Unsupervised Learning - Linear Methods : <a href="https://youtu.be/iwh5o_M4BNU">Video</a></li>
+<li>Unsupervised Learning - Neighbor Embedding : <a href="https://youtu.be/GBUEjkpoxXc">Video</a></li>
+</ul>
+<h2 id="why-auto-encoder">Why Auto-encoder?</h2>
+<p><img src="/2021NTUML/Week10/why.JPG" alt="Why Auto-encoder?">
+Auto-encoder中的Encoder能將複雜的圖片變成較簡單向量來表示</p>
+<p><img src="/2021NTUML/Week10/idea.JPG" alt="Why Auto-encoder?">
+Auto-encoder的想法已經持續許久，早在2006就已經有了</p>
+<h2 id="de-noising-auto-encoder">De-noising Auto-encoder</h2>
+<p><img src="/2021NTUML/Week10/denoise.JPG" alt="De-noising Auto-encoder">
+De-noising Auto-encoder會將輸入圖片加入一些雜訊，試圖讓Auto-encoder還原沒有雜訊的圖片，讓模型學會濾除雜訊的能力</p>
+<p><img src="/2021NTUML/Week10/bert.JPG" alt="BERT">
+而BERT做的事情就像是De-noising Auto-encoder</p>
+<h2 id="feature-disentangle">Feature Disentangle</h2>
+<p><img src="/2021NTUML/Week10/disentangle.JPG" alt="Feature Disentangle">
+Auto-encoder在Encoder中會將複雜的高維向量變成簡單的code再透過Decoder變回複雜的高維向量，而這些code內有重要的資訊，但哪些維度代表什麼資訊並不知道</p>
+<p><img src="/2021NTUML/Week10/disentangle-1.JPG" alt="Feature Disentangle 1">
+因此有了<code>Feature Disentangle</code>的議題，在訓練Auto-encoder時Encoder輸出的向量，哪些維度代表哪些資訊</p>
+<p>若想了解Feature Disentangle是如何實現可以參考以下論文 :</p>
+<ul>
+<li>One-shot Voice Conversion by Separating Speaker and Content Representations with Instance Normalization : <a href="https://arxiv.org/abs/1904.05742">Link</a></li>
+<li>Multi-target Voice Conversion without Parallel Data by Adversarially Learning Disentangled Audio Representations : <a href="https://arxiv.org/abs/1804.02812">Link</a></li>
+<li>AUTOVC: Zero-Shot Voice Style Transfer with Only Autoencoder Loss : <a href="https://arxiv.org/abs/1905.05879">Link</a></li>
+</ul>
+<h2 id="application-voice-conversion">Application: Voice Conversion</h2>
+<p><img src="/2021NTUML/Week10/voice.JPG" alt="Application: Voice Conversion">
+在過去要做語者轉換需要兩種不同音色的人講相同的話來進行Supervised learning，但這非常不實際。使用Feature Disentangle的技術，可以做到透過訓練不同的話來進行語者轉換</p>
+<p><img src="/2021NTUML/Week10/voice-1.JPG" alt="Application: Voice Conversion 1">
+透過Feature Disentangle，了解哪些維度是內容，哪些是聲音特徵，將內容結合別人的聲音特徵來進行語者轉換</p>
+<h2 id="discrete-latent-representation">Discrete Latent Representation</h2>
+<p><img src="/2021NTUML/Week10/discrete.JPG" alt="Discrete Latent Representation">
+之前Auto-encoder中的code是一個任一值的向量，那可以限制說輸出是一個Bineay的向量，每一維代表是否有某些特定的特徵，也可以是one-hot向量，讓模型訓練Unsupervised的分類，例如輸入手寫數字，輸出10維的向量，訓練模型分類沒有標籤的手寫數字</p>
+<p><img src="/2021NTUML/Week10/VQVAE.JPG" alt="VQVAE">
+這樣的做法最有名的模型是<code>VQVAE</code>，輸入一張圖片讓Encoder輸出一個向量，去跟Codebook中的向量計算相似度，Codebook中的向量也是透過模型學習出來的，將相似度最高的向量輸入Decoder來產生圖片</p>
+<p><img src="/2021NTUML/Week10/discrete-1.JPG" alt="Discrete Latent Representation 1">
+Code不一定要是向量，也可以是一段文字，由於輸入是文字所以需要用Seq2seq的模型，這種<code>Seq2seq2seq Auto-encoder</code>會將長sequence變成短的再變成長的，預期上之間的Code可能會是文章的摘要，因為這是文章的重要內容，但實際上會發現不是，因為Encoder與Decoder會發明之間的暗號</p>
+<p><img src="/2021NTUML/Week10/discrete-2.JPG" alt="Discrete Latent Representation 2">
+因此需要再透過GAN中的Discriminator來判斷是否是人能讀懂的句子。所以Encoder需要能輸出一段句子，這句子要能騙過Discriminator，又能使Deocder還原原來的文章，而這樣的概念就是CycleGAN</p>
+<p><img src="/2021NTUML/Week10/tree.JPG" alt="Tree as Embedding">
+甚至連樹狀結構都能當成Code，若想了解更多可以參考以下論文 :</p>
+<ul>
+<li>StructVAE: Tree-structured Latent Variable Models for Semi-supervised Semantic Parsing : <a href="https://arxiv.org/abs/1806.07832">Link</a></li>
+<li>Unsupervised Recurrent Neural Network Grammars : <a href="https://arxiv.org/abs/1904.03746">Link</a></li>
+</ul>
+<h2 id="more-applications">More Applications</h2>
+<h3 id="generator">Generator</h3>
+<p><img src="/2021NTUML/Week10/generator.JPG" alt="Generator">
+由於Decoder在做的事與GAN中的Generator相同，輸入像量產生圖片，這就是VAE的作法，訓練Auto-encoder，再將Decoder當成Generator使用</p>
+<h3 id="compression">Compression</h3>
+<p><img src="/2021NTUML/Week10/compression.JPG" alt="Compression">
+由於Auto-encoder中的Encoder會將高維向量變成低維向量，因此可以做壓縮，但這是一種lossy的壓縮，表示會失真</p>
+<h3 id="anomaly-detection">Anomaly Detection</h3>
+<p><img src="/2021NTUML/Week10/anomaly.JPG" alt="Anomaly Detection">
+Auto-encoder可以做異常檢測，準備一筆訓練資料，當輸入一個測試資料，如果類似訓練資料則是正常，反之則異常</p>
+<p>以下為常見異常檢測技術的應用與相關連結 :</p>
+<ul>
+<li>詐欺偵測
+<ul>
+<li><a href="https://www.kaggle.com/ntnu-testimon/paysim1/home">https://www.kaggle.com/ntnu-testimon/paysim1/home</a></li>
+<li><a href="https://www.kaggle.com/mlg-ulb/creditcardfraud/home">https://www.kaggle.com/mlg-ulb/creditcardfraud/home</a></li>
+</ul>
+</li>
+<li>網路的侵入偵測
+<ul>
+<li><a href="http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html">http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html</a></li>
+</ul>
+</li>
+<li>癌症檢測
+<ul>
+<li><a href="https://www.kaggle.com/uciml/breast-cancer-wisconsin-data/home">https://www.kaggle.com/uciml/breast-cancer-wisconsin-data/home</a></li>
+</ul>
+</li>
+</ul>
+<p>那異常檢測是否可以當成二元分類的問題?由於通常資料中正常資料數量遠大於異常資料，因此常視為one-class，只有一個類別那要無法訓練二元分類的模型，那Auto-encoder要如何訓練呢?</p>
+<p><img src="/2021NTUML/Week10/anomaly-1.JPG" alt="Anomaly Detection 1">
+假設要識別是否為真人人臉，輸入真人人臉給Auto-encoder來訓練，測試時輸入真人人臉因為訓練時可能看過類似的，所以Decoder能順利還原</p>
+<p><img src="/2021NTUML/Week10/anomaly-2.JPG" alt="Anomaly Detection 2">
+但如果輸入二次元人臉，因為訓練時完全沒看過，所以Decoder還原較差，因此能判斷是異常</p>
+<p>若想了解更多Anomaly Detection的技術，可以參考以下連結 :</p>
+<ul>
+<li>Anomaly Detection : <a href="https://youtu.be/gDp2LXGnVLQ">Video 1</a> <a href="https://youtu.be/cYrNjLxkoXs">Video 2</a> <a href="https://youtu.be/ueDlm2FkCnw">Video 3</a> <a href="https://youtu.be/XwkHOUPbc0Q">Video 4</a> <a href="https://youtu.be/Fh1xFBktRLQ">Video 5</a> <a href="https://youtu.be/LmFWzmn2rFY">Video 6</a> <a href="https://youtu.be/6W8FqUGYyDo">Video 7</a></li>
+</ul>
 </div>
             </div>
             
@@ -198,6 +292,12 @@ layui.use('element', function(){
 
 <ul class="toc-h2"><li><a href="/post/ntuml-week10/#self-supervised-learning-framework">Self-supervised Learning Framework</a></li>
             <li><a href="/post/ntuml-week10/#auto-encoder">Auto-encoder</a></li>
+            <li><a href="/post/ntuml-week10/#why-auto-encoder">Why Auto-encoder?</a></li>
+            <li><a href="/post/ntuml-week10/#de-noising-auto-encoder">De-noising Auto-encoder</a></li>
+            <li><a href="/post/ntuml-week10/#feature-disentangle">Feature Disentangle</a></li>
+            <li><a href="/post/ntuml-week10/#application-voice-conversion">Application: Voice Conversion</a></li>
+            <li><a href="/post/ntuml-week10/#discrete-latent-representation">Discrete Latent Representation</a></li>
+            <li><a href="/post/ntuml-week10/#more-applications">More Applications</a></li>
             </div>
                 </div>
             </div>
