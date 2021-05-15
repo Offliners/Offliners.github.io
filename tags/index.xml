@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 01 May 2021 21:26:54 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 03:42:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Learning</title>
+      <link>https://Offliners.github.io/tags/deep-learning/</link>
+      <pubDate>Sun, 16 May 2021 03:42:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://Offliners.github.io/tags/machine-learning/</link>
+      <pubDate>Sun, 16 May 2021 03:42:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NTU ML 2021</title>
+      <link>https://Offliners.github.io/tags/ntu-ml-2021/</link>
+      <pubDate>Sun, 16 May 2021 03:42:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/tags/ntu-ml-2021/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>code analysis</title>
       <link>https://Offliners.github.io/tags/code-analysis/</link>
@@ -22,33 +49,6 @@
       <pubDate>Sat, 01 May 2021 21:26:54 +0800</pubDate>
       
       <guid>https://Offliners.github.io/tags/orbslam2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Deep Learning</title>
-      <link>https://Offliners.github.io/tags/deep-learning/</link>
-      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/deep-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Machine Learning</title>
-      <link>https://Offliners.github.io/tags/machine-learning/</link>
-      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/machine-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NTU ML 2021</title>
-      <link>https://Offliners.github.io/tags/ntu-ml-2021/</link>
-      <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
-      
-      <guid>https://Offliners.github.io/tags/ntu-ml-2021/</guid>
       <description></description>
     </item>
     

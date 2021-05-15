@@ -6,7 +6,34 @@
     <description>Recent content in Machine Learning on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 01 May 2021 18:21:00 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 03:42:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 13 - Explainable AI</title>
+      <link>https://Offliners.github.io/post/ntuml-week13/</link>
+      <pubDate>Sun, 16 May 2021 03:42:10 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week13/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): [Video]
+Why we need Explainable ML? 模型得到正確答案不代表模型很聰明，因此在將來，模型得到正確答案時需要解釋為什麼得到這個答案。以上為現今機器學習應用的舉例，如銀行借貸款、醫療診斷、法律判決與自駕車等，模型需要為得出的答案給出合理的解釋才能使人信服
+Interpretable v.s. Powerful 若採用較好解釋的模型如Linear model，但往往表現較差;若使用Deep model較難解釋，但表現較好。因此有人認為不應該使用Deep model，因為它是個黑盒子，但這有點削足適履，應該想辦法去提升模型的解釋力
+可能有人會提那使用Decision tree? Decision tree相較Linear model強大，也比Deep model好解釋，透過節點問題分析來選擇最終決斷
+但一棵Decision tree也可以有複雜的結構，而且實際上也不會只使用一棵，而是Random forest的技術，使Decision tree變得複雜難以解釋
+Goal of Explainable ML </description>
+    </item>
+    
+    <item>
+      <title>NTU - 機器學習 Week 11 - Adversarial Attack</title>
+      <link>https://Offliners.github.io/post/ntuml-week11/</link>
+      <pubDate>Sat, 15 May 2021 20:36:57 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week11/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 [Video 2]</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 10 - Auto-Encoder</title>
       <link>https://Offliners.github.io/post/ntuml-week10/</link>
