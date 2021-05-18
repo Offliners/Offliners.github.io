@@ -44,7 +44,8 @@ How to Attack 首先講如何攻擊，假設在做影像辨識，將未受到攻
 考慮限制的話，在更新參數後發現不符合限制，則修改更新後的參數，假設使用L-infinity，則x只能在藍色方形中，若在範圍外則在藍色框框上找距離範圍外的點最近的點就好
 FGSM 接下來介紹一個簡單的攻擊方法Fast Gradient Sign Method (FGSM)，它只需更新一次參數，但在梯度上有個特殊的設計，對梯度每個維度皆取Sign，若大於0則輸出1，小於0輸出-1，接著再乘上現制的值就是更新後的參數，這些參數會落在藍色框框的四個角上
 想了解更多FGSM可參考以下連結 :
- Explaining and Harnessing Adversarial Examples : Link  IFGSM 若FGSM多做幾次就是Iterative FGSM(IFGSM)，但有可能會跑出限制外，所以需將跑出的參數修正回來</description>
+ Explaining and Harnessing Adversarial Examples : Link  IFGSM 若FGSM多做幾次就是Iterative FGSM(IFGSM)，但有可能會跑出限制外，所以需將跑出的參數修正回來
+White Box v.s. Black Box 先前介紹的都是White Box Attack，因為需要知道模型的參數才能計算Gradient，所以對於未知模型參數(如線上API服務)的攻擊就是Black Box Attack</description>
     </item>
     
     <item>

@@ -23,7 +23,8 @@ How to Attack 首先講如何攻擊，假設在做影像辨識，將未受到攻
 考慮限制的話，在更新參數後發現不符合限制，則修改更新後的參數，假設使用L-infinity，則x只能在藍色方形中，若在範圍外則在藍色框框上找距離範圍外的點最近的點就好
 FGSM 接下來介紹一個簡單的攻擊方法Fast Gradient Sign Method (FGSM)，它只需更新一次參數，但在梯度上有個特殊的設計，對梯度每個維度皆取Sign，若大於0則輸出1，小於0輸出-1，接著再乘上現制的值就是更新後的參數，這些參數會落在藍色框框的四個角上
 想了解更多FGSM可參考以下連結 :
- Explaining and Harnessing Adversarial Examples : Link  IFGSM 若FGSM多做幾次就是Iterative FGSM(IFGSM)，但有可能會跑出限制外，所以需將跑出的參數修正回來" name="description">
+ Explaining and Harnessing Adversarial Examples : Link  IFGSM 若FGSM多做幾次就是Iterative FGSM(IFGSM)，但有可能會跑出限制外，所以需將跑出的參數修正回來
+White Box v.s. Black Box 先前介紹的都是White Box Attack，因為需要知道模型的參數才能計算Gradient，所以對於未知模型參數(如線上API服務)的攻擊就是Black Box Attack" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -214,6 +215,35 @@ layui.use('element', function(){
 <h2 id="ifgsm">IFGSM</h2>
 <p><img src="/2021NTUML/Week11/ifgsm.JPG" alt="IFGSM">
 若FGSM多做幾次就是Iterative FGSM(IFGSM)，但有可能會跑出限制外，所以需將跑出的參數修正回來</p>
+<h2 id="white-box-vs-black-box">White Box v.s. Black Box</h2>
+<p><img src="/2021NTUML/Week11/box.JPG" alt="White Box v.s. Black Box">
+先前介紹的都是<code>White Box Attack</code>，因為需要知道模型的參數才能計算Gradient，所以對於未知模型參數(如線上API服務)的攻擊就是<code>Black Box Attack</code></p>
+<h2 id="black-box-attack">Black Box Attack</h2>
+<p><img src="/2021NTUML/Week11/blackbox.JPG" alt="Black Box Attack">
+對於未知的模型，假設知道未知模型是用什麼資料訓練出來的，那只要使用相同的資料訓練一個Proxy network，就會有一定的相似程度，所以攻擊Proxy network成功後的圖片丟入未知的模型就會有一定的成功率。那不知道訓練資料呢? 只需要準備一大堆的資料，丟入未知模型看會輸出什麼，再把這些圖片與模型輸出的資訊來訓練一個Proxy network即可</p>
+<p><img src="/2021NTUML/Week11/blackbox-1.JPG" alt="Black Box Attack 1">
+上表示單一模型對單一模型的攻擊，對角線因為是相同模型的攻擊，因此是White Box Attack，攻擊成功率100%，對於非對角線的部分則是Black Box Attack。如果像下表使用Ensemble Attack的話，
+如-ResNet-152表示使用除了ResNet-152以外的四個模型來攻擊，因此對於下表反而非對角線是White Box Attack，對角線是Black Box Attack，使用Ensemble Attack使得攻擊成功率大幅提升。透過剛剛的表格可以發現Black Box Attack成功非常容易，那為什麼攻擊A模型對於B模型也能成功?這仍然是個待研究的議題，接下來講解普遍相信的結論</p>
+<ul>
+<li>DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK-BOX ATTACKS : <a href="https://arxiv.org/pdf/1611.02770.pdf">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week11/blackbox-2.JPG" alt="Black Box Attack 2">
+上圖每個模型的圖表，橫軸為攻擊該模型可以成功的方向，縱軸是任意方向，而圖表上深藍色的區域為模型會辨識出小丑魚的區域。可以發現每個模型的深藍色區域都蠻類似的，因此攻擊A模型對於B模型也能成功。而這篇論文的結論是攻擊會成功，不是模型的問題而是資料，因為資料特徵的分布使得攻擊不同模型，模型學到差不多的特徵因此才容易成功</p>
+<ul>
+<li>Adversarial Examples Are Not Bugs, They Are Features : <a href="https://arxiv.org/abs/1905.02175">Link</a></li>
+</ul>
+<h2 id="one-pixel-attack">One Pixel Attack</h2>
+<p><img src="/2021NTUML/Week11/pixel.JPG" alt="One Pixel Attack">
+那攻擊能到多麼細微呢? 有人可以做到<code>One Pixel Attack</code>，只更改圖片的一個pixel</p>
+<ul>
+<li>One pixel attack for fooling deep neural networks : [https://arxiv.org/abs/1710.08864]</li>
+</ul>
+<h2 id="universal-adversarial-attack">Universal Adversarial Attack</h2>
+<p><img src="/2021NTUML/Week11/universal.JPG" alt="Universal Adversarial Attack">
+甚至有人可以做到用一個特定的雜訊來攻擊所有類別，使影像辨識系統所有類別都辨識錯誤</p>
+<ul>
+<li>Universal adversarial perturbations : <a href="https://arxiv.org/abs/1610.08401">Link</a></li>
+</ul>
 </div>
             </div>
             
@@ -238,6 +268,10 @@ layui.use('element', function(){
             <li><a href="/post/ntuml-week11/#how-to-attack">How to Attack</a></li>
             <li><a href="/post/ntuml-week11/#fgsm">FGSM</a></li>
             <li><a href="/post/ntuml-week11/#ifgsm">IFGSM</a></li>
+            <li><a href="/post/ntuml-week11/#white-box-vs-black-box">White Box v.s. Black Box</a></li>
+            <li><a href="/post/ntuml-week11/#black-box-attack">Black Box Attack</a></li>
+            <li><a href="/post/ntuml-week11/#one-pixel-attack">One Pixel Attack</a></li>
+            <li><a href="/post/ntuml-week11/#universal-adversarial-attack">Universal Adversarial Attack</a></li>
             </div>
                 </div>
             </div>
