@@ -31,7 +31,7 @@ Goal of Explainable ML </description>
       <guid>https://Offliners.github.io/post/ntuml-week11/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 [Video 2]
+Youtube Video Link (English): Video 1 Video 2
 Motivation 要把訓練的模型應用在現實中，光是正確率高是沒用的，還需要應付人類惡意的攻擊，對於這些惡意行為要能偵測出來
 How to Attack 首先講如何攻擊，假設在做影像辨識，將未受到攻擊的圖片(Benign Image)輸入製模型中，模型能判別說這是貓，那將未受攻擊的圖片加入一些雜訊(通常很小)變成受攻擊的圖片(Attacked Image)，模型則會判別成其他東西，若只是使模型判別變成其他類別是Non-targeted attack，若可以使模型誤判成特並的類別則是Targeted attack
 用ResNet50這個有名的模型來做示範，Benign Image輸入時能辨識成貓咪並有0.64的信心分數，但加入一個人們無法辨視的雜訊後再輸入製模型，發現被辨識成海星，且信心分數達100%

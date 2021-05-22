@@ -10,7 +10,7 @@
     
     <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 [Video 2]
+Youtube Video Link (English): Video 1 Video 2
 Motivation 要把訓練的模型應用在現實中，光是正確率高是沒用的，還需要應付人類惡意的攻擊，對於這些惡意行為要能偵測出來
 How to Attack 首先講如何攻擊，假設在做影像辨識，將未受到攻擊的圖片(Benign Image)輸入製模型中，模型能判別說這是貓，那將未受攻擊的圖片加入一些雜訊(通常很小)變成受攻擊的圖片(Attacked Image)，模型則會判別成其他東西，若只是使模型判別變成其他類別是Non-targeted attack，若可以使模型誤判成特並的類別則是Targeted attack
 用ResNet50這個有名的模型來做示範，Benign Image輸入時能辨識成貓咪並有0.64的信心分數，但加入一個人們無法辨視的雜訊後再輸入製模型，發現被辨識成海星，且信心分數達100%
@@ -182,7 +182,7 @@ layui.use('element', function(){
                     <p><img src="/2021NTUML/Week11/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
 <p>Youtube Video Link (Chinese): <a href="https://youtu.be/xGQKhbjrFRk"><code>Video 1</code></a> <a href="https://youtu.be/z-Q9ia5H2Ig"><code>Video 2</code></a></p>
-<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=xw6K4naFWFg"><code>Video 1</code></a> [<code>Video 2</code>]</p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=xw6K4naFWFg"><code>Video 1</code></a> <a href="https://www.youtube.com/watch?v=kRmBiV2X810"><code>Video 2</code></a></p>
 <h2 id="motivation">Motivation</h2>
 <p><img src="/2021NTUML/Week11/motivation.JPG" alt="Motivation">
 要把訓練的模型應用在現實中，光是正確率高是沒用的，還需要應付人類惡意的攻擊，對於這些惡意行為要能偵測出來</p>
@@ -224,25 +224,93 @@ layui.use('element', function(){
 <p><img src="/2021NTUML/Week11/blackbox-1.JPG" alt="Black Box Attack 1">
 上表示單一模型對單一模型的攻擊，對角線因為是相同模型的攻擊，因此是White Box Attack，攻擊成功率100%，對於非對角線的部分則是Black Box Attack。如果像下表使用Ensemble Attack的話，
 如-ResNet-152表示使用除了ResNet-152以外的四個模型來攻擊，因此對於下表反而非對角線是White Box Attack，對角線是Black Box Attack，使用Ensemble Attack使得攻擊成功率大幅提升。透過剛剛的表格可以發現Black Box Attack成功非常容易，那為什麼攻擊A模型對於B模型也能成功?這仍然是個待研究的議題，接下來講解普遍相信的結論</p>
+<p>有興趣可以參考這篇論文 :</p>
 <ul>
 <li>DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK-BOX ATTACKS : <a href="https://arxiv.org/pdf/1611.02770.pdf">Link</a></li>
 </ul>
 <p><img src="/2021NTUML/Week11/blackbox-2.JPG" alt="Black Box Attack 2">
 上圖每個模型的圖表，橫軸為攻擊該模型可以成功的方向，縱軸是任意方向，而圖表上深藍色的區域為模型會辨識出小丑魚的區域。可以發現每個模型的深藍色區域都蠻類似的，因此攻擊A模型對於B模型也能成功。而這篇論文的結論是攻擊會成功，不是模型的問題而是資料，因為資料特徵的分布使得攻擊不同模型，模型學到差不多的特徵因此才容易成功</p>
+<p>有興趣可以參考這篇論文 :</p>
 <ul>
 <li>Adversarial Examples Are Not Bugs, They Are Features : <a href="https://arxiv.org/abs/1905.02175">Link</a></li>
 </ul>
 <h2 id="one-pixel-attack">One Pixel Attack</h2>
 <p><img src="/2021NTUML/Week11/pixel.JPG" alt="One Pixel Attack">
 那攻擊能到多麼細微呢? 有人可以做到<code>One Pixel Attack</code>，只更改圖片的一個pixel</p>
+<p>有興趣可以參考這篇論文 :</p>
 <ul>
 <li>One pixel attack for fooling deep neural networks : [https://arxiv.org/abs/1710.08864]</li>
 </ul>
 <h2 id="universal-adversarial-attack">Universal Adversarial Attack</h2>
 <p><img src="/2021NTUML/Week11/universal.JPG" alt="Universal Adversarial Attack">
 甚至有人可以做到用一個特定的雜訊來攻擊所有類別，使影像辨識系統所有類別都辨識錯誤</p>
+<p>有興趣可以參考這篇論文 :</p>
 <ul>
 <li>Universal adversarial perturbations : <a href="https://arxiv.org/abs/1610.08401">Link</a></li>
+</ul>
+<h2 id="attack-in-the-physical-world">Attack in the Physical World</h2>
+<p><img src="/2021NTUML/Week11/real.JPG" alt="Attack in the Physical World">
+剛剛介紹的方法都是在虛擬世界進行，要在現實中進行Attack的話，需要駭進系統為每張圖片加入雜訊嗎?實際上可以不用，有人發明一個特殊的眼鏡，帶上它的人會被人臉辨識系統辨識成知名的藝人，但有些人可能會有些疑慮，如現實是3D世界會有角度問題，但剛剛也提到是可以做到Universal Adversarial Attack，且經過實測從各個角度看這個人都會被辨識錯誤。且論文中也探討許多應用在現實中的各種問題，如攝像頭解析度，會不會雜訊太小使攝像頭偵測不到，或者是電腦與實際做出的成品的色差不同等等</p>
+<p>有興趣可以參考這篇論文 :</p>
+<ul>
+<li>Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition : <a href="https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week11/real-1.JPG" alt="Attack in the Physical World 1">
+除了人臉辨識，由於自駕車發展快速，有人也對車牌辨識等進行攻擊，將一些號誌貼上貼紙使系統辨識錯誤</p>
+<p><img src="/2021NTUML/Week11/real-2.JPG" alt="Attack in the Physical World 2"></p>
+<p>但這些貼紙太招搖，容易被人發覺，因此有人去改變號誌字體的特徵，使其比較不招搖一些，向上圖限速35，把3拉長一點系統會辨識成限速85，下面有DEMO影片</p>
+<div class="embed video-player">
+  <iframe 
+          class="youtube-player" 
+          type="text/html" 
+          width="640" 
+          height="385"
+          src="https://www.youtube.com/embed/4uGV_fRj0UA?autoplay=0"
+          allowfullscreen frameborder="0">
+  </iframe>
+</div>
+<h2 id="adversarial-reprogramming">Adversarial Reprogramming</h2>
+<p><img src="/2021NTUML/Week11/repro.JPG" alt="Adversarial Reprogramming">
+攻擊甚至能改變模型的行為，如ImageNet原本是辨識物體的模型，而有人想做一個數圖片中的方塊，但不想自己訓練而是選擇寄生在已有的模型上，當輸入圖片有4個方塊，ImageNet就會輸出tiger shark，而使用者可以知道這張圖片有4個方塊，這樣就可以操控ImageNet來做原本不是它該做的事</p>
+<p>有興趣可以參考這篇論文 :</p>
+<ul>
+<li>Adversarial Reprogramming of Neural Networks : <a href="https://arxiv.org/abs/1806.11146">Link</a></li>
+</ul>
+<h2 id="backdoor-in-model">&ldquo;Backdoor&rdquo; in Model</h2>
+<p><img src="/2021NTUML/Week11/backdoor.JPG" alt="&ldquo;Backdoor&rdquo; in Model">
+之前的攻擊都是在輸入時加入雜訊，但有些攻擊可能從訓練就開始，在訓練資料中加入被攻擊的圖片，不是正確的圖片標記錯誤這種，而是正確的圖片加入看不見的雜訊。當訓練完成後，輸入其他圖片辨識都正確，但在特定的圖片會發生錯誤。因此使用未知的公開資料集時要小心，雖然目前還有很多限制，但這樣的可能性仍然存在</p>
+<p>有興趣可以參考這篇論文 :</p>
+<ul>
+<li>Poison Frogs! Targeted Clean-Label Poisoning Attacks on Neural Networks : <a href="https://arxiv.org/abs/1804.00792">Link</a></li>
+</ul>
+<h2 id="defense">Defense</h2>
+<p><img src="/2021NTUML/Week11/defense.JPG" alt="Defense">
+提了這麼多種的攻擊，接下來介紹如何防禦，防禦有分兩種，一種是<code>Passive Defense</code>，另一種是<code>Proactive Defense</code></p>
+<h2 id="passive-defense">Passive Defense</h2>
+<p><img src="/2021NTUML/Week11/passive.JPG" alt="Passive Defense">
+Passive Defense是不動訓練好的模型，而是將輸入圖片經過濾波，那要做怎樣的濾波呢?其實使用模糊化的方式就可以達到不錯的防禦</p>
+<p><img src="/2021NTUML/Week11/passive-1.JPG" alt="Passive Defense 1">
+先前提到加入雜訊的貓咪被辨識成鍵盤，若將這張圖片經過模糊化再去辨識結果就變正確了，理由是攻擊只會在特定的方向上，不是任意一個雜訊都可以攻擊成功，而經過模糊化後能改變攻擊方向，使其失敗。雖然防禦成功，但有副作用，如原本辨識成功的圖片信心分數會下降</p>
+<p><img src="/2021NTUML/Week11/passive-2.JPG" alt="Passive Defense 2">
+除了模糊化以外，還有使用會失真的壓縮或者使用Generator來重新繪製圖片，由於微小的雜訊是Generator沒有看過的，因此重新繪製時可能無法復原，因此能防禦</p>
+<p>有興趣可以參考以下論文 :</p>
+<ul>
+<li>Feature Squeezing: Detecting Adversarial Examples in Deep Neural Networks : <a href="https://arxiv.org/abs/1704.01155">Link</a></li>
+<li>Shield: Fast, Practical Defense and Vaccination for Deep Learning using JPEG Compression : <a href="https://arxiv.org/abs/1802.06816">Link</a></li>
+<li>Defense-GAN: Protecting Classifiers Against Adversarial Attacks Using Generative Models : <a href="https://arxiv.org/abs/1805.06605">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week11/passive-3.JPG" alt="Passive Defense 3">
+但Passive Defense有個弱點，就是當攻擊者知道這模型會防禦時，就把攻擊整個加入模糊化的模型，因為模糊化就像是在模型前再加入一層，所以攻擊加入模糊化後的模型就可以躲過這種防禦方式。因此使用Passive Defense時，當攻擊者不知道時防禦效果很強，但知道後就會失去效用。要強化防禦的話就是加入隨機性，比如這篇論文對輸入圖片隨機加入各種圖片處理的方式，如更改大小、隨機填充等，但當攻擊者知道隨機的分布時，就有可能被攻破</p>
+<p>有興趣可以參考這篇論文 :</p>
+<ul>
+<li>Mitigating Adversarial Effects Through Randomization : <a href="https://arxiv.org/abs/1711.01991">Link</a></li>
+</ul>
+<h2 id="proactive-defense">Proactive Defense</h2>
+<p><img src="/2021NTUML/Week11/proactive.JPG" alt="Proactive Defense">
+另一種防禦是Proactive Defense，會使用<code>Adversarial Training</code>的方式，先訓練好一個模型，再去將輸入圖片加入攻擊的雜訊但標記成正確產生一個被攻擊的資料集，將這個資料集拿去重新訓練。簡單來說就是訓練好模型，然後找漏洞，再去補漏洞，是一種Data Augmentation的方法。這樣的防禦缺點是不太能抵擋新的攻擊，因為新的攻擊造成的漏洞是訓練時沒看過的。另一個缺點是需要較大的運算資源，因為一直擴增訓練資料來抵擋攻擊</p>
+<p>但有人使用特殊方法來做到Adversarial Training的效果且不需要較大的運算，有興趣可以參考這篇論文 :</p>
+<ul>
+<li>Adversarial Training for Free! : <a href="https://arxiv.org/abs/1904.12843">Link</a></li>
 </ul>
 </div>
             </div>
@@ -272,6 +340,12 @@ layui.use('element', function(){
             <li><a href="/post/ntuml-week11/#black-box-attack">Black Box Attack</a></li>
             <li><a href="/post/ntuml-week11/#one-pixel-attack">One Pixel Attack</a></li>
             <li><a href="/post/ntuml-week11/#universal-adversarial-attack">Universal Adversarial Attack</a></li>
+            <li><a href="/post/ntuml-week11/#attack-in-the-physical-world">Attack in the Physical World</a></li>
+            <li><a href="/post/ntuml-week11/#adversarial-reprogramming">Adversarial Reprogramming</a></li>
+            <li><a href="/post/ntuml-week11/#backdoor-in-model">“Backdoor” in Model</a></li>
+            <li><a href="/post/ntuml-week11/#defense">Defense</a></li>
+            <li><a href="/post/ntuml-week11/#passive-defense">Passive Defense</a></li>
+            <li><a href="/post/ntuml-week11/#proactive-defense">Proactive Defense</a></li>
             </div>
                 </div>
             </div>
