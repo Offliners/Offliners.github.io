@@ -494,7 +494,7 @@ mysite/ │ ├── archetypes/ │ │ │ └─ default.md # 預設 markdow
       <pubDate>Wed, 18 Sep 2019 21:19:31 +0800</pubDate>
       
       <guid>https://Offliners.github.io/about/splab-1/</guid>
-      <description>Signal Processing Lab (Prof. Shuen-De Wu) Research : Nonlinear Signal Prediction and Causality Analysis Based on Granger Causality with Implementation of CNN-BiLSTM Model </description>
+      <description>Signal Processing Lab (Supervised by Prof. Shuen-De Wu) Research : Nonlinear Signal Prediction and Causality Analysis Based on Granger Causality with Implementation of CNN-BiLSTM Model </description>
     </item>
     
     <item>
@@ -512,7 +512,7 @@ mysite/ │ ├── archetypes/ │ │ │ └─ default.md # 預設 markdow
       <pubDate>Tue, 18 Sep 2018 21:19:31 +0800</pubDate>
       
       <guid>https://Offliners.github.io/about/splab-2/</guid>
-      <description>Signal Processing Lab (Prof. Shuen-De Wu) Research : Sleeping Posture Recognition Algorithm and System Applied to Pressure Sensor Mattress based on Convolutional Neural Network </description>
+      <description>Signal Processing Lab (Supervised by Prof. Shuen-De Wu) Research : Sleeping Posture Recognition Algorithm and System Applied to Pressure Sensor Mattress based on Convolutional Neural Network </description>
     </item>
     
     <item>
