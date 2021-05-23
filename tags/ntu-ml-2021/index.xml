@@ -14,13 +14,16 @@
       
       <guid>https://Offliners.github.io/post/ntuml-week13/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): [Video]
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 [Video 2]
 Why we need Explainable ML? 模型得到正確答案不代表模型很聰明，因此在將來，模型得到正確答案時需要解釋為什麼得到這個答案。以上為現今機器學習應用的舉例，如銀行借貸款、醫療診斷、法律判決與自駕車等，模型需要為得出的答案給出合理的解釋才能使人信服
 Interpretable v.s. Powerful 若採用較好解釋的模型如Linear model，但往往表現較差;若使用Deep model較難解釋，但表現較好。因此有人認為不應該使用Deep model，因為它是個黑盒子，但這有點削足適履，應該想辦法去提升模型的解釋力
 可能有人會提那使用Decision tree? Decision tree相較Linear model強大，也比Deep model好解釋，透過節點問題分析來選擇最終決斷
-但一棵Decision tree也可以有複雜的結構，而且實際上也不會只使用一棵，而是Random forest的技術，使Decision tree變得複雜難以解釋
-Goal of Explainable ML </description>
+但一棵Decision tree也可以有複雜的結構(左圖)，而且實際上也不會只使用一棵，而是Random forest的技術(右圖)，使Decision tree變得複雜難以解釋
+Goal of Explainable ML 以往模型訓練都有個明確的目標，如降低loss、提升accuracy，那Explainable ML是什麼呢?其實Explainable ML目標非常不明確，許多人會覺得Explainable ML要能闡述模型的一切，模型是怎麼做的，怎麼得到這樣的結果，來打開Deep network這個黑盒子，因為很多人認為Deep network是個黑盒子不能相信，但其實現實生活中充滿著許多黑盒子，如人腦，人腦也是個黑盒子但我們可以相信另一個人的決策，那為什麼不能相信Deep network?也許就差在Deep network沒給出一個令人信服的理由。這裡舉了一個哈佛大學做的一個實驗，大家在排隊等印表機時，有人插隊的理由是只有5頁要印，有60%的人會同意，如果理由是趕時間時，同意的人提高到94%，但神奇的是如果理由是他必須要先印，同意的人也能高達到93%
+因此Explainable ML的目標就是要給出使人信服的理由，對象可能是你的客戶、老闆甚至是自己
+Explainable ML Explainable ML分成兩大類，一類是Local Explanation，比如影像辨識說這張圖片是一隻貓，那機器要回答說為什麼這張圖片是一隻貓，根據這張圖片來回答。另一個是Global Explanation，要問機器說什麼樣的圖片他會覺得是一隻貓，並不是針對任一張圖片
+Local Explanation : Explain the Decision 首先講述Local Explanation，一張圖片機器覺得是貓是根據什麼?</description>
     </item>
     
     <item>
