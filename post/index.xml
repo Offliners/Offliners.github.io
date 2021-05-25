@@ -6,7 +6,26 @@
     <description>Recent content in Posts on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 16 May 2021 03:42:10 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 May 2021 15:33:26 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU - 機器學習 Week 14 - Domain Adaptation</title>
+      <link>https://Offliners.github.io/post/ntuml-week14-1/</link>
+      <pubDate>Mon, 24 May 2021 15:33:26 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week14-1/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video
+Youtube Video Link (English): [Video]
+Domain Shift 到目前為止已經知道如何訓練許多模型，且大多能獲得極高的正確率，但當測試資料的分布與訓練資料不同那該怎麼辦? 舉訓練手寫數字為例，如果測試資料圖片的背景不再是黑白而是彩色的，可以發現準確率會低很多。這種測試與訓練資料分布不同的叫做Domain Shift，要解決這種問題就需要Domain adaptation的技術，這種技術可以看成是一種Transfer learning
+若對Transfer learning感興趣的可以看此連結影片 :
+ ML Lecture 19: Transfer Learning : Video  Domain Shift除了輸入分布有變化以外，輸出的分布也可能有變化，可能特定類別輸出的機率特別大，甚至還有一種罕見的可能是輸入輸出分布相同，但關係產生了變化，可能訓練資料的標籤是0，但測試資料標籤變成1。接下來介紹會著重在輸入資料不同的方面，來自訓練資料的會稱為Source domain，來自測試資料的會稱為Target domain
+Domain Adaptation 接下來舉例會需要Domain Adaptation的情境，首先會有一堆訓練資料訓練出來的模型，但我們會希望這模型能應用在不同的domain上，因此訓練時會需要這模型對不同的domain有一些的了解，通常會需要一點另一個domain上些許有標記的資料，但通常Target domain的資料量非常少，因此要小心不要overfit
+而更常見的情境是擁有大量Target domain的資料，但都沒有標註，那要怎麼用這些沒有標註的資料在Source domain訓練出一個模型可以用在Target domain上呢?
+基本的想法是訓練一個Feature Extractor來把不同的特徵濾掉，留下Source domain與Target domain共同的特徵，這樣就會有相同的分布，這些特徵可以幫助我們在Source domain訓練一個模型並可以套用在Target domain，那要怎麼得到Feature Extractor呢?
+一個Classifier可以看成兩個部分，一部分是Feature Extractor，另一部分是Label Predictor，對於Source domain的資料，訓練輸入的資料與得到的輸出越接近越好，但問題是Target domain沒有標註，所以要比較兩個domain在Feature Extractor後輸出的分布是否類似，為了能讓兩分布越接近，因此要使用Domain Adversarial Training的技術
+Domain Adversarial Training就是訓練一個二元分類器，輸入這些分布後判斷來自Source domain還是Target domain，所以Feature Extractor有額外的任務要Source domain的label能騙過Domain Classifier，這樣的步驟就像是GAN。Feature Extractor要騙過Domain Classifier只要輸出0就好，但因為Label Predictor需要Feature Extractor來輸出預測的標註，所以Feature Extractor就不會輸出0</description>
+    </item>
+    
     <item>
       <title>NTU - 機器學習 Week 13 - Explainable AI</title>
       <link>https://Offliners.github.io/post/ntuml-week13/</link>
