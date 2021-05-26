@@ -3,25 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Critical Point: small gradient </title>
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 2 - Critical Point: small gradient </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Why Optimization fails? 有時會發現隨著參數不斷update，training的loss不再下降(藍線)，但對這loss仍不滿意。跟其他如linear model以較發現deep network沒有更好，顯然optimization有問題。有時還會發現一開始model就train不起來，不管怎麼update參數loss仍不降(紅線)。那這是發生什麼事呢?
-過去的猜想是，由於模型訓練到一個地方，這地方參數對loss的微分為0，梯度下降法就沒辦法再update參數，所以loss不再下降。
-說到Gradient為0，有兩種常見的可能:
- Local Minima 區域最小值 Saddle Point 鞍點 Local Maxima 區域最大值  這些會使Gradient為0的點統稱Critical point，那如果今天Gradient很接近0，那是卡在哪一個呢?等等會解說如何判斷
-那又為何需要分辨卡在哪裡?如果卡在local minima那就沒路可走，但如果是saddle point那旁邊還有路可以走，可以讓loss更低。因為update參數是往低處走，所以不太會卡在local maxima
-Math Method 要判斷是local minima還是saddle point呢?首先要知道loss function的形狀，由於模型通常過於複雜，使得我們無法得知loss function的全貌，但可以給定某一組參數來分析在這組參數下loss function附近的樣貌
-Tayler Series Approximation 透過泰勒級數近似法可以將loss function在這組參數下分成以上三個的組合
-如果今天卡在critical point，表示gradient為0，那綠色那項也為0，因此可以根據紅色那項判斷這組參數附近的error surface是長什麼樣子，進而判斷卡在哪一種critical point
-為方便表示，將 $$ v = (\theta - \theta^{&#39;})$$
-  紅色項帶任何值皆大於0，表示這組參數是附近的最低點，因此是local minima
-  紅色項帶任何值皆小於0，表示這組參數是附近的最高點，因此是local maxima" name="description">
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 2 - Critical Point small gradient" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -138,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Critical Point: small gradient</h1>
+                    <h1>NTU Machine Learning Week 2 - Critical Point: small gradient</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-05</span>
@@ -266,7 +253,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week2-1/">
-                                <h3 class="">NTU - 機器學習 Week 2 - Guideline of ML: overfit</h3>
+                                <h3 class="">NTU Machine Learning Week 2 - Guideline of ML: overfit</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -309,7 +296,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week1/">
-                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
+                                <h3 class="">NTU Machine Learning Week 1 - Introduction of ML/DL</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -361,7 +348,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -404,7 +391,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -447,7 +434,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -490,7 +477,7 @@ $$ v = (\theta - \theta^{'})$$</p>
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>

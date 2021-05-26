@@ -8,10 +8,7 @@
     
     <meta content="ORBSLAM2, code analysis, ORBSLAM2 程式碼解析" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - System Overview Source Code : Link MapPoint是地圖中的特徵點，自身參數是3D座標與描述子，在此類別中會完成以下工作 :
- 維護關鍵幀之間的共視關係 通過計算描述向量之間的距離，在多個關鍵幀的特徵點中找到最匹配的特徵點 在閉環完成修正後，需要根據修正的主幀位姿來修正特徵點 對於非關鍵幀，也能產生MapPoint，只是是用來給Tracking功能臨時使用  以下為MapPoint中的主要函數
-MapPoint │ ├── MapPoint // 建構函數 ├──────── 關鍵幀地圖點建構函數 ├──────── 普通幀地圖點建構函數 │ ├── AddObservation // 增加地圖點觀測關係 │ ├── EraseObservation // 刪除地圖點觀測關係 │ ├── SetBadFlag // 刪除地圖點 │ ├── Replace // 替換地圖點 │ ├── ComputeDistinctiveDescriptors // 計算描述子 │ ├── UpdateNormalAndDepth // 更新法向量和深度值 │ ├── PredictScale // 預測尺度 建構函數 MapPoint 一共有兩個，分別對應關鍵幀與普通幀
-關鍵幀的地圖點建構函數 MapPoint(const cv::Mat &amp;Pos, KeyFrame *pRefKF, Map* pMap) Pos為該點的3D位置，pRefKF是參考關鍵幀，pMap是地圖。關鍵幀的地圖點建構函數主要是突出地圖點與關鍵幀之間的關係，一個地圖點會被多個關鍵幀偵測到，多個關鍵幀之間透過共同偵測到的地圖點來產生關係，叫做共視關係。在ORBSLAM中，是透過MapPoint來維護共視關係。在進行BA優化時，指優化具有共視關係的關鍵幀，其他關鍵幀的位姿則不參與優化" name="description">
+    <meta content="Offliner&#39;s Blog - ORBSLAM2 Code Analysis - MapPoint" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -496,7 +493,7 @@ layui.use('element', function(){
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/orbslam2-code-2/">
-                                <h3 class="">ORBSLAM2 程式碼解析 - 系統流程</h3>
+                                <h3 class="">ORBSLAM2 程式碼解析 - System</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -630,7 +627,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -673,7 +670,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -716,7 +713,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -759,7 +756,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>

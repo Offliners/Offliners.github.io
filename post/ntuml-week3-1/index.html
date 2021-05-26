@@ -3,31 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate </title>
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 3 - Tips for Training: Adaptive Learning Rate </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Training Stuck equals Small Gradient? 在訓練network時，通常會記錄loss，會發現loss越來越小，然後就卡住了不再下降，通常會覺得是遇到critical point，但真的是如此嗎?多數人可能不會確認說此時的gradient真的是否很小。上圖例子可以發現，loss不再下降，但gradient沒有很小。
-假設今天有個error surface，在參數b的變化非常小，參數w非常陡峭。如果learning rate設0.01時，會在山壁上震盪，無法滑進山谷。但learning rate設0.0000001時，雖然進入山谷，但仍然無法到終點，因為learning rate太小，步伐過小使參數要更新過多次也無法踏出多大的距離
-會有這樣的問題在於learning rate是固定的，因此learning rate需要為每個參數客製化
-Different parameters needs different learning rate 大原則 : 在某個方向上，gradient很小非常平坦，會希望有較大的learning rate;gradient很大非常陡峭，會希望有較小的learning rate
-為簡單起見，只用一個參數來講解。
-將原本的learning rate除以一個參數，這個參數是depend on i，為每個參數客製化，接下來看說這個參數有什麼常見的計算方式
-Adagrad 首先是，過去所有gradient的均方根
-這被使用在Adagrad的方法中
-那這會有什麼問題呢?由於每個參數會需要的learning rate可能會隨時間改變，因此會希望同參數同方向，也能有動態調整的learning rate
-RMSProp 透過alpha來調整現在與過去的gradient的重要性，這個alpha也是一個超參數要自行設定。如果alpha設接近0，表示現在的gradient比較重要。反之設接近1，表示過去的gradient比較重要
-透過此機制，可以視gradient來動態調整learning rate
-Adam 最常使用的，Adam是RMSProp結合Momentum
-Training with Adagrad 之前沒有使用Adagrad來訓練，update參數10萬次只左一小步。但有了Adagrad來訓練，update參數10萬次較到達接近終點的地方，因為在平緩的地方會自動條大learning rate。那為什麼在終點時爆炸了呢?由於Adagrad是累積過去的gradient，因此在縱軸上每次累積很小的gradient，到一定程度時爆走，但沒關係，當衝出去時到大的gradient，會使sigma變大那update參數的步伐又會變小又回到峽谷，那如何解決這問題呢?
-隨著時間的增加，距離終點也越近，讓learning rate越來越小，使參數更新能慢下來，因此能解決剛剛的狀況
-除了decay的方法，還有warm-up，讓learning rate先變大後變小，變大變小的速率也是一種超參數。
-warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更多理解可以參考RAdam(https://arxiv.org/abs/1908.03265)這篇論文
-Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去所有的gradient，那一個在分子一個在分母不會抵銷嗎?" name="description">
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 3 - Tips for Training Adaptive Learning Rate" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -144,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</h1>
+                    <h1>NTU Machine Learning Week 3 - Tips for Training: Adaptive Learning Rate</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-06</span>
@@ -266,7 +247,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week2-3/">
-                                <h3 class="">NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</h3>
+                                <h3 class="">NTU Machine Learning Week 2 - Tips for Training: Batch and Momentum</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -309,7 +290,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week2-2/">
-                                <h3 class="">NTU - 機器學習 Week 2 - Critical Point: small gradient</h3>
+                                <h3 class="">NTU Machine Learning Week 2 - Critical Point: small gradient</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -352,7 +333,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week2-1/">
-                                <h3 class="">NTU - 機器學習 Week 2 - Guideline of ML: overfit</h3>
+                                <h3 class="">NTU Machine Learning Week 2 - Guideline of ML: overfit</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -395,7 +376,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week1/">
-                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
+                                <h3 class="">NTU Machine Learning Week 1 - Introduction of ML/DL</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -447,7 +428,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -490,7 +471,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -533,7 +514,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -576,7 +557,7 @@ warm-up在訓練BERT常用到，此外在早期模型也常用到，如要有更
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>

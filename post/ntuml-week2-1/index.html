@@ -3,30 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 2 - Guideline of ML: overfit </title>
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 2 - Guideline of ML: overfit </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video
-Youtube Video Link (English): Video
-Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查training data的loss，看模型是否學起來再檢查testing data
-有可是model bias使training data的loss無法變低。由於model過於簡單，透過訓練所有參數所得到的function set，但因為模型簡單使得function set小，因此這個function set沒有包含任何一個function使得loss變低，可以讓loss變低的function不在這個model可以描述的範圍裡面。簡單來說，想在大海裡撈針(使loss變低的function)，但針根本不在海裡，怎麼撈都撈不到。
-解決方法 : 重新設計模型，使模型有更大的彈性，可以增加feature，也可以使用deep learning的方式
-但不代表training時loss大就一定是model bias，有可能是optimization做不夠好
-這堂課都使用梯度下降法，但這方法有些問題，如可能卡在區域最小值。如上圖藍色圖形內表示model可以表示函式的集合，這集合內確實存在loss低的function，但梯度下降法沒辦法幫我們找到他。簡單來說，想大海撈針，針確實在海裡，但我們沒辦法撈起來。
-當training data的loss不夠低時，是哪個問題呢?
-可以透過比較不同的模型來判斷。如果看testing data的loss表現，很多人可能覺得56層沒有比20層做得好，這是overfitting。但這不是overfitting，透過比較training data的loss，發現20層的loss比56層的低，代表56層的optimization沒有做好。這也不會是model bias的問題，56層彈性更大，一定能做到20層能做到的事，因此這就是Optimization Issue。
-因此要知道optimization有沒有做好，可以先跑一些小的或是淺的模型，甚至用一些不是deep learning的方法，如Linear model或是SVM，他們比較容易做optimization。接著做深的model，如果深的model彈性大但loss沒辦法做得比淺的低，表示有Optimization Issue。以上次例子來看，模型5層出現了Optimization Issue。那要怎麼辦呢?下堂課會講解
-如果已經可以讓training data的loss變小，那就可以看testing data的loss，當testing data的loss也小，那就訓練完成。
-那當覺得testing data的loss還不夠小時，如果training data的loss小，testing data的loss大，那有可能遇到overfitting的問題。
-舉一個極端例子，假設今天有個模型，如果輸入有出現在training data中那就輸出他的值，若沒有則輸出隨機值。此模型在training data的loss為0，但在沒看過的teating data的loss變得很大
-一般情況下，假設今天實際資料呈現為二次曲線，但我們不知道，我們只能知道線上的3個點(訓練資料)，如果有個能力強的模型，彈性很大，他會通過訓練資料的三個點，但其他地方會呈現freestyle，因此丟入測試資料時會發現沒通過使loss變大
-那要如何解決overfitting呢?方法一是增加訓練資料，也是最有效解決的方法。方法二是Data augmentation，如做影像辨識時，可以翻轉資料來增加資料，這Data augmentation不能隨便做，如翻轉圖片不會顛倒圖片，因為這可能不是真實世界會出現的影像。因此要根據對資料的理解，來選擇合適Data augmentation的方式
-剛剛是增加資料的方式，也可以透過增加模型限制來避免overfitting。比如可以限制模型一定是二次曲線，但要如何得知呢?取決於對問題的理解。最好的是模型與資料背後產生得過程相同
-如何限制模型呢?
- 漸少參數、神經元，或者共用參數(CNN) 用比較少的feature Early stopping Regularization Dropout  但也不要給模型過多的限制。假設模型限制是一條直線，雖然沒辦法找到一條同時通過這三個點，但可以找到一條線loss是最低的，但這會在testing data中得到較大的loss。那這是overfitting嗎?" name="description">
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 2 - Guideline of ML overfit" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -143,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 2 - Guideline of ML: overfit</h1>
+                    <h1>NTU Machine Learning Week 2 - Guideline of ML: overfit</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-03</span>
@@ -273,7 +255,7 @@ layui.use('element', function(){
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week1/">
-                                <h3 class="">NTU - 機器學習 Week 1 - Introduction of ML/DL</h3>
+                                <h3 class="">NTU Machine Learning Week 1 - Introduction of ML/DL</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -325,7 +307,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -368,7 +350,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -411,7 +393,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -454,7 +436,7 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>

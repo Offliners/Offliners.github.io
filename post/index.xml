@@ -8,7 +8,7 @@
     <language>zh</language>
     <lastBuildDate>Mon, 24 May 2021 15:33:26 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>NTU - 機器學習 Week 14 - Domain Adaptation</title>
+      <title>NTU Machine Learning Week 14 - Domain Adaptation</title>
       <link>https://Offliners.github.io/post/ntuml-week14-1/</link>
       <pubDate>Mon, 24 May 2021 15:33:26 +0800</pubDate>
       
@@ -27,7 +27,7 @@ Domain Adversarial Training就是訓練一個二元分類器，輸入這些分�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 13 - Explainable AI</title>
+      <title>NTU Machine Learning Week 13 - Explainable AI</title>
       <link>https://Offliners.github.io/post/ntuml-week13/</link>
       <pubDate>Sun, 16 May 2021 03:42:10 +0800</pubDate>
       
@@ -46,7 +46,7 @@ Local Explanation : Explain the Decision 首先講述Local Explanation，一張�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 11 - Adversarial Attack</title>
+      <title>NTU Machine Learning Week 11 - Adversarial Attack</title>
       <link>https://Offliners.github.io/post/ntuml-week11/</link>
       <pubDate>Sat, 15 May 2021 20:36:57 +0800</pubDate>
       
@@ -71,7 +71,7 @@ White Box v.s. Black Box 先前介紹的都是White Box Attack，因為需要知
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 10 - Auto-Encoder</title>
+      <title>NTU Machine Learning Week 10 - Auto-Encoder</title>
       <link>https://Offliners.github.io/post/ntuml-week10/</link>
       <pubDate>Sat, 01 May 2021 18:21:00 +0800</pubDate>
       
@@ -116,7 +116,7 @@ MapPoint │ ├── MapPoint // 建構函數 ├──────── 關�
     </item>
     
     <item>
-      <title>ORBSLAM2 程式碼解析 - 系統流程</title>
+      <title>ORBSLAM2 程式碼解析 - System</title>
       <link>https://Offliners.github.io/post/orbslam2-code-2/</link>
       <pubDate>Tue, 27 Apr 2021 19:39:14 +0800</pubDate>
       
@@ -140,7 +140,7 @@ MapPoint │ ├── MapPoint // 建構函數 ├──────── 關�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 8 - BERT</title>
+      <title>NTU Machine Learning Week 8 - BERT</title>
       <link>https://Offliners.github.io/post/ntuml-week8/</link>
       <pubDate>Wed, 21 Apr 2021 21:33:28 +0800</pubDate>
       
@@ -164,7 +164,7 @@ Model Introduction Self-Supervised Learning的模型命名皆來自芝麻街的�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 7 - GAN</title>
+      <title>NTU Machine Learning Week 7 - GAN</title>
       <link>https://Offliners.github.io/post/ntuml-week7-2/</link>
       <pubDate>Thu, 15 Apr 2021 20:04:48 +0800</pubDate>
       
@@ -185,7 +185,7 @@ Basic Idea of GAN 首先第一代的Generator因為參數是隨機的，因此�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 7 - Transformer</title>
+      <title>NTU Machine Learning Week 7 - Transformer</title>
       <link>https://Offliners.github.io/post/ntuml-week7-1/</link>
       <pubDate>Tue, 13 Apr 2021 20:43:16 +0800</pubDate>
       
@@ -204,7 +204,7 @@ Most Natural Language Processing applications 很多NLP的問題可以看成是Q
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 5 - Normalization</title>
+      <title>NTU Machine Learning Week 5 - Normalization</title>
       <link>https://Offliners.github.io/post/ntuml-week5-2/</link>
       <pubDate>Sun, 11 Apr 2021 15:34:25 +0800</pubDate>
       
@@ -228,7 +228,7 @@ To Learn More  Batch Renormalization : Link Layer Normalization : Link Instance 
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 5 - Self-Attention</title>
+      <title>NTU Machine Learning Week 5 - Self-Attention</title>
       <link>https://Offliners.github.io/post/ntuml-week5-1/</link>
       <pubDate>Sat, 10 Apr 2021 23:06:41 +0800</pubDate>
       
@@ -247,7 +247,7 @@ What is the output? 既然輸入是向量，那輸出是麼呢?首先輸入與�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 3 - CNN</title>
+      <title>NTU Machine Learning Week 3 - CNN</title>
       <link>https://Offliners.github.io/post/ntuml-week3-3/</link>
       <pubDate>Thu, 08 Apr 2021 21:12:19 +0800</pubDate>
       
@@ -272,7 +272,7 @@ Receptive field會移動到新的Receptive field，移動的長度是stride，�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 3 - Loss Function: Classification</title>
+      <title>NTU Machine Learning Week 3 - Loss Function: Classification</title>
       <link>https://Offliners.github.io/post/ntuml-week3-2/</link>
       <pubDate>Tue, 06 Apr 2021 15:46:03 +0800</pubDate>
       
@@ -291,7 +291,7 @@ To Learn More  Classification : Video Logistic Regression : Video  </description
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 3 - Tips for Training: Adaptive Learning Rate</title>
+      <title>NTU Machine Learning Week 3 - Tips for Training: Adaptive Learning Rate</title>
       <link>https://Offliners.github.io/post/ntuml-week3-1/</link>
       <pubDate>Tue, 06 Apr 2021 14:24:24 +0800</pubDate>
       
@@ -319,7 +319,7 @@ Summary of Optimization 有可能會有人問momentum與sigma都是考慮過去�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 2 - Tips for Training: Batch and Momentum</title>
+      <title>NTU Machine Learning Week 2 - Tips for Training: Batch and Momentum</title>
       <link>https://Offliners.github.io/post/ntuml-week2-3/</link>
       <pubDate>Mon, 05 Apr 2021 21:55:10 +0800</pubDate>
       
@@ -343,7 +343,7 @@ Small Batch 每看完一筆資料就更新參數，因此更新時間短，但�
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 2 - Critical Point: small gradient</title>
+      <title>NTU Machine Learning Week 2 - Critical Point: small gradient</title>
       <link>https://Offliners.github.io/post/ntuml-week2-2/</link>
       <pubDate>Mon, 05 Apr 2021 00:38:19 +0800</pubDate>
       
@@ -365,7 +365,7 @@ Tayler Series Approximation 透過泰勒級數近似法可以將loss function在
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 2 - Guideline of ML: overfit</title>
+      <title>NTU Machine Learning Week 2 - Guideline of ML: overfit</title>
       <link>https://Offliners.github.io/post/ntuml-week2-1/</link>
       <pubDate>Sat, 03 Apr 2021 23:32:44 +0800</pubDate>
       
@@ -392,7 +392,7 @@ Framework of ML General Guide 如果覺得訓練不滿意時，首先檢查train
     </item>
     
     <item>
-      <title>NTU - 機器學習 Week 1 - Introduction of ML/DL</title>
+      <title>NTU Machine Learning Week 1 - Introduction of ML/DL</title>
       <link>https://Offliners.github.io/post/ntuml-week1/</link>
       <pubDate>Sat, 03 Apr 2021 17:05:34 +0800</pubDate>
       

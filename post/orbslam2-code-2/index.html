@@ -3,14 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - ORBSLAM2 程式碼解析 - 系統流程 </title>
+    <title>Offliner&#39;s Blog - ORBSLAM2 程式碼解析 - System </title>
     
     
     <meta content="ORBSLAM2, code analysis, ORBSLAM2 程式碼解析" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - System Overview Source Code : Link 系統流程的入口在System.cc，裡面有4個主要的函數 :
- System TrackStereo TrackRGBD TrackMonocular  其中System是SLAM系統的建構函數，包括所有功能模塊與所有線程的初始化。而TrackStereo、TrackRGBD、TrackMonocular分別為二元、深度與一元相機的數據入口，使用ORBSLAM時會先透過System來生成SLAM系統的使用對象，然後根據傳感器的類型來選擇相對應的入口來傳入數據
-建構函數 System System // 建構函數 │ ├── mpVocabulary = new ORBVocabulary(); // 加載ORB詞袋模型 │ │── mpKeyFrameDatabase = new KeyFrameDatabase(*mpVocabulary); │ // 創建關鍵幀數據集，數據集中主要存放詞袋模型中的值，這些值用於閉環檢測與重定位 │ │── mpMap = new Map(); // 創建地圖 │ │── mpFrameDrawer = new FrameDrawer(mpMap); // 畫關鍵幀的Drawer │ │── mpMapDrawer = new MapDrawer(mpMap, strSettingsFile); // 畫地圖的Drawer │ │── mpTracker = new Tracking(this, mpVocabulary, mpFrameDrawer, mpMapDrawer, mpMap, mpKeyFrameDatabase, strSettingsFile, mSensor); │ // 建立跟踪線程 │ │── mpLocalMapper = new LocalMapping(mpMap, mSensor==MONOCULAR); │ // 建立局部地圖線程 │ │── mpLoopCloser = new LoopClosing(mpMap, mpKeyFrameDatabase, mpVocabulary, mSensor!" name="description">
+    <meta content="Offliner&#39;s Blog - ORBSLAM2 Code Analysis - System" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -127,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>ORBSLAM2 程式碼解析 - 系統流程</h1>
+                    <h1>ORBSLAM2 程式碼解析 - System</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-27</span>
@@ -426,7 +424,7 @@ mpLoopCloser<span style="color:#f92672">-&gt;</span>SetLocalMapper(mpLocalMapper
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -469,7 +467,7 @@ mpLoopCloser<span style="color:#f92672">-&gt;</span>SetLocalMapper(mpLocalMapper
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -512,7 +510,7 @@ mpLoopCloser<span style="color:#f92672">-&gt;</span>SetLocalMapper(mpLocalMapper
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -555,7 +553,7 @@ mpLoopCloser<span style="color:#f92672">-&gt;</span>SetLocalMapper(mpLocalMapper
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>

@@ -3,24 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU - 機器學習 Week 7 - GAN </title>
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 7 - GAN </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTUML 2021 Spring Course Syllabus: Link
-Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4
-Youtube Video Link (English): Video 1 Video 2 Video 3 Video 4
-Network as Generator 現在要將network當成Generator使用，這個network會輸入x與隨機變數z來生成y，每次使用這個network時會透過簡單的分布來生成不同的z，這種簡單的分布可以是Gaussian Distribution或者是Uniform Distribution等。加入隨機變數z後，network輸出會變成複雜的分布。這種特殊的network叫做Generator
-那為什麼要訓練Generator?為什麼要訓練這種輸出是一個複雜分布的模型?
-Why Distribution? 假設今天有個任務，是要去預測之後的遊戲畫面，那可能會將過去遊戲畫面作為模型輸入，然後模型會輸出下一個預測的遊戲畫面
-但這樣會有個問題，就是有時候會發現小精靈會分裂，甚至消失。因為在訓練資料中有時候小精靈是向左轉，有時候是向右轉，那會造成機器覺得向左轉是對的，向右轉也是對的，但同時向左向右就是錯的，那要怎麼處理這類問題呢?讓機器輸出是有機率的，而不是單一的輸出
-將給network一個機率分布z時，模型輸出就會變成一個Distribution，這個Distribution包含向左轉與向右轉的可能
-那什麼時候需要這種network?當任務需要一些創造力的時候，也就是同樣的輸入卻有多種可能的輸出，而這些輸出都是對的。例如繪畫或者聊天機器人
-Generative Adversarial Network GAN有多種的變形，多到許多不同GAN的變形卻有相同的名字，可以到以下連結去查看:
- The GAN Zoo : Link  Anime Face Generation 接著要舉的例子是生成動畫人物的臉，使用的是Unconditional Generation，也就是模型輸入只有Z，沒有x。因此Generator只輸入Z輸出y，然後Z是使用Normal distribution中sample出來的向量，向量維度是自訂的。所以透過輸入低維度的隨機向量，去透過Generator產生圖片這種高維度的向量(如果圖片大小是64 * 64且是RGB，那輸出的向量就會是64 * 64 * 3)
-Discriminator 在GAN中，除了訓練Generator，還要訓練Discriminator，圖片會輸入到Discriminator，接著輸出一個數值，數值越大表示這張圖片越像是二次元人物的圖像
-Basic Idea of GAN 首先第一代的Generator因為參數是隨機的，因此產生的圖片就是雜訊，那換Discriminator來分辨這些圖片與真正的圖片不同，一開始Discriminator可能只判斷是否有眼睛，有眼睛是真正的圖片，沒有的是Generator產生的。那換第二代的Generator，調整參數來騙過Discriminator，因為Discriminator判斷的依據是是否有眼睛，所以第二代的Generator開始產生眼睛，可以騙過第一代的Discriminator，但Discriminator也會進化，第二代的Discriminator可能發現可以根據是否有頭髮或嘴巴來分辨圖片。那第三代的Generator就會繼續想辦法去騙過第二代的Discriminator。以此類推，所以Generator產生的圖片會越像二次元人物，而Discriminator也會越來越嚴苛" name="description">
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 7 - GAN" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -137,7 +125,7 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU - 機器學習 Week 7 - GAN</h1>
+                    <h1>NTU Machine Learning Week 7 - GAN</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
     <span>2021-04-15</span>
@@ -441,7 +429,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week7-1/">
-                                <h3 class="">NTU - 機器學習 Week 7 - Transformer</h3>
+                                <h3 class="">NTU Machine Learning Week 7 - Transformer</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -484,7 +472,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week5-2/">
-                                <h3 class="">NTU - 機器學習 Week 5 - Normalization</h3>
+                                <h3 class="">NTU Machine Learning Week 5 - Normalization</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -527,7 +515,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week5-1/">
-                                <h3 class="">NTU - 機器學習 Week 5 - Self-Attention</h3>
+                                <h3 class="">NTU Machine Learning Week 5 - Self-Attention</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -570,7 +558,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week3-3/">
-                                <h3 class="">NTU - 機器學習 Week 3 - CNN</h3>
+                                <h3 class="">NTU Machine Learning Week 3 - CNN</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -613,7 +601,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                             <a href="/post/ntuml-week3-2/">
-                                <h3 class="">NTU - 機器學習 Week 3 - Loss Function: Classification</h3>
+                                <h3 class="">NTU Machine Learning Week 3 - Loss Function: Classification</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -665,7 +653,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week14-1/">
-                        <h3 class="">NTU - 機器學習 Week 14 - Domain Adaptation</h3>
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -708,7 +696,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week13/">
-                        <h3 class="">NTU - 機器學習 Week 13 - Explainable AI</h3>
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -751,7 +739,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week11/">
-                        <h3 class="">NTU - 機器學習 Week 11 - Adversarial Attack</h3>
+                        <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
@@ -794,7 +782,7 @@ Cycle GAN也可以雙向進行，除了比較X domain以外也能比較Y domain�
                 <div style="margin-left: 10px;">
                     <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
                     <a href="/post/ntuml-week10/">
-                        <h3 class="">NTU - 機器學習 Week 10 - Auto-Encoder</h3>
+                        <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                     </a>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
