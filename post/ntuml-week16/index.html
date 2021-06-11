@@ -3,12 +3,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offliner&#39;s Blog - NTU Machine Learning Week 8 - BERT </title>
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 16 - Reinforcement Learning </title>
     
     
     <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
     
-    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 8 - BERT" name="description">
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 16 - Reinforcement Learning" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     
@@ -125,10 +125,10 @@ layui.use('element', function(){
             <div class="layui-card single-card">
                 <br />
                 <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
-                    <h1>NTU Machine Learning Week 8 - BERT</h1>
+                    <h1>NTU Machine Learning Week 16 - Reinforcement Learning</h1>
                     <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-21</span>
+    <span>2021-06-11</span>
 
     
      
@@ -163,156 +163,10 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    <p><img src="/2021NTUML/Week8/cover.JPG" alt="cover"></p>
+                    <p><img src="/2021NTUML/Week16/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
-<p>Youtube Video Link (Chinese): <a href="https://youtu.be/e422eloJ0W4"><code>Video 1</code></a> <a href="https://youtu.be/gh0hewYkjgo"><code>Video 2</code></a> <a href="https://youtu.be/ExXA05i8DEQ"><code>Video 3</code></a> <a href="https://youtu.be/WY_E0Sd4K80"><code>Video 4</code></a></p>
-<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=mEcVirwmrkA"><code>Video 1</code></a> <a href="https://www.youtube.com/watch?v=L-ZQ-6vKOxU"><code>Video 2</code></a> <a href="https://www.youtube.com/watch?v=L-ZQ-6vKOxU"><code>Video 3</code></a> <a href="https://www.youtube.com/watch?v=6sAf24QvJEY"><code>Video 4</code></a></p>
-<h2 id="model-introduction">Model Introduction</h2>
-<p><img src="/2021NTUML/Week8/name.JPG" alt="Name">
-<code>Self-Supervised Learning</code>的模型命名皆來自芝麻街的角色，剩下Cookie Monster(藍)還尚有模型以此命名</p>
-<p><img src="/2021NTUML/Week8/BERT.JPG" alt="BERT">
-說到Self-Supervised Learning就要提一下2018年出現的BERT模型，他是個超巨型的Transformer，有340 Million個參數，是一般Transformer參數量的3000多倍</p>
-<p><img src="/2021NTUML/Week8/Model.JPG" alt="Model">
-直到現今還有更多參數量更大的模型出現</p>
-<p><img src="/2021NTUML/Week8/Model-1.JPG" alt="Model 1">
-<img src="/2021NTUML/Week8/Model-2.JPG" alt="Model 2">
-<img src="/2021NTUML/Week8/Model-3.JPG" alt="Model 3"></p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Parameter</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ELMO</td>
-<td>94M</td>
-</tr>
-<tr>
-<td>BERT</td>
-<td>340M</td>
-</tr>
-<tr>
-<td>GPT-2</td>
-<td>1542M</td>
-</tr>
-<tr>
-<td>Megatron</td>
-<td>8B</td>
-</tr>
-<tr>
-<td>T5</td>
-<td>11B</td>
-</tr>
-<tr>
-<td>Turing NLG</td>
-<td>17B</td>
-</tr>
-<tr>
-<td>GPT-2</td>
-<td>175B</td>
-</tr>
-<tr>
-<td>Switch Transformer</td>
-<td>1.6T</td>
-</tr>
-</tbody>
-</table>
-<h2 id="self-supervised-learning">Self-supervised Learning</h2>
-<p><img src="/2021NTUML/Week8/self.JPG" alt="Self-supervised Learning">
-之前介紹的幾乎都是Supervised Learning，輸入的資料都是有label的。那Self-supervised Learning? 輸入的資料沒有label，所以會將輸入資料分成兩部分，一部分作為輸入，另一部分作為學習label用。有些人會稱這種沒有label的資料作為輸入的方法為Unsupervised Learning，但有人覺得Unsupervised方法涵蓋太多，因此這種自我學習label的方法改叫Self-supervised Learning</p>
-<p><img src="/2021NTUML/Week8/mask.JPG" alt="Masking Input">
-那實際上是如何自己產生label? 舉BERT為例，BERT是一種Transformer的encoder，輸入一排向量，輸出一排與輸入相同長度的一排向量，然後會將輸入的向量隨機遮蔽，那要怎麼遮蔽呢? 有兩種做法，一種是換成特殊符號，另一種是隨機互換成另一個向量。然後將被遮蔽的輸入所得到的輸出經過Linear轉換再經過Softmax得到一個分布。這種方法叫<code>Masking</code></p>
-<p><img src="/2021NTUML/Week8/mask-1.JPG" alt="Masking Input 1">
-那學習的目標是什麼? 目標是原本被遮蔽的向量，也就是個分類問題，訓練時需要訓練BERT與Linear Model</p>
-<p><img src="/2021NTUML/Week8/next.JPG" alt="Next Sentence Prediction">
-BERT訓練除了Masling之外，同時還會做另一個方法，叫<code>Next Sentence Prediction</code>，首先將輸入的資料庫取兩個Sequence，這兩個Sequence間會加入分隔符號，最前面會加入一個特別的符號，然後將整個Sequence輸入BERT，輸出會是與輸入相同長度的Sequence，但只看最前面特殊符號的輸出，將這個輸出經過Linear Model後做一個二元分類的問題，判斷輸入的兩個Sequence是否是相接的，是相接的話輸出Yes，反之輸出No。但後來研究發現<code>Next Sentence Prediction</code>對BERT後來要做的事沒有太大的幫助，後來還有另一個改進的做法叫<code> Sentence order prediction</code>，輸入兩個相連的句子讓BERT判斷是正接還是反接的，被用於BERT的進階版<code>ALBERT</code></p>
-<p>想了解更多可參考以下連結 :</p>
-<ul>
-<li>RoBERTa: A Robustly Optimized BERT Pretraining Approach : <a href="https://arxiv.org/abs/1907.11692">Link</a></li>
-<li>ALBERT: A Lite BERT for Self-supervised Learning of Language Representations : <a href="https://arxiv.org/abs/1909.11942">Link</a></li>
-</ul>
-<p><img src="/2021NTUML/Week8/bert-1.JPG" alt="BERT 1">
-因此訓練時，BERT要學兩個任務，一個是遮蔽一些輸入要BERT補回來，另一個是判斷兩個句子是否接在一起。感覺BERT只學會填補資料，但實際上他可以完成其他任務，這些任務叫<code>Downstream Tasks</code>，但要BERT做這些任務還是需要有一些標註的資料。將BERT微調去做其他任務叫做<code>Fine-tune</code>，而產生BERT的過程叫做<code>Pretrain</code></p>
-<h2 id="glue">GLUE</h2>
-<p><img src="/2021NTUML/Week8/glue.JPG" alt="GLUE">
-要測試一個模型Self-supervised Learning的能力，會測試多個任務，在多個任務中的正確率取平均值，這樣的任務集最有名的是<code>General Language Understanding Evaluation (GLUE)</code>，分別微調在9個任務上</p>
-<p><img src="/2021NTUML/Week8/bertscore.JPG" alt="BERT scores">
-以上是BERT相關的模型在GLUE的得分，可以發現最近較強的模型在這些資料集中的平均得分超越人類的表現</p>
-<h2 id="how-to-use-bert">How to use BERT</h2>
-<h3 id="case-1">Case 1</h3>
-<p><img src="/2021NTUML/Week8/case-1.JPG" alt="How to use BERT 1">
-Case 1是輸入Sequence輸出一個類別，舉<code>Sentiment analysis</code>為例，將輸入的句子前面放置CLS這個特殊的token，接著得到一排向量的輸出，但只看CLS對應的輸出，接著經過Linear模型與softmax來判斷是正面還是負面。但仍需要提供BERT一些標註的資料，且Linear模型的參數是隨機初始化，但BERT是透過Fine-tune出來的，是已經被預訓練的模型，因此BERT的參數不是隨機初始化的</p>
-<p><img src="/2021NTUML/Week8/vs.JPG" alt="Pre-train v.s. Random Initialization">
-上圖比較可以發現有Fine-tune的模型(實線)loss下降較快且可以到比較低的位置，但沒有Fine-tune的模型(虛線)，也就是透過Scratch的方法，loss下降較慢且最終得到的loss也較大</p>
-<h3 id="case-2">Case 2</h3>
-<p><img src="/2021NTUML/Week8/case-2.JPG" alt="How to use BERT 2">
-Case 2是輸入Sequence輸出是與輸入相同長度的Sequence，舉<code>POS Tagging</code>為例，與Case 1不同的是輸出是看CLS以外的輸出，由於要輸出相同長度的Sequence，所以不會看CLS的輸出，接著輸入至Linear模型再經過Softmax來判斷說這是什麼詞性</p>
-<h3 id="case-3">Case 3</h3>
-<p><img src="/2021NTUML/Week8/case-3.JPG" alt="How to use BERT 3">
-Case 3是輸入兩個Sequence輸出一個類別，舉<code>Natural Language Inferencee (NLI)</code>為例，輸入的兩個句子，一個是前提另一個是假設，機器要用前提與假設判斷是否矛盾</p>
-<p><img src="/2021NTUML/Week8/case-3-1.JPG" alt="How to use BERT 3-1">
-BERT會輸入兩個句子組成的Sequence，並從CLS對應的輸出來判斷是否矛盾</p>
-<h3 id="case-4">Case 4</h3>
-<p><img src="/2021NTUML/Week8/case-4.JPG" alt="How to use BERT 4">
-接下來要介紹的問題是<code>Extraction-based Question Answering (QA)</code>，這是一種問答系統，且答案一定會出現在文章中。首先會將文章D與問題Q輸入到模型中，且會輸出兩個正整數s、e，這兩個正整數代表文章的第s個字到第e個字，串起來就是機器會輸出的答案</p>
-<p><img src="/2021NTUML/Week8/case-4-1.JPG" alt="How to use BERT 4-1">
-與Case 3相同，輸入為文章與問題組成的Sequence，接著BERT會輸出一串Sequence，然後將文章對應輸出的Sequence對橘色的向量做內積，再做softmax，得到數值最高的位置為s</p>
-<p><img src="/2021NTUML/Week8/case-4-2.JPG" alt="How to use BERT 4-2">
-再來對文章對應輸出的Sequence對藍色的向量做內積，再做softmax，得到數值最高的位置為e，這兩個顏色的向量是機器要訓練的，且向量是隨機初始化的</p>
-<h3 id="training-bert-is-challenging">Training BERT is challenging</h3>
-<p><img src="/2021NTUML/Week8/challenge.JPG" alt="Training BERT is challenging">
-要訓練BERT非常難，因為參數量過多因此十分耗時</p>
-<h2 id="pre-training-a-seq2seq-model">Pre-training a seq2seq model</h2>
-<p><img src="/2021NTUML/Week8/seq2seq.JPG" alt="Pre-training a seq2seq model">
-由於BERT是將Transformer的encoder先預訓練好，那如果要解seq2seq的問題，也可以預訓練decoder? 可以，會將輸入至encoder的資料增加一些擾動，然後預期deocder的輸出與沒有擾動的資料是相同的</p>
-<p><img src="/2021NTUML/Week8/mass.JPG" alt="Pre-training a seq2seq model 1">
-那要怎麼增加擾動呢? 有許多種方法，如使用特殊的符號遮蔽、直接刪除、弄亂順序、順序旋轉等</p>
-<p><img src="/2021NTUML/Week8/T5.JPG" alt="T5">
-Google已經有提供T5這個預訓練的模型，將多種擾動的方式用於其中</p>
-<h2 id="why-does-bert-work">Why does BERT work?</h2>
-<p><img src="/2021NTUML/Week8/work.JPG" alt="Why does BERT work?">
-那為什麼BERT有用呢? 首先提供最常見的解釋，將Sequence輸入BERT後得到的輸出向量畫出來，可以發現意思越相近的字，向量會越接近，且BERT會考慮上下文，因此即使是同一個字但因為上下文不同，所以對應的向量也不同</p>
-<p><img src="/2021NTUML/Week8/work-1.JPG" alt="Why does BERT work? 1">
-例如將&quot;喝蘋果汁&quot;與&quot;蘋果電腦&quot;輸入BERT中，代表&quot;蘋&quot;的向量會不一樣的，因為BERT是encoder，上下文不同計算出來的相似度也不同</p>
-<p><img src="/2021NTUML/Week8/work-2.JPG" alt="Why does BERT work? 2">
-將10個&quot;蘋&quot;來計算相似度，可以發現代表真實蘋果意思之間的向量相似度較接近(顏色較明亮)，代表真實蘋果意思與代表蘋果品牌的向量相似度較差(顏色較黯淡)，反之也是如此</p>
-<p><img src="/2021NTUML/Week8/work-3.JPG" alt="Why does BERT work? 3">
-BERT能在文字中表現較好是因為透過遮蔽資訊，從上下文中來預測這是什麼字。過去word embedding中CBOW的技術與BERT也是相同的做法，但這技術由於計算能力的限制因此只用線性模型做，但現今計算能力大幅提升，使這方法結合深度學習成了BERT，因此BERT又叫做<code>Contextualized word embedding</code></p>
-<p><img src="/2021NTUML/Week8/work-4.JPG" alt="Why does BERT work? 4">
-那將BERT應用在文字以外的資料呢? 如蛋白質、DNA或音樂分類等</p>
-<p><img src="/2021NTUML/Week8/work-5.JPG" alt="Why does BERT work? 5">
-舉DNA序列為例，將不同的A、T、C、G用英文的字來取代，再輸入BERT來做分類</p>
-<p><img src="/2021NTUML/Week8/work-6.JPG" alt="Why does BERT work? 6">
-可以發現BERT表現比沒用的好，因此即使輸入資料沒有什麼語意也能有好的表現</p>
-<p>若想更了解BERT可參考以下連結 :</p>
-<ul>
-<li>BERT and its family - Introduction and Fine-tune : <a href="https://youtu.be/1_gRK9EIQpc">Video</a></li>
-<li>BERT and its family - ELMo, BERT, GPT, XLNet, MASS, BART, UniLM, ELECTRA, and more : <a href="https://youtu.be/Bywo7m6ySlk">Video</a></li>
-</ul>
-<h2 id="multi-lingual-bert">Multi-lingual BERT</h2>
-<p><img src="/2021NTUML/Week8/multi.JPG" alt="Multi-lingual BERT">
-<code>Multi-lingual BERT</code>會輸入各種語言，如中文、英文、法文等</p>
-<p><img src="/2021NTUML/Week8/multi-1.JPG" alt="Multi-lingual BERT 1">
-總共做了104種語言訓練，神奇的是將這種BERT做英文的QA訓練，它自動就會學會另一種語言的QA</p>
-<p><img src="/2021NTUML/Week8/multi-2.JPG" alt="Multi-lingual BERT 2">
-透過上圖比較，Multi-lingual BERT即使是使用英文QA做Fine-tune，測試在中文QA資料集的F1 score也能有好表現</p>
-<p><img src="/2021NTUML/Week8/multi-3.JPG" alt="Multi-lingual BERT 3">
-對Multi-lingual BERT而言，意思相近的字即使語言不同，也能將這些字的輸出向量歸在同一類</p>
-<p><img src="/2021NTUML/Week8/multi-4.JPG" alt="Multi-lingual BERT 4">
-那有些人可能會覺得奇怪，對Multi-lingual BERT語言不同還是能完成任務，那不會搞混嗎? 例如輸入英文得到中文的答案。因此Multi-lingual BERT還是知道語言的資訊</p>
-<p><img src="/2021NTUML/Week8/multi-5.JPG" alt="Multi-lingual BERT 5">
-若將英文資訊平均值與中文資訊平均值相減，將英文輸入BERT得到的輸出向量加上這個差值，那是否可以得到中文的答案?</p>
-<p><img src="/2021NTUML/Week8/multi-6.JPG" alt="Multi-lingual BERT 6">
-實驗結果證實這個假設，雖然不是個很好的翻譯，Multi-lingual BERT表面上看起來把不同語言同樣意思歸在同一類，但仍然有語言的資訊來做區分</p>
-<h2 id="gpt">GPT</h2>
-<p><img src="/2021NTUML/Week8/GPT.JPG" alt="GPT">
-BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測下一個詞是什麼。GPT有點像是transformer的decoder，只是沒有cross-attention</p>
-<p>想了更多關於GPT可以參考以下連結 :</p>
-<ul>
-<li>GPT-3 : <a href="https://www.youtube.com/watch?v=DOG1L9lvsDY">Video</a></li>
-</ul>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/XWukX-ayIrs"><code>Video 1</code></a> <a href="https://youtu.be/US8DFaAZcp4"><code>Video 2</code></a> <a href="https://youtu.be/kk6DqWreLeU"><code>Video 3</code></a> <a href="https://youtu.be/73YyF1gmIus"><code>Video 4</code></a> <a href="https://youtu.be/75rZwxKBAf0"><code>Video 5</code></a></p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=0oucZNfBXlI"><code>Video 1</code></a> <a href="https://youtu.be/jbN0oYLtXps"><code>Video 2</code></a> [<code>Video 3</code>] [<code>Video 4</code>] [<code>Video 5</code>]</p>
 </div>
             </div>
             
@@ -333,15 +187,7 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 <div style="margin-left: 10px;">   
                     <div>
 
-<ul class="toc-h2"><li><a href="/post/ntuml-week8/#model-introduction">Model Introduction</a></li>
-            <li><a href="/post/ntuml-week8/#self-supervised-learning">Self-supervised Learning</a></li>
-            <li><a href="/post/ntuml-week8/#glue">GLUE</a></li>
-            <li><a href="/post/ntuml-week8/#how-to-use-bert">How to use BERT</a></li>
-            <li><a href="/post/ntuml-week8/#pre-training-a-seq2seq-model">Pre-training a seq2seq model</a></li>
-            <li><a href="/post/ntuml-week8/#why-does-bert-work">Why does BERT work?</a></li>
-            <li><a href="/post/ntuml-week8/#multi-lingual-bert">Multi-lingual BERT</a></li>
-            <li><a href="/post/ntuml-week8/#gpt">GPT</a></li>
-            </div>
+</div>
                 </div>
             </div>
             
@@ -353,12 +199,12 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week7-2/">
-                                <h3 class="">NTU Machine Learning Week 7 - GAN</h3>
+                            <a href="/post/ntuml-week14/">
+                                <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-15</span>
+    <span>2021-05-24</span>
 
     
      
@@ -396,12 +242,12 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week7-1/">
-                                <h3 class="">NTU Machine Learning Week 7 - Transformer</h3>
+                            <a href="/post/ntuml-week13/">
+                                <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-13</span>
+    <span>2021-05-16</span>
 
     
      
@@ -439,12 +285,12 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week5-2/">
-                                <h3 class="">NTU Machine Learning Week 5 - Normalization</h3>
+                            <a href="/post/ntuml-week11/">
+                                <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-11</span>
+    <span>2021-05-15</span>
 
     
      
@@ -482,12 +328,12 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week5-1/">
-                                <h3 class="">NTU Machine Learning Week 5 - Self-Attention</h3>
+                            <a href="/post/ntuml-week10/">
+                                <h3 class="">NTU Machine Learning Week 10 - Auto-Encoder</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-10</span>
+    <span>2021-05-01</span>
 
     
      
@@ -525,12 +371,12 @@ BERT的任務是預測被遮蔽的詞是什麼，而GPT則是輸入的詞預測�
                 	
                     <div style="margin-left: 10px;">
                         <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="/post/ntuml-week3-3/">
-                                <h3 class="">NTU Machine Learning Week 3 - CNN</h3>
+                            <a href="/post/ntuml-week8/">
+                                <h3 class="">NTU Machine Learning Week 8 - BERT</h3>
                             </a>
                             <h3 style="margin-top:10px; margin-bottom:10px"> 
     <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
-    <span>2021-04-08</span>
+    <span>2021-04-21</span>
 
     
      

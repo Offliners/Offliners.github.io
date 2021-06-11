@@ -6,16 +6,27 @@
     <description>Recent content in Posts on Offliner&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 24 May 2021 15:33:26 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Jun 2021 17:14:52 +0800</lastBuildDate><atom:link href="https://Offliners.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NTU Machine Learning Week 16 - Reinforcement Learning</title>
+      <link>https://Offliners.github.io/post/ntuml-week16/</link>
+      <pubDate>Fri, 11 Jun 2021 17:14:52 +0800</pubDate>
+      
+      <guid>https://Offliners.github.io/post/ntuml-week16/</guid>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4 Video 5
+Youtube Video Link (English): Video 1 Video 2 [Video 3] [Video 4] [Video 5]</description>
+    </item>
+    
     <item>
       <title>NTU Machine Learning Week 14 - Domain Adaptation</title>
-      <link>https://Offliners.github.io/post/ntuml-week14-1/</link>
+      <link>https://Offliners.github.io/post/ntuml-week14/</link>
       <pubDate>Mon, 24 May 2021 15:33:26 +0800</pubDate>
       
-      <guid>https://Offliners.github.io/post/ntuml-week14-1/</guid>
+      <guid>https://Offliners.github.io/post/ntuml-week14/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video
-Youtube Video Link (English): [Video]
+Youtube Video Link (English): Video
 Domain Shift 到目前為止已經知道如何訓練許多模型，且大多能獲得極高的正確率，但當測試資料的分布與訓練資料不同那該怎麼辦? 舉訓練手寫數字為例，如果測試資料圖片的背景不再是黑白而是彩色的，可以發現準確率會低很多。這種測試與訓練資料分布不同的叫做Domain Shift，要解決這種問題就需要Domain adaptation的技術，這種技術可以看成是一種Transfer learning
 若對Transfer learning感興趣的可以看此連結影片 :
  ML Lecture 19: Transfer Learning : Video  Domain Shift除了輸入分布有變化以外，輸出的分布也可能有變化，可能特定類別輸出的機率特別大，甚至還有一種罕見的可能是輸入輸出分布相同，但關係產生了變化，可能訓練資料的標籤是0，但測試資料標籤變成1。接下來介紹會著重在輸入資料不同的方面，來自訓練資料的會稱為Source domain，來自測試資料的會稱為Target domain
@@ -34,7 +45,7 @@ Domain Adversarial Training就是訓練一個二元分類器，輸入這些分�
       <guid>https://Offliners.github.io/post/ntuml-week13/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2
-Youtube Video Link (English): Video 1 [Video 2]
+Youtube Video Link (English): Video 1 Video 2
 Why we need Explainable ML? 模型得到正確答案不代表模型很聰明，因此在將來，模型得到正確答案時需要解釋為什麼得到這個答案。以上為現今機器學習應用的舉例，如銀行借貸款、醫療診斷、法律判決與自駕車等，模型需要為得出的答案給出合理的解釋才能使人信服
 Interpretable v.s. Powerful 若採用較好解釋的模型如Linear model，但往往表現較差;若使用Deep model較難解釋，但表現較好。因此有人認為不應該使用Deep model，因為它是個黑盒子，但這有點削足適履，應該想辦法去提升模型的解釋力
 可能有人會提那使用Decision tree? Decision tree相較Linear model強大，也比Deep model好解釋，透過節點問題分析來選擇最終決斷
