@@ -22,7 +22,7 @@
       <pubDate>Sat, 10 Apr 2021 14:55:15 +0800</pubDate>
       
       <guid>https://Offliners.github.io/zone/ntuml-list/</guid>
-      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link     Introduction of ML/DL Link   General Guidance Link   When Gradient Is Small: Local Minimum and Saddle Point Link   Tips for Training: Batch and Momentum Link   Tips for Training: Adaptive Learning Rate Link   Loss Function: Classification Link   CNN Link   PAC Learning TBD   Self-Attention Link   Normalization Link   Transformer Link   GAN Link   BERT Link   Auto-Encoder Link   Adversarial Attack Link   Machine Learning and Privacy TBD   Explainable AI Link   Domain Adaptation Link    </description>
+      <description>NTU 機器學習 (by Prof. Hung-Yi Lee)    Topic Link Topic Link     Introduction of ML/DL Link BERT Link   General Guidance Link Auto-Encoder Link   When Gradient Is Small: Local Minimum and Saddle Point Link Adversarial Attack Link   Tips for Training: Batch and Momentum Link Machine Learning and Privacy TBD   Tips for Training: Adaptive Learning Rate Link Explainable AI Link   Loss Function: Classification Link Domain Adaptation Link   CNN Link Quantum Machine Learning TBD   PAC Learning TBD Reinforcement Learning Link   Self-Attention Link Life-long Learning Link   Normalization Link Network Compression Link   Transformer Link Meta Learning Link   GAN Link - -    </description>
     </item>
     
   </channel>

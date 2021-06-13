@@ -188,10 +188,22 @@ layui.use('element', function(){
 <p><img src="/2021NTUML/Week16/step1.JPG" alt="Step 1">
 首先是第一步，會使用Network，輸入是遊戲畫面，輸出是每個行為的分數，這件事情其實就是分類。Network架構可以自行設計，若輸入是遊戲畫面可能會使用CNN，若想看遊戲開始到現在發生的情況就有可能使用RNN或者Transformer。最後機器會採取什麼Action取決於輸出的分數，通常會轉換成機率並隨機Sample，那為什麼不直接選擇機率最高的呢?多數RL的應用中，會選擇隨機Sample，這樣子即使看到相同畫面也有可能採取不同行為，來增加隨機性</p>
 <p><img src="/2021NTUML/Week16/step2.JPG" alt="Step 2">
-第二步要定義Loss，在Environment與Actor的互動中會得到許多reward直到遊戲結束，這些reward總合起來叫Total reward或者Return，這是我們要去最大的目標，加上負號就是loss，也就是要最小化</p>
+第二步要定義Loss，在Environment與Actor的互動中會得到許多reward直到遊戲結束，從遊戲開始到結束叫一個<code>Episode</code>，將這些reward總合起來叫Total reward或者Return，這是我們要去最大的目標，加上負號就是loss，也就是要最小化</p>
 <p><img src="/2021NTUML/Week16/step3.JPG" alt="Step 3">
 最後是第三步，Environment會產生Observation叫s1，再來將s1輸入給Actor產生Action叫a1，持續下去到遊戲終止，這些s與a形成的Sequence叫做<code>Trajectory</code>。得到的Reward能當成是一個Function，有些遊戲只看Action就能決定，但通常會看當下的Observation，像Space invader需要觀察Observation是否擊退敵人才能判斷是否得到reward。但這不是一般的Optimization問題，首先是Actor的輸出是有隨機性，而且Environment是個黑盒子，只知道輸入後會產生回應，但對應關係我們不知道。因此在RL中解決Optimization問題使用的方法會與之前不同</p>
 <h2 id="policy-gradient">Policy Gradient</h2>
+<p><img src="/2021NTUML/Week16/control.JPG" alt="Control">
+首先思考要Actor在輸入Observation後如何輸出Action，先前提到這是個分類問題，當輸入某個Observation時希望能輸出向左，那麼則透過Cross-entropy來最小化loss就好，若希望不要向左則加負號即可，因此只要有適當的Label與loss，就可以控制Actor做我們想做的行為</p>
+<p><img src="/2021NTUML/Week16/control-1.JPG" alt="Control 1">
+因此要Actor看到s時向左，看到s&rsquo;時不要向左的話，只要定義loss是兩個case的Cross-entropy相減，再去最小化即可</p>
+<p><img src="/2021NTUML/Week16/control-2.JPG" alt="Control 2">
+只要收集好Actor輸入s的對應Action，就可以定義好loss去最小化</p>
+<p><img src="/2021NTUML/Week16/control-3.JPG" alt="Control 3">
+甚至可以給定行為一個分數，來代表我們期望Actor在特定Observation時輸出特定Action的程度。解決好loss，但問題是label和期望行為的A值怎麼來的呢?</p>
+<p><img src="/2021NTUML/Week16/v0.JPG" alt="Version 0">
+首先介紹最簡單的版本，但其實不正確。這個方法是Actor與Environment互動時，將產生的Action都記錄下來，這些資料通常是蒐集多個episode產生的，記錄好後會去評價這些Action是好還是不好，那要如何評價呢?可以透過每個Action得到的reward來當評價的依據，如果reward是正的表示這是個好的Action；反之，負的就不是好的Action。但這不是個好方法來訓練Actor，因為會使Actor短視近利</p>
+<p><img src="/2021NTUML/Week16/v01.JPG" alt="Version 0-1">
+由於Action 1會影響之後的行為，每個行為並不是獨立的，因此需要<code>Re</code></p>
 </div>
             </div>
             
