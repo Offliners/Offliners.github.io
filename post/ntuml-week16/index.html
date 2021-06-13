@@ -166,7 +166,7 @@ layui.use('element', function(){
                     <p><img src="/2021NTUML/Week16/cover.JPG" alt="cover"></p>
 <p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
 <p>Youtube Video Link (Chinese): <a href="https://youtu.be/XWukX-ayIrs"><code>Video 1</code></a> <a href="https://youtu.be/US8DFaAZcp4"><code>Video 2</code></a> <a href="https://youtu.be/kk6DqWreLeU"><code>Video 3</code></a> <a href="https://youtu.be/73YyF1gmIus"><code>Video 4</code></a> <a href="https://youtu.be/75rZwxKBAf0"><code>Video 5</code></a></p>
-<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=0oucZNfBXlI"><code>Video 1</code></a> <a href="https://youtu.be/jbN0oYLtXps"><code>Video 2</code></a> [<code>Video 3</code>] [<code>Video 4</code>] [<code>Video 5</code>]</p>
+<p>Youtube Video Link (English): <a href="https://www.youtube.com/watch?v=0oucZNfBXlI"><code>Video 1</code></a> <a href="https://youtu.be/jbN0oYLtXps"><code>Video 2</code></a> [<code>Video 3</code>] <a href="https://youtu.be/pibO_5JhQ4U"><code>Video 4</code></a> <a href="https://youtu.be/9H3ShV57lHs"><code>Video 5</code></a></p>
 <h2 id="what-is-rl-">What is RL ?</h2>
 <p><img src="/2021NTUML/Week16/ML.JPG" alt="ML">
 機器學習最主要在做的事情就是找一個Function，Reinforcement Learning也是機器學習的一種，所以它也是在找一個Function。在RL中會有個Actor與Environment，首先Environment會給Actor一個Observation，也就是Actor的輸入，接著Actor會有輸出Action去影響Environment來產生新的Observation，互動期間Environment會給Actor一些Reward來告訴Actor這樣的Action是否是好的。所以Actor其實就是我們要找的Function，它要能讓Actor得到Reward的總和是最大的</p>
@@ -203,7 +203,30 @@ layui.use('element', function(){
 <p><img src="/2021NTUML/Week16/v0.JPG" alt="Version 0">
 首先介紹最簡單的版本，但其實不正確。這個方法是Actor與Environment互動時，將產生的Action都記錄下來，這些資料通常是蒐集多個episode產生的，記錄好後會去評價這些Action是好還是不好，那要如何評價呢?可以透過每個Action得到的reward來當評價的依據，如果reward是正的表示這是個好的Action；反之，負的就不是好的Action。但這不是個好方法來訓練Actor，因為會使Actor短視近利</p>
 <p><img src="/2021NTUML/Week16/v01.JPG" alt="Version 0-1">
-由於Action 1會影響之後的行為，每個行為並不是獨立的，因此需要<code>Re</code></p>
+由於Action 1會影響之後的行為，每個行為並不是獨立的，所以這方法只會選擇當下好的，不會考慮之後，因此需要<code>Reward Delay</code>來犧牲短期利益來獲取更長遠的reward。例如在Space invader中，使用最簡單的方法來評量Action的話，Actor就只會射擊，因為只有射擊會獲得Reward，左右移動並不會有，但不代表左右移動不重要，有時左右移動可以瞄準來獲得更多的Reward</p>
+<p><img src="/2021NTUML/Week16/v1.JPG" alt="Version 1">
+這時就有改良的版本，評量Action的標準是這個Action之後所獲得的Reward總和。但仔細想想這版本也會有些問題，若遊戲進行很長，最後所獲得的reward是因為一開始的Action嗎?有可能是之間的Action所造成的</p>
+<p><img src="/2021NTUML/Week16/v2.JPG" alt="Version 2">
+所以又有改良版本，乘上一個Discount Factor，所以離當下Action較近的reward有較大的權重，太遠影響較小的獲得到比較小的權重</p>
+<p><img src="/2021NTUML/Week16/v3.JPG" alt="Version 3">
+更進階的改良版本，將評價的分數做進一步的區分好壞，因為好壞是相對的，若大家的評價分數都是正的就難以區分，簡單的區分是設定一個baseline，高於這個標準就是正的，反之是負的，那baseline要怎麼定義呢?接下來版本會提到</p>
+<p><img src="/2021NTUML/Week16/policy.JPG" alt="Policy Gradient">
+實際執行蒐集資料並評價Action的步驟如上圖，最後就是計算loss來更新參數，但有個神奇的地方是蒐集資料在迴圈中，一般蒐集資料是在迴圈外但RL居然是在迴圈內</p>
+<p><img src="/2021NTUML/Week16/policy-1.JPG" alt="Policy Gradient 1">
+因此當蒐集完資料後就會去更新參數，但只會更新一次，更新完就要再蒐集新的資料，這就是為什麼訓練RL很花時間，假設要更新400次參數，那資料也要蒐集400次。那為什麼更新完參數要重新蒐集資料呢?</p>
+<p><img src="/2021NTUML/Week16/policy-2.JPG" alt="Policy Gradient 2">
+因為更新完參數後Actor變強了可能就不適用在舊資料，因此要用變強的Actor來蒐集資料再更新參數</p>
+<p>若想了解更多Policy Gradient可以觀看此影片 :</p>
+<ul>
+<li>Deep Reinforcement Learning : <a href="https://youtu.be/W8XF3ME8G2I">Video</a></li>
+</ul>
+<p><img src="/2021NTUML/Week16/on-off.JPG" alt="On-policy v.s. Off-policy">
+當訓練的Actor和與Environment互動的Actor是相同的話就是<code>On-policy</code>，像前面提到的Actor就是。若訓練的Actor跟與Environment互動的Actor是不同的話就是<code>Off-policy</code>，這樣的Actor訓練可以使用先前跟新的參數，所以可以不用一直蒐集資料。最有名的Off-policy方法是PPO(Proximal Policy Optimization)，有興趣的人可以參考以下影片 :</p>
+<ul>
+<li>Proximal Policy Optimization (PPO) : <a href="https://youtu.be/OAKAZhFmYoI">Video</a></li>
+</ul>
+<p><img src="/2021NTUML/Week16/exp.JPG" alt="Exploration">
+RL在蒐集資料有個重要的技術是<code>Exploration</code>，也就是在Actor中加入隨機性，讓Actor在與Environment互動時能有多個情況，讓Actor學習在各種情況採取各種Action的好壞。因此有些人會刻意加大Entropy或者在參數中加入雜訊，以此提高Actor採取機率較低的Action</p>
 </div>
             </div>
             

@@ -15,7 +15,7 @@
       <guid>https://Offliners.github.io/post/ntuml-week16/</guid>
       <description>NTUML 2021 Spring Course Syllabus: Link
 Youtube Video Link (Chinese): Video 1 Video 2 Video 3 Video 4 Video 5
-Youtube Video Link (English): Video 1 Video 2 [Video 3] [Video 4] [Video 5]
+Youtube Video Link (English): Video 1 Video 2 [Video 3] Video 4 Video 5
 What is RL ? 機器學習最主要在做的事情就是找一個Function，Reinforcement Learning也是機器學習的一種，所以它也是在找一個Function。在RL中會有個Actor與Environment，首先Environment會給Actor一個Observation，也就是Actor的輸入，接著Actor會有輸出Action去影響Environment來產生新的Observation，互動期間Environment會給Actor一些Reward來告訴Actor這樣的Action是否是好的。所以Actor其實就是我們要找的Function，它要能讓Actor得到Reward的總和是最大的
 Example: Playing Video Game 接下來使用Space invader來舉例，遊戲玩法是開火擊退所有外星人，而玩家有護盾可以抵擋外星人的攻擊(玩家的攻擊也會破壞護盾)，擊退外星人可以獲得分數。遊戲終止有兩個情況，一個是退所有外星人，另一個情況是玩家被外星人擊毀
 當要訓練RL來玩這遊戲的話，Actor就是玩家，Environment是遊戲本身，Observation是遊戲畫面，Action是輸出，有三種可能的行為分別為向左向右還有開火。如果Action選擇向右的話，reward是0因為沒有擊退外星人
