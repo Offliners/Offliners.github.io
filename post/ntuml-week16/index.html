@@ -227,6 +227,64 @@ layui.use('element', function(){
 </ul>
 <p><img src="/2021NTUML/Week16/exp.JPG" alt="Exploration">
 RL在蒐集資料有個重要的技術是<code>Exploration</code>，也就是在Actor中加入隨機性，讓Actor在與Environment互動時能有多個情況，讓Actor學習在各種情況採取各種Action的好壞。因此有些人會刻意加大Entropy或者在參數中加入雜訊，以此提高Actor採取機率較低的Action</p>
+<h2 id="actor-critic">Actor-Critic</h2>
+<p><img src="/2021NTUML/Week16/critic.JPG" alt="Critic">
+<code>Critic</code>是用來評估Actor的好壞，有些透過觀察Observation，有些則還會多觀察Action。有Critic後接下來是<code>Value Function</code>，輸入是Observation，輸出是一個數值，這個數值是Value Function看到這個Observation後預測接下來獲得的Discounted Cumulated Reward是多少</p>
+<p><img src="/2021NTUML/Week16/critic-1.JPG" alt="Critic 1">
+接下來介紹怎麼訓練Critic，有兩種常用的方法，第一種是<code>Monte-Carlo (MC) based approach</code>，直接拿Actor與環境互動很多輪，接下來輸入互動時看到的Observation得到預估的分數，和實際得到的分越接近越好</p>
+<p><img src="/2021NTUML/Week16/critic-2.JPG" alt="Critic 2">
+另一種做法是<code>Temporal-difference (TD) approach</code>，不需要玩完整場遊戲，只需要看當下的Observation、Action、Reward與下一個Observation就可以來訓練，適合用於長度較長的遊戲或者沒有結局的遊戲。透過上面的式子，可以發現雖然我們不知道當下的Observation實際得到多少分，但可以知道當下Observation與下一個Observation之間的差值</p>
+<p><img src="/2021NTUML/Week16/vs.JPG" alt="vs">
+假設有一個簡單的遊戲，第一回合是看到Sa得到reward為0，接下來看到Sb得到reward為1就結束，接下來數回合只看到Sb得到reward後就結束。透過Value Function來計算Sb期望獲得的分數，8場有6場得到1，2場得到0，因此為3/4，那Sa為多少呢?有可能是0或者3/4，0的話是MC的想法，3/4是TD的想法，兩者皆是對的，只是背後的假設不同</p>
+<p><img src="/2021NTUML/Week16/v35.JPG" alt="Version 3.5">
+將先前提到的Version 3改良後，將Baseline變成當下Observation透過Value Function得到的分數，那為什麼可以這麼做呢?</p>
+<p><img src="/2021NTUML/Week16/v35-1.JPG" alt="Version 3.5-1">
+輸入當下的Observation，因為在Actor會隨機Sample出Action來增加隨機性，因此同樣的Observation會有多種可能Action，將這些可能透過Value Function來計算出數值。而當執行某一個Action得到的值大於Value Function來計算出數值，表示這個Action比Sample多次Action的平均還要好；反之，還要差。但可能會覺得疑惑的點是，這個Action也是Sample出來的，拿一個隨機的Action去減掉平均會比較好嗎?</p>
+<p><img src="/2021NTUML/Week16/v4.JPG" alt="Version 4">
+所以就有了改良版本，拿平均減去平均，將執行Action後的Observation輸入Value Function來計算平均，這樣子就可以知道採取這個Action的期望Reward與隨機Sample的期望Reward哪個比較好，這就是有名的<code>Advantage Actor-Critic</code></p>
+<p><img src="/2021NTUML/Week16/tip.JPG" alt="Tip">
+訓練Actor-Critic有個小技巧，在實作時，由於Actor與Critic都是個Network，因為輸入都是Observation輸出不同而已，所以可以共用Network，如果輸出不同的Action就是Actor，輸出數值就是Critic</p>
+<p><img src="/2021NTUML/Week16/dqn.JPG" alt="DQN">
+在Reinforcement Learning中還有個做法，直接採取Critic來決定Action，最知名的就是<code>Deep Q Network (DQN)</code>，若想了解DQN可以觀看以下影片與論文 :</p>
+<ul>
+<li>Q-learning (Basic Idea) : <a href="https://youtu.be/o_g9JUMw1Oc">Video</a></li>
+<li>Q-learning (Advanced Tips) : <a href="https://youtu.be/2-zGCx4iv_k">Video</a></li>
+<li>Rainbow: Combining Improvements in Deep Reinforcement Learning : <a href="https://arxiv.org/abs/1710.02298">Link</a></li>
+</ul>
+<h2 id="reward-shaping">Reward Shaping</h2>
+<p><img src="/2021NTUML/Week16/sparse.JPG" alt="Sparse Reward">
+到目前為止是拿Actor與Environment互動，再把得到的Reward做一些處理來訓練Actor，但如果Reward幾乎都是0要怎麼辦?Reward幾乎都是0表示不管執行什麼Action都沒差，這樣會難以訓練Actor，因此需要想辦法提供額外的Reward來幫助Agent學習，這就是<code>Reward Shaping</code>。下面影片示範一款遊戲叫VizDoom。這款遊戲中殺敵人可以加分，被殺掉會扣分，單使用遊戲中的reward來訓練Agent會很難訓練起來</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/94EPSjQH38Y" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p><img src="/2021NTUML/Week16/vizdoom.JPG" alt="VizDoom">
+這遊戲中第一名的隊伍定義的Reward Shaping如上表所示，像第二點被扣血的話扣0.05分，如果沒有Reward Shaping的話需要等機器被殺死後才有可能學到這是不好的事情，有許多事情是在遊戲中不會得到分數，需要人類強加讓機器來學習。還有些比較有趣的reward，像第七點和第八點，如果一直待在原地就扣0.03分，動一下給很小的分數，因為一開始機器不強，出去有高機率就被敵人打死，所以沒有這樣的機制可能會讓機器一直待在原地。又為了怕機器可能轉圈或者一直躲敵人，所以有第一點活著就扣0.008分，強迫機器出去與敵人對戰。看到這些Reward Shaping，可以得知這需要對Environment有一定程度的了解</p>
+<h2 id="no-reward-learning-from-demonstration">No Reward: Learning from Demonstration</h2>
+<p><img src="/2021NTUML/Week16/noreward.JPG" alt="No reward">
+對於像遊戲之類的事情，很容易定義出Reward，但如果reward都沒有呢?或許可以使用Reward Shaping，但有時機器會學出令人意想不到的事，有個方法可以解決叫<code>Imitation Learning</code>，在這方法中Actor仍然會與Environment互動，但不會得到任何reward，不過會有Expert與環境互動，Expert通常是人類，將互動記錄下來給Actor學習</p>
+<p><img src="/2021NTUML/Week16/supervised.JPG" alt="Supervised Learning">
+或許有人會覺得這不就是<code>Supervised Learning</code>嗎?沒錯，因為機器只會去模仿Expert的行為叫做<code>Behavior Cloning</code>，但如果機器只會複製Expert行為會有些問題，例如自駕車，當Expert都順利過彎時，機器也學會過彎，但這樣機器在遇到要撞牆的情況時就會不知道怎麼辦，因為Expert沒有示範過</p>
+<p><img src="/2021NTUML/Week16/inverse.JPG" alt="Inverse Reinforcement Learning">
+因此就有更進階的方法叫<code>Inverse Reinforcement Learning</code>，透過Expert示範的紀錄與Environment，去學習說Reward該怎麼定義，當有Reward Function就可以用之前介紹的Reinforcement Learning來訓練</p>
+<p><img src="/2021NTUML/Week16/inverse-1.JPG" alt="Inverse Reinforcement Learning 1">
+在這方法的基本原則是Expert的行為會被定義為獲得最高的Reward，Actor會與Environment互動來獲得紀錄，接著定義一個Reward Function，這Function會將Expert的行為評的比較高分，Actor會比較低分，再來Actor就會去更新參數去最大化Reward Function，最終學到的Reward Function就是我們要的</p>
+<p><img src="/2021NTUML/Week16/IRL.JPG" alt="Inverse Reinforcement Learning 2">
+上圖為Inverse Reinforcement Learning的流程，整個框架就像是GAN</p>
+<p><img src="/2021NTUML/Week16/GAN.JPG" alt="Inverse Reinforcement Learning vs GAN">
+兩者有異曲同工之妙，只是不同的名字而已。將Inverse Reinforcement Learning套用在機器手臂上如下影片示範</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/hXxaepw0zAw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p><img src="/2021NTUML/Week16/RIG.JPG" alt="Reinforcement learning with Imagined Goals">
+想要訓練機器手臂，除了人類示範以外，甚至還能給機器圖片，要它達到圖片的結果，若想了解更多可以參考以下連結 :</p>
+<ul>
+<li>Visual Reinforcement Learning with Imagined Goals : <a href="https://arxiv.org/abs/1807.04742">Link</a></li>
+<li>Skew-Fit: State-Covering Self-Supervised Reinforcement Learning : <a href="https://arxiv.org/abs/1903.03698">Link</a></li>
+</ul>
 </div>
             </div>
             
@@ -252,6 +310,9 @@ RL在蒐集資料有個重要的技術是<code>Exploration</code>，也就是在
             <li><a href="/post/ntuml-week16/#example-learning-to-play-go">Example: Learning to play Go</a></li>
             <li><a href="/post/ntuml-week16/#how-to-train-rl-">How to train RL ?</a></li>
             <li><a href="/post/ntuml-week16/#policy-gradient">Policy Gradient</a></li>
+            <li><a href="/post/ntuml-week16/#actor-critic">Actor-Critic</a></li>
+            <li><a href="/post/ntuml-week16/#reward-shaping">Reward Shaping</a></li>
+            <li><a href="/post/ntuml-week16/#no-reward-learning-from-demonstration">No Reward: Learning from Demonstration</a></li>
             </div>
                 </div>
             </div>
