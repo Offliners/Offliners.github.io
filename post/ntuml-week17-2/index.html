@@ -1,0 +1,729 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog - NTU Machine Learning Week 17 - Network Compression </title>
+    
+    
+    <meta content="Machine Learning, Deep Learning, NTU ML 2021, NTU 機器學習 note" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - NTU Machine Learning 2021 Spring Week 17 - Network Compression" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+        <link rel="icon" href="/images/dino.png">
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+          gtag('config', 'G-WFQ2VM3C00');
+        </script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/zone/">Archives</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">Home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/zone/">Archives</a></dd>
+                    
+                        <dd><a href="/about/">About</a></dd>
+                    
+                        <dd><a href="/">Home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+<div class="layui-container" style="margin-bottom: 10px">
+    
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
+            <div class="layui-card single-card">
+                <br />
+                <blockquote class="self-elem-quote self-elem-quote-bg-red markdown-body single-title" >
+                    <h1>NTU Machine Learning Week 17 - Network Compression</h1>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-19</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                </blockquote>
+                <div class="layui-card-body markdown-body single-content">
+                    <p><img src="/2021NTUML/Week17/cover-2.JPG" alt="cover"></p>
+<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/utk3EnAUh-g"><code>Video 1</code></a> <a href="https://youtu.be/xrlbLPaq_Og"><code>Video 2</code></a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/CB0a3aBwND8"><code>Video 1</code></a> <a href="https://youtu.be/mGRdOGdOZ-4"><code>Video 2</code></a></p>
+<h2 id="why-we-need-network-compression">Why we need network compression</h2>
+<p><img src="/2021NTUML/Week17/why.JPG" alt="why">
+為什麼需要將大模型簡化成小模型並表現差不多呢?因為很多時候需要將模型訓練在資源有限的環境下，如智能手錶、IoT裝置等，那為什麼不將資料傳回雲端訓練再傳回去呢?常見的理由是為了低延遲與隱私</p>
+<h2 id="network-pruning">Network Pruning</h2>
+<p><img src="/2021NTUML/Week17/prune.JPG" alt="Network Pruning">
+顧名思義就是修剪模型中的參數，因為大模型中不一定每個參數都有運算到，所以找出無用的參數再修剪掉</p>
+<p><img src="/2021NTUML/Week17/prune-1.JPG" alt="Network Pruning 1">
+首先訓練一個大的模型，再去評估每個參數的重要性，例如weight可以使用絕對值來看其大小，Neuron可以判斷輸出不為0的次數等，評估後再修剪一些參數，通常修剪後正確率會掉一些，為了能回升回來通常會Fine-tune，Fine-tune後還能再評估個參數的重要性，這步驟可以執行多次值到模型你覺得夠小為止。那為何不一次修剪多個無用的參數呢?因為根據文獻，一次修剪過多會對模型造成極大損傷，可能無法復原回來</p>
+<p><img src="/2021NTUML/Week17/weight.JPG" alt="Weight Pruning 1">
+先剪可以用Weight為單位或者用Neuron，若以Weight為單位的話，將無用的Weight去掉後形狀會變成不規則(如上右圖)，會變得不好實作，即使時做出來也會不好加速運算，因為加速運算是透過矩陣運算來實現，不規則形狀會使得運算難以平行化，若為了維持形狀可能會將值變成0，但這樣模型並沒有變小</p>
+<p><img src="/2021NTUML/Week17/weight-2.JPG" alt="Weight Pruning 2">
+根據文獻可以發現即使修剪了95%左右的參數，結果在多數情況下訓練沒有加速</p>
+<p><img src="/2021NTUML/Week17/neuron.JPG" alt="Neuron Pruning 1">
+因此使用Neuron Pruning會比較好實作，因為修剪掉Neuron仍可以維持好模型的形狀</p>
+<p><img src="/2021NTUML/Week17/why-1.JPG" alt="Why Pruning 1">
+那有人可能問大模型與小模型有差不多的表現，那為什麼不直接訓練小模型就好呢?訓練大模型再Pruning變小太麻煩。理由是因為大模型比較好訓練，訓練小模型表現往往不好</p>
+<p>若想了解為何大模型比較好訓練可以參考以下連結 :</p>
+<ul>
+<li>Geometry of Loss Surfaces (Conjecture) : <a href="https://www.youtube.com/watch?v=_VuWvQUMQVk">Video</a></li>
+<li>The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks : <a href="https://arxiv.org/abs/1803.03635">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/lottery.JPG" alt="Lottery Ticket Hypothesis">
+接下透過大樂透假說來解釋為何大模型比較好訓練，由於模型的表現與Initial weight有關，若初始點好可能可以訓練一組好的參數。將大模型看成多個小模型的組合，透過訓練多個小模型來提高取得好參數的機率，只要一個小模型表現好，那麼大模型就會好</p>
+<p><img src="/2021NTUML/Week17/lottery-1.JPG" alt="Lottery Ticket Hypothesis 1">
+大樂透假說的證實方式與Pruning有關，將大模型初始化參數後進行訓練，訓練後進行Pruning變成小模型，小模型若再重新初始化一次參數再訓練會發現訓練不起來，但小模型使用大模型的初始化參數卻可以成功訓練。因此使用大樂透假說來解釋，這個Pruning後的模型就是大模型中多個小模型裡表現最好的小模型，若只訓練小模型運氣不好的話就訓練不起來</p>
+<p><img src="/2021NTUML/Week17/lottery-2.JPG" alt="Lottery Ticket Hypothesis 2">
+大樂透假說提出後也有許多相關的研究，如上圖有人使用多種Pruning的方法來實驗，發現Pruning前與Pruning後的絕對值差越大越有效。另一個有趣的結果是訓練小模型的初始參數只要與大模型初始參數有相同的正負號就能訓練起來，不論值的大小。最後一個神奇的發現是雖然是給與隨機的參數，但在大模型中已經存在一個小模型，只要套用這組隨機參數就能有好表現了</p>
+<p>若想了解更多可以參考以下連結 :</p>
+<ul>
+<li>Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask : <a href="https://arxiv.org/abs/1905.01067">Link</a></li>
+<li>Weight Agnostic Neural Networks : <a href="https://arxiv.org/abs/1906.04358">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/lottery-3.JPG" alt="Lottery Ticket Hypothesis 3">
+那大樂透假說是對的嗎?不一定，有些人也提出反駁大樂透假說的論文，如上圖有人將小模型使用隨機參數來訓練，雖然表現較差(Scratch-E)，但再多訓練幾個epoch發現表現變更好(Scratch-B)。因此大樂透假說是真是假，仍尚待證實</p>
+<p>若想了解更多可以參考以下連結 :</p>
+<ul>
+<li>Rethinking the Value of Network Pruning : <a href="https://arxiv.org/abs/1810.05270">Link</a></li>
+</ul>
+</div>
+            </div>
+            
+                <script src="https://utteranc.es/client.js"
+                    repo="Offliners/MyBlogComments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            
+        </div>
+
+        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Table of Contents -</h2>
+                <div style="margin-left: 10px;">   
+                    <div>
+
+<ul class="toc-h2"><li><a href="/post/ntuml-week17-2/#why-we-need-network-compression">Why we need network compression</a></li>
+            <li><a href="/post/ntuml-week17-2/#network-pruning">Network Pruning</a></li>
+            </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Relevant Topics -</h2>
+                
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week17-1/">
+                                <h3 class="">NTU Machine Learning Week 17 - Life-long Learning</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-19</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week16/">
+                                <h3 class="">NTU Machine Learning Week 16 - Reinforcement Learning</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-11</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week14/">
+                                <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-24</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week13/">
+                                <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-16</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                    <div style="margin-left: 10px;">
+                        <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                            <a href="/post/ntuml-week11/">
+                                <h3 class="">NTU Machine Learning Week 11 - Adversarial Attack</h3>
+                            </a>
+                            <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-15</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                        </blockquote>
+                    </div>
+                	
+                
+                <br />
+            </div>
+            
+
+            <div class="layui-card single-card">
+                <h2 class="single-title">- Recent Posts -</h2>
+            
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week17-2/">
+                        <h3 class="">NTU Machine Learning Week 17 - Network Compression</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-19</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week17-1/">
+                        <h3 class="">NTU Machine Learning Week 17 - Life-long Learning</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-19</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week16/">
+                        <h3 class="">NTU Machine Learning Week 16 - Reinforcement Learning</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-06-11</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week14/">
+                        <h3 class="">NTU Machine Learning Week 14 - Domain Adaptation</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-24</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+                <div style="margin-left: 10px;">
+                    <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+                    <a href="/post/ntuml-week13/">
+                        <h3 class="">NTU Machine Learning Week 13 - Explainable AI</h3>
+                    </a>
+                    <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-05-16</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+                    </blockquote>
+                </div>
+                
+            
+            <br />
+            </div>
+        </div>
+    </div>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WFQ2VM3C00');
+</script>
+    
+</div>
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/zone/"><p class="footer-url">Archives</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/"><p class="footer-url">Home</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>

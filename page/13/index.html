@@ -1,0 +1,631 @@
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.81.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Offliner&#39;s Blog</title>
+    
+    
+    <meta content="Offliner&#39;s Blog" name="keywords">
+    
+    <meta content="Offliner&#39;s Blog - A website called Offliner&#39;s Blog" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+        <link rel="icon" href="/images/dino.png">
+    
+
+    
+        <link href="/index.xml" rel="alternate" type="application/rss&#43;xml" title="Offliner&#39;s Blog" />
+        <link href="/index.xml" rel="feed" type="application/rss&#43;xml" title="Offliner&#39;s Blog" />
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WFQ2VM3C00"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+          gtag('config', 'G-WFQ2VM3C00');
+        </script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+    
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/self/css/default.css">
+    <script src=" /layui/layui.js"></script>
+
+    <link rel="stylesheet" async href="/self/css/markdown.min.css">
+    <link rel="stylesheet" async href="/self/css/gallery.css">
+    
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+    <script async src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js" integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE=" crossorigin="anonymous"></script></head>
+
+<body>
+    
+    <header class="layui-header layui-bg-cyan">
+
+    
+        <a href=""><img src="/images/Offliner.png" class="layui-nav-img" style="margin-left:10px;margin-top:-10px"></a>
+    
+    
+    <a class="nav-self-logo" href="/">
+        Offliner&#39;s Blog
+    </a>
+
+    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
+        
+        
+        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
+        
+
+        
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/zone/">Archives</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
+            
+                <li class="layui-nav-item" id="nav_big"><a href="/">Home</a></li>
+            
+        
+
+        
+        <li class="layui-nav-item" id="nav_small">
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
+            </a>
+
+            <dl class="layui-nav-child">
+                
+                <dd><a href="/post/">Posts</a></dd>
+                
+
+                
+                    
+                        <dd><a href="/zone/">Archives</a></dd>
+                    
+                        <dd><a href="/about/">About</a></dd>
+                    
+                        <dd><a href="/">Home</a></dd>
+                    
+                
+            </dl>
+        </li>
+    </ul>
+</header>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+
+        <div id="content" style="min-height:80%">
+
+<main>
+
+
+<div id="erblog-notice" onclick="notice_close();"
+    class="layui-container-fluid layui-bg-green">
+    <div class="layui-row self-notice">
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 self-notice-text">
+            <span style="margin-left: 20px">
+                The scariest thing when writing a program is that the program has errors but it runs successfully!
+                <i class="layui-icon layui-icon-close" style="vertical-align: -1px;margin-left: 20px"></i>   
+            </span>
+        </div>
+    </div>
+</div>
+
+<script>
+function notice_close() {
+    document.getElementById('erblog-notice').classList.add("layui-anim");
+    document.getElementById('erblog-notice').classList.add("layui-anim-fadeout");
+    
+}
+</script>
+
+
+
+<div class="layui-container">
+    <div class="layui-row about">
+        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 about_left">
+            <img class="lazyload about_portrait" data-src="/images/Offliner.png" />
+            <h1> Offliner </h1>
+            <h2> No code, No life </h2>
+            
+            
+            
+            <div class="layui-row layui-col-space10 about_left_icon">
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="mailto:eric21904@gmail.com"><i class="fa fa-envelope-o" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="http://fb.me/offliner21904"><i class="fa fa-facebook-square" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://github.com/Offliners/"><i class="fa fa-github" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://www.instagram.com/offliner21904/"><i class="fa fa-instagram" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://www.linkedin.com/in/%E6%94%BF%E5%BD%A5-%E5%90%B3-a24636202/"><i class="fa fa-linkedin" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://steamcommunity.com/profiles/76561198838016168/"><i class="fa fa-steam" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://t.me/offliner21904"><i class="fa fa-telegram" style="font-size:32px;"></i></a>
+                </div>
+                
+                <div class="layui-col-md3 layui-col-sm3 layui-col-xs3">
+                <a href="https://twitter.com/Offliner8"><i class="fa fa-twitter" style="font-size:32px;"></i></a>
+                </div>
+                
+            </div>
+            
+
+        </div>
+        <div class="layui-col-xs12 layui-col-sm8 layui-col-md8 about_right">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <h1></h1>
+            <script src="/core.js"></script>
+            <script>
+                function createTypeWriterText() {
+                    try {
+                        new Typewriter('.about_right h1', {
+                            strings: ["Hi there, l am Offliner","Nice to meet you","どうぞよろしくお願いします","請多多指教~"],
+                            autoStart: true,
+                            loop: true,
+                        });
+                    } catch(e) {
+                        setTimeout(createTypeWriterText, 500);
+                    }
+                }
+    
+                createTypeWriterText();
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="layui-fluid recent" >
+    <div class="layui-container">
+        <div class="layui-row recent-inner" >
+            <div class="layui-col-md8 layui-col-sm8 layui-col-xs12">
+                <h1> Recent Posts </h1>
+
+                
+                    
+                    
+                            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+         
+        <a href="/post/ntuml-week2-3/">
+            <h2 class="">NTU Machine Learning Week 2 - Tips for Training: Batch and Momentum</h2>
+        </a>
+        <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+        <h3>
+        	
+				NTU Machine Learning 2021 Spring Week 2 - Tips for Training Batch and Momentum
+			 <a href="/post/ntuml-week2-3/"><span style="color:#01AAED">Read More</span></a>
+        </h3>
+    </blockquote>
+
+                    
+                            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+         
+        <a href="/post/ntuml-week2-2/">
+            <h2 class="">NTU Machine Learning Week 2 - Critical Point: small gradient</h2>
+        </a>
+        <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-05</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+        <h3>
+        	
+				NTU Machine Learning 2021 Spring Week 2 - Critical Point small gradient
+			 <a href="/post/ntuml-week2-2/"><span style="color:#01AAED">Read More</span></a>
+        </h3>
+    </blockquote>
+
+                    
+                            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+         
+        <a href="/post/ntuml-week2-1/">
+            <h2 class="">NTU Machine Learning Week 2 - Guideline of ML: overfit</h2>
+        </a>
+        <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+        <h3>
+        	
+				NTU Machine Learning 2021 Spring Week 2 - Guideline of ML overfit
+			 <a href="/post/ntuml-week2-1/"><span style="color:#01AAED">Read More</span></a>
+        </h3>
+    </blockquote>
+
+                    
+                            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+         
+        <a href="/post/ntuml-week1/">
+            <h2 class="">NTU Machine Learning Week 1 - Introduction of ML/DL</h2>
+        </a>
+        <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-03</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU 機器學習 note</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/machine-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Machine Learning</span>
+        </a>
+    
+        <a href="/tags/deep-learning/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Deep Learning</span>
+        </a>
+    
+        <a href="/tags/ntu-ml-2021/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">NTU ML 2021</span>
+        </a>
+    
+    
+</h3>
+
+        <h3>
+        	
+				NTU Machine Learning 2021 Spring Week 1 - Introduction of ML/DL
+			 <a href="/post/ntuml-week1/"><span style="color:#01AAED">Read More</span></a>
+        </h3>
+    </blockquote>
+
+                    
+                            <blockquote class="self-elem-quote self-elem-quote-bg-red" style="background-color:#FFFFFF;margin-top: 10px;">
+         
+        <a href="/post/orbslam2-build/">
+            <h2 class="">ORBSLAM2 Build on Windows 10</h2>
+        </a>
+        <h3 style="margin-top:10px; margin-bottom:10px"> 
+    <i class="layui-icon layui-icon-date" style="font-size: 28px; vertical-align: -2px;"></i>
+    <span>2021-04-01</span>
+
+    
+     
+    <i class="layui-icon layui-icon-list" style="font-size: 32px; vertical-align: -3px;"></i>
+    
+
+    
+        <a href="/categories/%e7%92%b0%e5%a2%83%e5%bb%ba%e7%ab%8b/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">環境建立</span>
+        </a>
+    
+
+    
+    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 1px;margin-right:2px;"></i>
+    
+
+    
+        <a href="/tags/orbslam2/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">ORBSLAM2</span>
+        </a>
+    
+        <a href="/tags/cmake/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">CMake</span>
+        </a>
+    
+        <a href="/tags/visual-studio-2015/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">Visual Studio 2015</span>
+        </a>
+    
+        <a href="/tags/opencv/">
+            <span class="layui-badge layui-bg-orange" style="vertical-align: 2px;">OpenCV</span>
+        </a>
+    
+    
+</h3>
+
+        <h3>
+        	
+				ORBSLAM2 Build on Windows 10
+			 <a href="/post/orbslam2-build/"><span style="color:#01AAED">Read More</span></a>
+        </h3>
+    </blockquote>
+
+                    
+                
+
+                
+                    
+            </div>
+
+            <div class="layui-col-md4 layui-col-sm4 layui-col-xs12">
+
+                
+                <input id="search" type="text" name="search" placeholder="Intra-Site Search" autocomplete="off" class="layui-input">
+                <script type="text/javascript">
+                    $("#search").keyup(function(event){
+                        if(event.keyCode ==13){
+                            document.location = "https://www.google.com/search?q=" + $("#search").val() + "+site%3Ahttps:\/\/Offliners.github.io"
+                        }
+                    });
+                </script>
+                
+
+                
+                    <h1><a href="/categories">categories</a> </h1>
+                    
+                    <a href="/categories/ntu-%e6%a9%9f%e5%99%a8%e5%ad%b8%e7%bf%92-note/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">ntu-機器學習-note</span>
+                    </a>
+                    
+                    <a href="/categories/orbslam2-%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a7%a3%e6%9e%90/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">orbslam2-程式碼解析</span>
+                    </a>
+                    
+                    <a href="/categories/%e7%92%b0%e5%a2%83%e5%bb%ba%e7%ab%8b/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">環境建立</span>
+                    </a>
+                    
+                    <a href="/categories/%e7%a0%94%e7%a9%b6%e6%89%80%e6%8e%a8%e7%94%84%e5%bf%83%e5%be%97/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">研究所推甄心得</span>
+                    </a>
+                    
+                
+                    <h1><a href="/tags">tags</a> </h1>
+                    
+                    <a href="/tags/anaconda-virtual-environment/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">anaconda-virtual-environment</span>
+                    </a>
+                    
+                    <a href="/tags/cmake/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">cmake</span>
+                    </a>
+                    
+                    <a href="/tags/code-analysis/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">code-analysis</span>
+                    </a>
+                    
+                    <a href="/tags/codingame/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">codingame</span>
+                    </a>
+                    
+                    <a href="/tags/cuda/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">cuda</span>
+                    </a>
+                    
+                    <a href="/tags/cudnn/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">cudnn</span>
+                    </a>
+                    
+                    <a href="/tags/deep-learning/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">deep-learning</span>
+                    </a>
+                    
+                    <a href="/tags/graduate-school/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">graduate-school</span>
+                    </a>
+                    
+                    <a href="/tags/hugo/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">hugo</span>
+                    </a>
+                    
+                    <a href="/tags/locm/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">locm</span>
+                    </a>
+                    
+                    <a href="/tags/machine-learning/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">machine-learning</span>
+                    </a>
+                    
+                    <a href="/tags/ntu-ml-2021/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">ntu-ml-2021</span>
+                    </a>
+                    
+                    <a href="/tags/opencv/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">opencv</span>
+                    </a>
+                    
+                    <a href="/tags/orbslam2/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">orbslam2</span>
+                    </a>
+                    
+                    <a href="/tags/python/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">python</span>
+                    </a>
+                    
+                    <a href="/tags/tensorflow-gpu/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">tensorflow-gpu</span>
+                    </a>
+                    
+                    <a href="/tags/visual-studio-2015/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">visual-studio-2015</span>
+                    </a>
+                    
+                    <a href="/tags/web/">
+                        <span class="layui-badge layui-bg-orange" style="margin: 5px">web</span>
+                    </a>
+                    
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+
+        </div><footer>
+    
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs6">
+            </div>
+        </div>
+        <div class="layui-row">
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/zone/"><p class="footer-url">Archives</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/about/"><p class="footer-url">About</p></a>
+            </div>
+            
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+                <a href="/"><p class="footer-url">Home</p></a>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="layui-container">
+        <p class="copyright">&copy; All rights reserved. Powered by <a href='https://gohugo.io' style='color:#FFFFFF'>Hugo</a> and <a href='https://github.com/ertuil/erblog' style='color:#FFFFFF'>Erblog</a>.</p>
+    </div>
+</footer>
+
+</body>
+</html>
