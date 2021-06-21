@@ -37,7 +37,20 @@ Network Pruning 顧名思義就是修剪模型中的參數，因為大模型中�
       <pubDate>Sat, 19 Jun 2021 14:44:06 +0800</pubDate>
       
       <guid>https://Offliners.github.io/post/ntuml-week17-1/</guid>
-      <description></description>
+      <description>NTUML 2021 Spring Course Syllabus: Link
+Youtube Video Link (Chinese): Video 1 Video 2
+Youtube Video Link (English): Video 1 Video 2
+Life Long Learning in real-world applications Life Long Learning在現實生活中可以應用在線上系統，當用戶用完後提供回饋，讓模型有新的資料與新任務繼續訓練，使模型越來越強大。那Life Long Learning看起來只是訓練更多的資料，會有什麼難點呢?
+目前的Life Long Learning還沒達到先學習影音辨識，再學習影像辨識，接著翻譯任務這樣多重任務的水平，因此雖說是兩個任務，是指兩個類似的任務但資料Domain不同而已。首先將模型來學習任務一，完成後在拿相同的模型與參數來繼續學習任務二，但可以發現學習完任務二會忘記任務一。也許有人覺得模型太小，學習能力有限
+但如果將任務一與任務二結合讓相同架構的模型學習，可以發現模型是有能力學習的。因此，模型要學會兩個任務需要一起學習才可以
+接下來用QA任務來實驗看看，這裡使用簡單的QA任務，是早期Facebook提供的資料集，裡面包含了20個任務
+上圖圖表橫軸是對應的任務，縱軸是在任務五的準確率。可以發現在任務五前準確率是0，因為還沒學習到任務五，當看過任務五時準確率100%，但當學習任務五後學習新任務準確率卻暴跌
+有人可能懷疑模型本身沒有能力能多學這麼多任務，但如果將所有任務讓機器同時學可以發現模型是有能力的。這樣的情況被稱為Catastrophic Forgetting
+有些人可能會想說那只要把多個任務組合起來就好了，為什麼要捨棄前任務讓機器學習新任務呢?使用Multi-task Training就能解決了吧?假設要學習第1000個任務又不忘記前面的任務的話，首先就須要有足夠的容量來儲存先前的任務，再來是一次學習1000個任務需要大量的時間來學習。在許多Life Long Learning研究中，會把Multi-task Training當成是上限，也就是先使用Multi-task Training當成上限，再使用Life Long Learning來逼近這界線
+接下來可能有人會疑惑為什麼不把任務切開分別讓每個模型學習呢?為何要堅持一個模型學多個任務?使用每個模型學習單一任務確實不會有Catastrophic Forgetting的問題，但當任務量眾多時，也要要考慮是否有足夠的容量能儲存這些模型。Life Long Learning想了解的是，人類一個腦可以學習多件事，那要如何讓機器也能做到一樣的事
+有些人可能會覺得這不就是Transfer Learning嗎?但其實關注點不同，Transfer Learning是學習好第一個任務，在第二任務表現如何，而Life Long Learning是第一個任務學完後再學第二個任務，第二個任務學完後在第一個任務表現如何
+Evaluation 要評估Life Long Learning的模型好不好，首先需要有一系列的任務，通常會將同一個資料集透過一些規則來打亂來產生新任務，或者把類別分別拆出來成新任務
+假設有T個任務，首先會有T個隨機初始化的參數用來分別學習各個任務得到T個準確率，再來讓模型先學第一個任務，學完後接續學後續的任務並記錄各任務的準確率，以此類推到第T個任務的準確率都記錄下來後可以得到一個表格，這個表格可以用賴判斷Life Long Learning的模型好不好。如果看i &amp;gt; j的部分，表示看這模型是否忘記先前的任務，若看i &amp;lt; j的話，看模型在學到該任務前是否無思自通，學會之後的任務，也就是機器Transfer的能力。通常評估的方法是將最後一欄的準確率取平均，還有另一個評估方式是Backward Transfer，計算學完該任務以及學到最後時的準確率差多少，最後取平均，可以用來看模型遺忘的程度有多嚴重，因此這指標通常是負值</description>
     </item>
     
     <item>

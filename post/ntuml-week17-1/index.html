@@ -163,7 +163,107 @@ layui.use('element', function(){
 
                 </blockquote>
                 <div class="layui-card-body markdown-body single-content">
-                    </div>
+                    <p><img src="/2021NTUML/Week17/cover-1.JPG" alt="cover"></p>
+<p>NTUML 2021 Spring Course Syllabus: <a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html">Link</a></p>
+<p>Youtube Video Link (Chinese): <a href="https://youtu.be/rWF9sg5w6Zk"><code>Video 1</code></a> <a href="https://youtu.be/Y9Jay_vxOsM"><code>Video 2</code></a></p>
+<p>Youtube Video Link (English): <a href="https://youtu.be/yAX8Ydfek_I"><code>Video 1</code></a> <a href="https://youtu.be/-2r4cqDP4BY"><code>Video 2</code></a></p>
+<h2 id="life-long-learning-in-real-world-applications">Life Long Learning in real-world applications</h2>
+<p><img src="/2021NTUML/Week17/lll.JPG" alt="Life Long Learning">
+<code>Life Long Learning</code>在現實生活中可以應用在線上系統，當用戶用完後提供回饋，讓模型有新的資料與新任務繼續訓練，使模型越來越強大。那Life Long Learning看起來只是訓練更多的資料，會有什麼難點呢?</p>
+<p><img src="/2021NTUML/Week17/example.JPG" alt="Life Long Learning Example">
+目前的Life Long Learning還沒達到先學習影音辨識，再學習影像辨識，接著翻譯任務這樣多重任務的水平，因此雖說是兩個任務，是指兩個類似的任務但資料Domain不同而已。首先將模型來學習任務一，完成後在拿相同的模型與參數來繼續學習任務二，但可以發現學習完任務二會忘記任務一。也許有人覺得模型太小，學習能力有限</p>
+<p><img src="/2021NTUML/Week17/example-1.JPG" alt="Life Long Learning Example 1">
+但如果將任務一與任務二結合讓相同架構的模型學習，可以發現模型是有能力學習的。因此，模型要學會兩個任務需要一起學習才可以</p>
+<p><img src="/2021NTUML/Week17/example-2.JPG" alt="Life Long Learning Example 2">
+接下來用QA任務來實驗看看，這裡使用簡單的QA任務，是早期Facebook提供的資料集，裡面包含了20個任務</p>
+<p><img src="/2021NTUML/Week17/example-3.JPG" alt="Life Long Learning Example 3">
+上圖圖表橫軸是對應的任務，縱軸是在任務五的準確率。可以發現在任務五前準確率是0，因為還沒學習到任務五，當看過任務五時準確率100%，但當學習任務五後學習新任務準確率卻暴跌</p>
+<p><img src="/2021NTUML/Week17/example-4.JPG" alt="Life Long Learning Example 4">
+有人可能懷疑模型本身沒有能力能多學這麼多任務，但如果將所有任務讓機器同時學可以發現模型是有能力的。這樣的情況被稱為<code>Catastrophic Forgetting</code></p>
+<p><img src="/2021NTUML/Week17/wait.JPG" alt="Wait a minute">
+有些人可能會想說那只要把多個任務組合起來就好了，為什麼要捨棄前任務讓機器學習新任務呢?使用Multi-task Training就能解決了吧?假設要學習第1000個任務又不忘記前面的任務的話，首先就須要有足夠的容量來儲存先前的任務，再來是一次學習1000個任務需要大量的時間來學習。在許多Life Long Learning研究中，會把Multi-task Training當成是上限，也就是先使用Multi-task Training當成上限，再使用Life Long Learning來逼近這界線</p>
+<p><img src="/2021NTUML/Week17/wait-1.JPG" alt="Wait a minute 1">
+接下來可能有人會疑惑為什麼不把任務切開分別讓每個模型學習呢?為何要堅持一個模型學多個任務?使用每個模型學習單一任務確實不會有Catastrophic Forgetting的問題，但當任務量眾多時，也要要考慮是否有足夠的容量能儲存這些模型。Life Long Learning想了解的是，人類一個腦可以學習多件事，那要如何讓機器也能做到一樣的事</p>
+<p><img src="/2021NTUML/Week17/wait-2.JPG" alt="Wait a minute 2">
+有些人可能會覺得這不就是Transfer Learning嗎?但其實關注點不同，Transfer Learning是學習好第一個任務，在第二任務表現如何，而Life Long Learning是第一個任務學完後再學第二個任務，第二個任務學完後在第一個任務表現如何</p>
+<h2 id="evaluation">Evaluation</h2>
+<p><img src="/2021NTUML/Week17/eval.JPG" alt="Evaluation">
+要評估Life Long Learning的模型好不好，首先需要有一系列的任務，通常會將同一個資料集透過一些規則來打亂來產生新任務，或者把類別分別拆出來成新任務</p>
+<p><img src="/2021NTUML/Week17/eval-1.JPG" alt="Evaluation 1">
+假設有T個任務，首先會有T個隨機初始化的參數用來分別學習各個任務得到T個準確率，再來讓模型先學第一個任務，學完後接續學後續的任務並記錄各任務的準確率，以此類推到第T個任務的準確率都記錄下來後可以得到一個表格，這個表格可以用賴判斷Life Long Learning的模型好不好。如果看i &gt; j的部分，表示看這模型是否忘記先前的任務，若看i &lt; j的話，看模型在學到該任務前是否無思自通，學會之後的任務，也就是機器Transfer的能力。通常評估的方法是將最後一欄的準確率取平均，還有另一個評估方式是<code>Backward Transfer</code>，計算學完該任務以及學到最後時的準確率差多少，最後取平均，可以用來看模型遺忘的程度有多嚴重，因此這指標通常是負值</p>
+<p><img src="/2021NTUML/Week17/eval-2.JPG" alt="Evaluation 2">
+還有<code>Forward Transfer</code>的方法，不過就不是用來評估Life Long Learning的模型，因為它是看在學到該任務前模型表現如何，因此是看該任務前在該任務的準確率</p>
+<h2 id="why-catastrophic-forgetting">Why Catastrophic Forgetting?</h2>
+<p><img src="/2021NTUML/Week17/why-2.JPG" alt="Why Catastrophic Forgetting">
+接下來講解為什麼會發生Catastrophic Forgetting，假設有兩個任務，把它們對某兩個參數的Error Surface繪製出來，越藍色表示loss越小，因此在學習任務一時，會學到一組參數可以到任務一Error Surface的低點，將這組參數拿來繼續學習任務二，因為Error Surface不同了，所以這組參數的更新方向也會不同。可以發現學完任務二的參數可以達到任務二Error Surface的低點，所以在任務二表現好，但在任務一會變差，這就是Catastrophic Forgetting產生的原因。要解決此問題，就必須讓模型在學習新任務時，參數更新方向是往新任務與前任務共同的低點</p>
+<h2 id="selective-synaptic-plasticity">Selective Synaptic Plasticity</h2>
+<p><img src="/2021NTUML/Week17/select.JPG" alt="Selective Synaptic Plasticity">
+<code>Selective Synaptic Plasticity</code>方法的基本概念是，對於過去重要的參數，在學習新任務時盡量不要變，只改變不重要的參數就好。為了怕會有Catastrophic Forgetting產生，所以要更改Loss Function，新任務中更新的參數會減去過去任務學出來的參數，再乘上一個b值，這個值代表這個參數有多重要，我們有多希望它不被更新</p>
+<p><img src="/2021NTUML/Week17/select-1.JPG" alt="Selective Synaptic Plasticity 1">
+當b值為0時，表示這個參數不被限制，它就會被更新，就有可能會產生Catastrophic Forgetting。那如果b值非常大，表示b值非重要不希望被更新，那有可能會有Intransigence的問題，也就是新任務會學不起來。那要怎麼設定b值呢?</p>
+<p><img src="/2021NTUML/Week17/select-2.JPG" alt="Selective Synaptic Plasticity 2">
+為了要判斷這個參數是否重要，所以如上圖，把參數水平移動的話，發現loss變化不大，表示這個參數再這個任務不太重要，所以這個參數的b值會比較小。若把參數縱向移動，會發現loss變化很大，表示這個參數對這任務很重要，那麼這參數的b值就會比較大</p>
+<p><img src="/2021NTUML/Week17/select-3.JPG" alt="Selective Synaptic Plasticity 3">
+這前面b值的設法，參數在橫向上限制小，縱向上限制大，所以參數更新的方向會在橫向上變化大，這樣更新後的參數在任務一與任務二都可以得到較小的loss，就比較不會有Catastrophic Forgetting的問題</p>
+<p><img src="/2021NTUML/Week17/select-4.JPG" alt="Selective Synaptic Plasticity 4">
+上圖示文獻實驗的結果，橫軸為任務依序的訓練，縱軸為各任務分別的準確率。藍色線是一般的訓練，沒有使用Selective Synaptic Plasticity，也就是b值為0，可以發現隨著任務的學習，準確率一直在降低。綠色線是將每個參數的b值設為1，雖然在任務A訓練到任務C在任務A的準確率沒有問題，但在任務B與C的準確率會發生Intransigence，限制過大導致模型學不起新的任務。紅色線是有的參數b值大有的小，就可以發現不會有以上的問題</p>
+<p>若想更了解b值設定與計算方法可以參考以下的連結 :</p>
+<ul>
+<li>Overcoming catastrophic forgetting in neural networks : <a href="https://arxiv.org/abs/1612.00796">Link</a></li>
+<li>Continual Learning Through Synaptic Intelligence : <a href="https://arxiv.org/abs/1703.04200">Link</a></li>
+<li>Memory Aware Synapses: Learning what (not) to forget : <a href="https://arxiv.org/abs/1711.09601">Link</a></li>
+<li>Riemannian Walk for Incremental Learning: Understanding Forgetting and Intransigence : <a href="https://arxiv.org/abs/1801.10112">Link</a></li>
+<li>Sliced Cramer Synaptic Consolidation for Preserving Deeply Learned Representations : <a href="https://openreview.net/forum?id=BJge3TNKwH">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/gem.JPG" alt="Gradient Episodic Memory">
+早期有個方法叫<code>Gradient Episodic Memory (GEM)</code>，它不是在參數上做限制，而是在參數更新的方向做限制。當學習任務二要更新參數時，會參考任務一的更新方向來做修改，修改後的與任務二更新的方向做內積要大於0且越接近越好。但這方法會需要先前任務的資料，這樣才可以找到先前任務的更新方向，所以有點違反Life Long Learning的精神</p>
+<h2 id="additional-neural-resource-allocation">Additional Neural Resource Allocation</h2>
+<p><img src="/2021NTUML/Week17/progress.JPG" alt="Additional Neural Resource Allocation">
+另一個解決Catastrophic Forgetting的方法是<code>Additional Neural Resource Allocation</code>，使用這方法的模型是<code>Progressive Neural Networks</code>，想法是學習任務一時有一個模型，學任務二時多開一個模型但會使用任務一模型Hidden Layer的參數，學習任務三時的模型會使用任務一與任務二模型的參數。這是一個有效解決Catastrophic Forgetting的方法，但需要額外的空間來產生額外的Neuron，且增加的空間與任務量成正比</p>
+<p>若想更了解Progressive Neural Networks可以參考以下連結 :</p>
+<ul>
+<li>Progressive Neural Networks : <a href="https://arxiv.org/abs/1606.04671">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/packnet.JPG" alt="Additional Neural Resource Allocation 1">
+另一個方法是<code>PackNet</code>，先開一個大模型，當有任務進來時限定只能使用部分參數，這樣參數量不會隨的任務量增加，但這方法與Progressive Neural Networks很像，只是一開始先設定一個大模型而已</p>
+<p>若想更了解PackNet可以參考以下連結 :</p>
+<ul>
+<li>PackNet: Adding Multiple Tasks to a Single Network by Iterative Pruning : <a href="https://arxiv.org/abs/1711.05769">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/CPG.JPG" alt="Additional Neural Resource Allocation 2">
+Progressive Neural Networks與PackNet的想法可以結合起來變<code>Compacting, Picking, and Growing (CPG)</code>，既可以增加新參數，而每次保留部分參數做訓練</p>
+<p>若想更了解CPG可以參考以下連結 :</p>
+<ul>
+<li>Compacting, Picking and Growing for Unforgetting Continual Learning : <a href="https://arxiv.org/abs/1910.06562">Link</a></li>
+</ul>
+<h2 id="memory-reply">Memory Reply</h2>
+<p><img src="/2021NTUML/Week17/reply.JPG" alt="Memory Reply">
+第三個解決Catastrophic Forgetting的方法是使用Generative model來產生先前任務的Pseudo Data，在訓練任務一時額外訓練一個模型能產生任務一的資料，學習任務二時，使用任務二的資料與Generative model產生的任務一資料一起訓練，這樣就不會忘記任務一，這個Generative model接下來就能產生任務一與任務二的資料供後續任務使用</p>
+<p>若想更加了解這方法的應用可以參考以下連結 :</p>
+<ul>
+<li>Continual Learning with Deep Generative Replay : <a href="https://arxiv.org/abs/1705.08690">Link</a></li>
+<li>FearNet: Brain-Inspired Model for Incremental Learning : <a href="https://arxiv.org/abs/1711.10563">Link</a></li>
+<li>LAMOL: LAnguage MOdeling for Lifelong Language Learning : <a href="https://arxiv.org/abs/1909.03329">Link</a></li>
+</ul>
+<p><img src="/2021NTUML/Week17/add.JPG" alt="Adding new classes">
+先前方法的每個任務都有相同數量的class，若每個任務的class不同有辦法解嗎?答案是有的，若想解決這問題可以參考以下連結 :</p>
+<ul>
+<li>Learning without Forgetting : <a href="https://arxiv.org/abs/1606.09282">Link</a></li>
+<li>iCaRL: Incremental Classifier and Representation Learning : <a href="https://arxiv.org/abs/1611.07725">Link</a></li>
+</ul>
+<h2 id="curriculum-learning">Curriculum Learning</h2>
+<p><img src="/2021NTUML/Week17/curriculum.JPG" alt="Curriculum Learning">
+有許有些人有疑問若調換任務順序會怎樣?向上圖做手寫數字分類，先做複雜的任務一再做簡單的任務二與順序顛倒後的結果，因為有些順序有Catastrophic Forgetting，有些沒有。因此想了解什麼樣的順序對學習是有效的叫<code>Curriculum Learning</code></p>
+<p>想了解如何做Curriculum Learning可以參考以下連結 :</p>
+<ul>
+<li>TASKONOMY : Disentangling Task Transfer Learning : <a href="http://taskonomy.stanford.edu/#abstract">Link</a></li>
+</ul>
+<h2 id="three-scenarios-for-life-long-learning">Three scenarios for Life Long Learning</h2>
+<p>先前介紹的只是Life Long Learning中的一個情境，若想了解其他兩個關於Life Long Learning的情境可以參考以下連結 :</p>
+<ul>
+<li>Three scenarios for continual learning : <a href="https://arxiv.org/abs/1904.07734">Link</a></li>
+</ul>
+</div>
             </div>
             
                 <script src="https://utteranc.es/client.js"
@@ -183,7 +283,15 @@ layui.use('element', function(){
                 <div style="margin-left: 10px;">   
                     <div>
 
-</div>
+<ul class="toc-h2"><li><a href="/post/ntuml-week17-1/#life-long-learning-in-real-world-applications">Life Long Learning in real-world applications</a></li>
+            <li><a href="/post/ntuml-week17-1/#evaluation">Evaluation</a></li>
+            <li><a href="/post/ntuml-week17-1/#why-catastrophic-forgetting">Why Catastrophic Forgetting?</a></li>
+            <li><a href="/post/ntuml-week17-1/#selective-synaptic-plasticity">Selective Synaptic Plasticity</a></li>
+            <li><a href="/post/ntuml-week17-1/#additional-neural-resource-allocation">Additional Neural Resource Allocation</a></li>
+            <li><a href="/post/ntuml-week17-1/#memory-reply">Memory Reply</a></li>
+            <li><a href="/post/ntuml-week17-1/#curriculum-learning">Curriculum Learning</a></li>
+            <li><a href="/post/ntuml-week17-1/#three-scenarios-for-life-long-learning">Three scenarios for Life Long Learning</a></li>
+            </div>
                 </div>
             </div>
             
